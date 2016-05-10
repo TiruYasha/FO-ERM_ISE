@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FO_ERM_ISE.Forms;
 
 namespace FO_ERM_ISE
 {
@@ -16,7 +17,7 @@ namespace FO_ERM_ISE
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new DataModelForm());
         }
     }
 }

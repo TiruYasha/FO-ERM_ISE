@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FO_ERM_ISE
+namespace FO_ERM_ISE.Forms
 {
-    public partial class Form1 : Form
+    public partial class RenameDataModelForm : Form
     {
-        public Form1()
+        public RenameDataModelForm()
         {
             InitializeComponent();
         }
