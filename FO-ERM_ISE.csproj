@@ -32,8 +32,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,6 +53,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="datasource\Attribuut.cs">
+      <DependentUpon>FO-ERM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="datasource\DataModel.cs">
+      <DependentUpon>FO-ERM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="datasource\DatamodelDatasource.cs" />
+    <Compile Include="datasource\Datasource.cs" />
+    <Compile Include="datasource\EntiteitType.cs">
+      <DependentUpon>FO-ERM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="datasource\FactTypeDatasource.cs" />
+    <Compile Include="datasource\FeitType.cs">
+      <DependentUpon>FO-ERM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="datasource\FO-ERM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FO-ERM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="datasource\FO-ERM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FO-ERM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="datasource\FO-ERM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FO-ERM.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="datasource\Kardinaliteit.cs">
+      <DependentUpon>FO-ERM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="datasource\Predicaat.cs">
+      <DependentUpon>FO-ERM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="datasource\Relatietype.cs">
+      <DependentUpon>FO-ERM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="datasource\RelatieTypeOnderdeel.cs">
+      <DependentUpon>FO-ERM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="datasource\Segment.cs">
+      <DependentUpon>FO-ERM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="datasource\SegmentDeel.cs">
+      <DependentUpon>FO-ERM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="datasource\VoorbeeldData.cs">
+      <DependentUpon>FO-ERM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddDataModelForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +142,24 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EntityDeploy Include="datasource\FO-ERM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FO-ERM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="datasource\FO-ERM.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FO-ERM.edmx</DependentUpon>
+      <LastGenOutput>FO-ERM.Context.cs</LastGenOutput>
+    </None>
+    <None Include="datasource\FO-ERM.edmx.diagram">
+      <DependentUpon>FO-ERM.edmx</DependentUpon>
+    </None>
+    <None Include="datasource\FO-ERM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FO-ERM.edmx</DependentUpon>
+      <LastGenOutput>FO-ERM.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -94,6 +172,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="business\" />
+    <Folder Include="domain\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
