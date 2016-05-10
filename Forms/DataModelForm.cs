@@ -16,7 +16,7 @@ namespace FO_ERM_ISE.Forms
 
             addDataModelForm.ShowDialog();
 
-            if (addDataModelForm.DataModelName != String.Empty)
+            if (addDataModelForm.DataModelName != null || addDataModelForm.DataModelName != string.Empty)
             {
                 lbDataModel.Items.Add(addDataModelForm.DataModelName);
             }
@@ -46,7 +46,7 @@ namespace FO_ERM_ISE.Forms
 
             renameDataModelForm.ShowDialog();
 
-            if (renameDataModelForm.DataModelName != String.Empty)
+            if (renameDataModelForm.DataModelName != null || renameDataModelForm.DataModelName != String.Empty)
             {
                 
             }
