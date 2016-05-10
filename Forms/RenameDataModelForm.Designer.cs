@@ -58,6 +58,7 @@
             this.btnRenameDataModel.TabIndex = 5;
             this.btnRenameDataModel.Text = "Hernoem";
             this.btnRenameDataModel.UseVisualStyleBackColor = true;
+            this.btnRenameDataModel.Click += new System.EventHandler(this.btnRenameDataModel_Click);
             // 
             // lblDataModelName
             // 

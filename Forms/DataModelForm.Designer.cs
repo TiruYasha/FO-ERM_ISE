@@ -30,10 +30,10 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.btnAddDataModel = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.btnDeleteDataModel = new System.Windows.Forms.Button();
             this.btnRenameDataModel = new System.Windows.Forms.Button();
             this.btnFactTypeManagement = new System.Windows.Forms.Button();
+            this.lbDataModel = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -55,14 +55,6 @@
             this.btnAddDataModel.UseVisualStyleBackColor = true;
             this.btnAddDataModel.Click += new System.EventHandler(this.btnAddDataModel_Click);
             // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(41, 57);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(344, 502);
-            this.listView1.TabIndex = 2;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // btnDeleteDataModel
             // 
             this.btnDeleteDataModel.Enabled = false;
@@ -72,6 +64,7 @@
             this.btnDeleteDataModel.TabIndex = 3;
             this.btnDeleteDataModel.Text = "Verwijderen";
             this.btnDeleteDataModel.UseVisualStyleBackColor = true;
+            this.btnDeleteDataModel.Click += new System.EventHandler(this.btnDeleteDataModel_Click);
             // 
             // btnRenameDataModel
             // 
@@ -82,6 +75,7 @@
             this.btnRenameDataModel.TabIndex = 4;
             this.btnRenameDataModel.Text = "Hernoemen";
             this.btnRenameDataModel.UseVisualStyleBackColor = true;
+            this.btnRenameDataModel.Click += new System.EventHandler(this.btnRenameDataModel_Click);
             // 
             // btnFactTypeManagement
             // 
@@ -92,16 +86,26 @@
             this.btnFactTypeManagement.TabIndex = 5;
             this.btnFactTypeManagement.Text = "Verder";
             this.btnFactTypeManagement.UseVisualStyleBackColor = true;
+            this.btnFactTypeManagement.Click += new System.EventHandler(this.btnFactTypeManagement_Click);
+            // 
+            // lbDataModel
+            // 
+            this.lbDataModel.FormattingEnabled = true;
+            this.lbDataModel.Location = new System.Drawing.Point(41, 54);
+            this.lbDataModel.Name = "lbDataModel";
+            this.lbDataModel.Size = new System.Drawing.Size(342, 511);
+            this.lbDataModel.TabIndex = 6;
+            this.lbDataModel.SelectedIndexChanged += new System.EventHandler(this.lbDataModel_SelectedIndexChanged);
             // 
             // DataModelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(421, 621);
+            this.Controls.Add(this.lbDataModel);
             this.Controls.Add(this.btnFactTypeManagement);
             this.Controls.Add(this.btnRenameDataModel);
             this.Controls.Add(this.btnDeleteDataModel);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.btnAddDataModel);
             this.Controls.Add(this.label1);
             this.Name = "DataModelForm";
@@ -115,10 +119,10 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnAddDataModel;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Button btnDeleteDataModel;
         private System.Windows.Forms.Button btnRenameDataModel;
         private System.Windows.Forms.Button btnFactTypeManagement;
+        private System.Windows.Forms.ListBox lbDataModel;
     }
 }
 

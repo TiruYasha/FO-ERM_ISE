@@ -12,9 +12,16 @@ namespace FO_ERM_ISE.Forms
 {
     public partial class RenameDataModelForm : Form
     {
+        public string DataModelName { get; set; }
+
         public RenameDataModelForm()
         {
             InitializeComponent();
+        }
+
+        private void btnRenameDataModel_Click(object sender, EventArgs e)
+        {
+            DataModelName = txtDataModelName.Text;
         }
     }
 }

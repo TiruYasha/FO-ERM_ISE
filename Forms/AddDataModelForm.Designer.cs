@@ -51,6 +51,7 @@
             this.btnAddDataModel.TabIndex = 1;
             this.btnAddDataModel.Text = "Toevoegen";
             this.btnAddDataModel.UseVisualStyleBackColor = true;
+            this.btnAddDataModel.Click += new System.EventHandler(this.btnAddDataModel_Click);
             // 
             // btnCancel
             // 
@@ -60,6 +61,7 @@
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Annuleren";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // txtDataModelName
             // 
