@@ -53,84 +53,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="datasource\Attribuut.cs">
-      <DependentUpon>FO-ERM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="datasource\DataModel.cs">
-      <DependentUpon>FO-ERM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="datasource\DatamodelDatasource.cs" />
-    <Compile Include="datasource\Datasource.cs" />
-    <Compile Include="datasource\EntiteitType.cs">
-      <DependentUpon>FO-ERM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="datasource\FactTypeDatasource.cs" />
-    <Compile Include="datasource\FeitType.cs">
-      <DependentUpon>FO-ERM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="datasource\FO-ERM.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FO-ERM.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="datasource\FO-ERM.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FO-ERM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="datasource\FO-ERM.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FO-ERM.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="datasource\Kardinaliteit.cs">
-      <DependentUpon>FO-ERM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="datasource\Predicaat.cs">
-      <DependentUpon>FO-ERM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="datasource\Relatietype.cs">
-      <DependentUpon>FO-ERM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="datasource\RelatieTypeOnderdeel.cs">
-      <DependentUpon>FO-ERM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="datasource\Segment.cs">
-      <DependentUpon>FO-ERM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="datasource\SegmentDeel.cs">
-      <DependentUpon>FO-ERM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="datasource\VoorbeeldData.cs">
-      <DependentUpon>FO-ERM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\AddDataModelForm.cs">
+    <Compile Include="domain\DatamodelDTO.cs" />
+    <Compile Include="domain\FacttypeDTO.cs" />
+    <Compile Include="presentation\datamodel\AddDataModelForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddDataModelForm.Designer.cs">
+    <Compile Include="presentation\datamodel\AddDataModelForm.Designer.cs">
       <DependentUpon>AddDataModelForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DataModelForm.cs">
+    <Compile Include="presentation\datamodel\DataModelForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DataModelForm.Designer.cs">
+    <Compile Include="presentation\datamodel\DataModelForm.Designer.cs">
       <DependentUpon>DataModelForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\RenameDataModelForm.cs">
+    <Compile Include="presentation\datamodel\RenameDataModelForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\RenameDataModelForm.Designer.cs">
+    <Compile Include="presentation\datamodel\RenameDataModelForm.Designer.cs">
       <DependentUpon>RenameDataModelForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\AddDataModelForm.resx">
+    <EmbeddedResource Include="presentation\datamodel\AddDataModelForm.resx">
       <DependentUpon>AddDataModelForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DataModelForm.resx">
+    <EmbeddedResource Include="presentation\datamodel\DataModelForm.resx">
       <DependentUpon>DataModelForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\RenameDataModelForm.resx">
+    <EmbeddedResource Include="presentation\datamodel\RenameDataModelForm.resx">
       <DependentUpon>RenameDataModelForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -142,23 +93,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EntityDeploy Include="datasource\FO-ERM.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FO-ERM.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="datasource\FO-ERM.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FO-ERM.edmx</DependentUpon>
-      <LastGenOutput>FO-ERM.Context.cs</LastGenOutput>
-    </None>
-    <None Include="datasource\FO-ERM.edmx.diagram">
-      <DependentUpon>FO-ERM.edmx</DependentUpon>
-    </None>
-    <None Include="datasource\FO-ERM.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FO-ERM.edmx</DependentUpon>
-      <LastGenOutput>FO-ERM.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -175,7 +109,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="business\" />
-    <Folder Include="domain\" />
+    <Folder Include="datasource\" />
+    <Folder Include="Forms\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
