@@ -9,10 +9,10 @@ namespace FO_ERM_ISE.datasource
 {
     interface IDatamodelDatasource
     {
-        public DatamodelDTO getDataModelOnId(int datamodelNumber);
-        public List<DatamodelDTO> getAllDatamodels();
-        public void addDatamodel(DatamodelDTO datamodel);
-        public void deleteDataModel(DatamodelDTO datamodel);
-        public void updateDataModel(DatamodelDTO datamodel);
+        DatamodelDTO getDataModelOnId(int datamodelNumber);
+        List<DatamodelDTO> getAllDatamodels();
+        void addDatamodel(DatamodelDTO datamodel);
+        void deleteDataModel(DatamodelDTO datamodel);
+        void updateDataModel(DatamodelDTO datamodel);
     }
 }

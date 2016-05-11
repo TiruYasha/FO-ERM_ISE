@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using FO_ERM_ISE.presentation.facttype;
 
 namespace FO_ERM_ISE.Forms
 {
@@ -8,6 +9,8 @@ namespace FO_ERM_ISE.Forms
         public DataModelForm()
         {
             InitializeComponent();
+            
+            lbDataModel.Items.Add("Test"); //Temp data
         }
 
         private void btnAddDataModel_Click(object sender, EventArgs e)
@@ -16,7 +19,7 @@ namespace FO_ERM_ISE.Forms
 
             addDataModelForm.ShowDialog();
 
-            if (addDataModelForm.DataModelName != null || addDataModelForm.DataModelName != string.Empty)
+            if (addDataModelForm.DataModelName != null && addDataModelForm.DataModelName != string.Empty)
             {
                 lbDataModel.Items.Add(addDataModelForm.DataModelName);
             }
@@ -37,7 +40,6 @@ namespace FO_ERM_ISE.Forms
             {
                 lbDataModel.Items.Remove(lbDataModel.SelectedItem);
             }
-            
         }
 
         private void btnRenameDataModel_Click(object sender, EventArgs e)
@@ -54,7 +56,10 @@ namespace FO_ERM_ISE.Forms
 
         private void btnFactTypeManagement_Click(object sender, EventArgs e)
         {
+            var facttypeManagementForm = new FacttypeManagementForm();
 
+            facttypeManagementForm.Show();
+            this.Hide();
         }
     }
 }

@@ -9,10 +9,10 @@ namespace FO_ERM_ISE.datasource
 {
     interface IFacttypeDatasource
     {
-        public FacttypeDTO getFacttypeOnId(String factCode, int datamodelNumber);
-        public List<FacttypeDTO> getAllOnDatamodelNumber(int datamodelNumber);
-        public void addFacttype(FacttypeDTO facttype);
-        public void deleteFacttype(FacttypeDTO facttype);
-        public void updateFacttype(FacttypeDTO factype);
+        FacttypeDTO getFacttypeOnId(String factCode, int datamodelNumber);
+        List<FacttypeDTO> getAllOnDatamodelNumber(int datamodelNumber);
+        void addFacttype(FacttypeDTO facttype);
+        void deleteFacttype(FacttypeDTO facttype);
+        void updateFacttype(FacttypeDTO factype);
     }
 }

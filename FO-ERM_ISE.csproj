@@ -53,6 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="datasource\DatamodelDatasource.cs" />
+    <Compile Include="datasource\FacttypeDatasource.cs" />
+    <Compile Include="datasource\interfaces\IDatamodelDatasource.cs" />
+    <Compile Include="datasource\interfaces\IFacttypeDatasource.cs" />
     <Compile Include="domain\DatamodelDTO.cs" />
     <Compile Include="domain\FacttypeDTO.cs" />
     <Compile Include="presentation\datamodel\AddDataModelForm.cs">
@@ -73,6 +77,18 @@
     <Compile Include="presentation\datamodel\RenameDataModelForm.Designer.cs">
       <DependentUpon>RenameDataModelForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="presentation\facttype\AddFacttypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\facttype\AddFacttypeForm.Designer.cs">
+      <DependentUpon>AddFacttypeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="presentation\facttype\FacttypeManagementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\facttype\FacttypeManagementForm.Designer.cs">
+      <DependentUpon>FacttypeManagementForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="presentation\datamodel\AddDataModelForm.resx">
@@ -83,6 +99,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="presentation\datamodel\RenameDataModelForm.resx">
       <DependentUpon>RenameDataModelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\facttype\AddFacttypeForm.resx">
+      <DependentUpon>AddFacttypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\facttype\FacttypeManagementForm.resx">
+      <DependentUpon>FacttypeManagementForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -109,8 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="business\" />
-    <Folder Include="datasource\" />
-    <Folder Include="Forms\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
