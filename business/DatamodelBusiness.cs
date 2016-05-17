@@ -3,46 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FO_ERM_ISE.domain;
+using FO_ERM_ISE.business.interfaces;
+using FO_ERM_ISE.datasource;
+using FO_ERM_ISE.dependencyManager;
 
-namespace FO_ERM_ISE.datasource
+namespace FO_ERM_ISE.business
 {
-    class DatamodelDatasource : Datasource, IDatamodelDatasource
+    class DatamodelBusiness : IDatamodelBusiness
     {
-        private FO_ERMEntities1 _DB;
+        public IDatamodelDatasource dmDatasource;       
 
-        public DatamodelDatasource()
+        public DatamodelBusiness()
         {
-            _DB = get_DB();
+            DependencyManager depman = new DependencyManager();
+            dmDatasource = depman.getIDatamodelDatasource();
         }
 
         public DataModel getDataModelOnId(int datamodelNumber)
         {
-            return _DB.DataModel.Where(i => i.dataModelNummer == datamodelNumber).Single();
+            return this.dmDatasource.getDataModelOnId(datamodelNumber);
         }
 
         public List<DataModel> getAllDatamodels()
         {
-            try
-            {
-                return _DB.DataModel.ToList();
-            }
-            catch(Exception e)
-            {
-                return null;
-            }
+            return this.dmDatasource.getAllDatamodels();
         }
 
         public void addDatamodel(DataModel datamodel)
         {
             try
             {
-                _DB.DataModel.Add(datamodel);
-                this.save();
+                this.dmDatasource.addDatamodel(datamodel);
             }
             catch(Exception e)
             {
-                _DB.DataModel.Remove(datamodel);
                 throw e;
             }
         }
@@ -51,8 +45,7 @@ namespace FO_ERM_ISE.datasource
         {
             try
             {
-                _DB.DataModel.Remove(datamodel);
-                this.save();
+                this.dmDatasource.deleteDataModel(datamodel);
             }
             catch(Exception e)
             {
@@ -64,7 +57,7 @@ namespace FO_ERM_ISE.datasource
         {
             try
             {
-                this.save();
+                this.dmDatasource.updateDataModel();
             }
             catch(Exception e)
             {

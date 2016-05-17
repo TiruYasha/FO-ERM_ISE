@@ -13,9 +13,13 @@ namespace FO_ERM_ISE.presentation.facttype
 {
     public partial class FacttypeManagementForm : Form
     {
-        public FacttypeManagementForm()
+        public DataModel datamodel;
+
+        public FacttypeManagementForm(DataModel datamodel)
         {
             InitializeComponent();
+            this.datamodel = datamodel;
+            this.Text = "Feittype beheren - Datamodel: " + this.datamodel.dataModelNaam;
         }
 
         private void btnAddFactType_Click(object sender, EventArgs e)
@@ -31,10 +35,9 @@ namespace FO_ERM_ISE.presentation.facttype
                     verbalization = addFacttypeForm.verbalization
                 };
 
-                ListViewItem item = new ListViewItem();
+                string[] row = { newFacttype.factCode, newFacttype.verbalization };
+                ListViewItem item = new ListViewItem(row);
                 item.Tag = newFacttype;
-                item.Text = "" + newFacttype.factCode + " " + newFacttype.verbalization;
-
                 lvFacttypes.Items.Add(item);
             }
         }
@@ -63,7 +66,7 @@ namespace FO_ERM_ISE.presentation.facttype
 
         private void lvFacttypes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedFacttype = lvFacttypes.FocusedItem.Tag;
+            
         }
     }
 }

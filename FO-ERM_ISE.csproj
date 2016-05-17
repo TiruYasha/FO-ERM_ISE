@@ -53,12 +53,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attribuut.cs">
+      <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="business\DatamodelBusiness.cs" />
+    <Compile Include="business\interfaces\IDatamodelBusiness.cs" />
+    <Compile Include="DataModel.cs">
+      <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="datasource\DatamodelDatasource.cs" />
+    <Compile Include="datasource\Datasource.cs" />
     <Compile Include="datasource\FacttypeDatasource.cs" />
     <Compile Include="datasource\interfaces\IDatamodelDatasource.cs" />
     <Compile Include="datasource\interfaces\IFacttypeDatasource.cs" />
+    <Compile Include="dependencyManager\DependencyManager.cs" />
     <Compile Include="domain\DatamodelDTO.cs" />
     <Compile Include="domain\FacttypeDTO.cs" />
+    <Compile Include="EntiteitType.cs">
+      <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FeitType.cs">
+      <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FO_ERM_Entities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FO_ERM_Entities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FO_ERM_Entities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FO_ERM_Entities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FO_ERM_Entities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Kardinaliteit.cs">
+      <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PredicaatDeel.cs">
+      <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="presentation\datamodel\AddDataModelForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +128,21 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Relatietype.cs">
+      <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RelatieTypeOnderdeel.cs">
+      <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Segment.cs">
+      <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SegmentDeel.cs">
+      <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VoorbeeldData.cs">
+      <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="presentation\datamodel\AddDataModelForm.resx">
       <DependentUpon>AddDataModelForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,6 +167,23 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EntityDeploy Include="FO_ERM_Entities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FO_ERM_Entities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="FO_ERM_Entities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FO_ERM_Entities.edmx</DependentUpon>
+      <LastGenOutput>FO_ERM_Entities.Context.cs</LastGenOutput>
+    </None>
+    <None Include="FO_ERM_Entities.edmx.diagram">
+      <DependentUpon>FO_ERM_Entities.edmx</DependentUpon>
+    </None>
+    <None Include="FO_ERM_Entities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FO_ERM_Entities.edmx</DependentUpon>
+      <LastGenOutput>FO_ERM_Entities.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -129,9 +198,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="business\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

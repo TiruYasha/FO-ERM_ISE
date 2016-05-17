@@ -34,6 +34,8 @@
             this.btnUpdateFactType = new System.Windows.Forms.Button();
             this.btnSegmentManagement = new System.Windows.Forms.Button();
             this.lvFacttypes = new System.Windows.Forms.ListView();
+            this.columnHeaderFactCode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderVerbalization = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // lblFacttypes
@@ -47,7 +49,7 @@
             // 
             // btnAddFactType
             // 
-            this.btnAddFactType.Location = new System.Drawing.Point(186, 4);
+            this.btnAddFactType.Location = new System.Drawing.Point(404, 4);
             this.btnAddFactType.Name = "btnAddFactType";
             this.btnAddFactType.Size = new System.Drawing.Size(121, 23);
             this.btnAddFactType.TabIndex = 1;
@@ -69,7 +71,7 @@
             // btnUpdateFactType
             // 
             this.btnUpdateFactType.Enabled = false;
-            this.btnUpdateFactType.Location = new System.Drawing.Point(127, 443);
+            this.btnUpdateFactType.Location = new System.Drawing.Point(93, 443);
             this.btnUpdateFactType.Name = "btnUpdateFactType";
             this.btnUpdateFactType.Size = new System.Drawing.Size(75, 23);
             this.btnUpdateFactType.TabIndex = 3;
@@ -80,7 +82,7 @@
             // btnSegmentManagement
             // 
             this.btnSegmentManagement.Enabled = false;
-            this.btnSegmentManagement.Location = new System.Drawing.Point(239, 443);
+            this.btnSegmentManagement.Location = new System.Drawing.Point(450, 443);
             this.btnSegmentManagement.Name = "btnSegmentManagement";
             this.btnSegmentManagement.Size = new System.Drawing.Size(75, 23);
             this.btnSegmentManagement.TabIndex = 4;
@@ -89,18 +91,35 @@
             // 
             // lvFacttypes
             // 
+            this.lvFacttypes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderFactCode,
+            this.columnHeaderVerbalization});
+            this.lvFacttypes.FullRowSelect = true;
+            this.lvFacttypes.GridLines = true;
             this.lvFacttypes.Location = new System.Drawing.Point(15, 37);
+            this.lvFacttypes.MultiSelect = false;
             this.lvFacttypes.Name = "lvFacttypes";
-            this.lvFacttypes.Size = new System.Drawing.Size(299, 400);
+            this.lvFacttypes.Size = new System.Drawing.Size(510, 400);
             this.lvFacttypes.TabIndex = 5;
             this.lvFacttypes.UseCompatibleStateImageBehavior = false;
+            this.lvFacttypes.View = System.Windows.Forms.View.Details;
             this.lvFacttypes.SelectedIndexChanged += new System.EventHandler(this.lvFacttypes_SelectedIndexChanged);
+            // 
+            // columnHeaderFactCode
+            // 
+            this.columnHeaderFactCode.Text = "Feitcode";
+            this.columnHeaderFactCode.Width = 40;
+            // 
+            // columnHeaderVerbalization
+            // 
+            this.columnHeaderVerbalization.Text = "Verwoording";
+            this.columnHeaderVerbalization.Width = 500;
             // 
             // FacttypeManagementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(327, 478);
+            this.ClientSize = new System.Drawing.Size(537, 478);
             this.Controls.Add(this.lvFacttypes);
             this.Controls.Add(this.btnSegmentManagement);
             this.Controls.Add(this.btnUpdateFactType);
@@ -122,5 +141,7 @@
         private System.Windows.Forms.Button btnUpdateFactType;
         private System.Windows.Forms.Button btnSegmentManagement;
         private System.Windows.Forms.ListView lvFacttypes;
+        private System.Windows.Forms.ColumnHeader columnHeaderFactCode;
+        private System.Windows.Forms.ColumnHeader columnHeaderVerbalization;
     }
 }

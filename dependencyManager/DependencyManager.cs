@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FO_ERM_ISE.datasource;
+using FO_ERM_ISE.business;
+using FO_ERM_ISE.business.interfaces;
+
+namespace FO_ERM_ISE.dependencyManager
+{
+    class DependencyManager
+    {
+        public IDatamodelDatasource getIDatamodelDatasource()
+        {
+            return new DatamodelDatasource();
+        }
+
+        public IDatamodelBusiness getIDatamodelBusiness()
+        {
+            return new DatamodelBusiness();
+        }
+    }
+}

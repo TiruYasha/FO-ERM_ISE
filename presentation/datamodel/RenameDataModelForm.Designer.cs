@@ -49,6 +49,7 @@
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Annuleren";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnRenameDataModel
             // 
@@ -71,6 +72,7 @@
             // 
             // RenameDataModelForm
             // 
+            this.AcceptButton = this.btnRenameDataModel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(371, 77);

@@ -22,6 +22,12 @@ namespace FO_ERM_ISE.Forms
         private void btnRenameDataModel_Click(object sender, EventArgs e)
         {
             DataModelName = txtDataModelName.Text;
+            this.Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

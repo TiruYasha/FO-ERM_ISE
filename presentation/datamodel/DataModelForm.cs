@@ -1,30 +1,52 @@
 ﻿using System;
 using System.Windows.Forms;
 using FO_ERM_ISE.presentation.facttype;
+using FO_ERM_ISE.business;
+using FO_ERM_ISE.business.interfaces;
+using System.Collections.Generic;
+using FO_ERM_ISE.dependencyManager;
 
 namespace FO_ERM_ISE.Forms
 {
     public partial class DataModelForm : Form
     {
+        IDatamodelBusiness dmBusiness; //Datamodel business layer
+        List<DataModel> datamodels; //Serves as datasource for the listbox lbDatamodels
+
         public DataModelForm()
         {
             InitializeComponent();
-            
-            lbDataModel.Items.Add("Test"); //Temp data
+
+            DependencyManager depman = new DependencyManager();
+            this.dmBusiness = depman.getIDatamodelBusiness();          
+            datamodels = dmBusiness.getAllDatamodels();
+
+            setlbDatamodelDatasource();
         }
 
+        /*
+         * btnAddDataModel
+         * 
+         * Shows addDatamodelForm
+         * Checks if input is not null or empty
+         * 
+         * Executes addDatamodel(datamodelName)
+         */
         private void btnAddDataModel_Click(object sender, EventArgs e)
         {
             var addDataModelForm = new AddDataModelForm();
+            addDataModelForm.ShowDialog(); //Show addDatamodelForm
 
-            addDataModelForm.ShowDialog();
-
+            //Check if input is not null or empty
             if (addDataModelForm.DataModelName != null && addDataModelForm.DataModelName != string.Empty)
-            {
-                lbDataModel.Items.Add(addDataModelForm.DataModelName);
+            {  
+                this.addDatamodel(addDataModelForm.DataModelName); 
             }
         }
 
+        /*
+         * If a datamodel is selected the controls for deleting, renaming and factType management should be enabled
+         */
         private void lbDataModel_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnDeleteDataModel.Enabled = true;
@@ -32,13 +54,21 @@ namespace FO_ERM_ISE.Forms
             btnRenameDataModel.Enabled = true;
         }
 
+        /*
+         * btnDeleteDataModel
+         * 
+         * Shows y/n dialog box
+         * IF yes Executes deleteDatamodel(selectedItem)
+         */
         private void btnDeleteDataModel_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Weet u het zeker?", "Verwijderen", MessageBoxButtons.YesNo);
+            var selectedItem = (DataModel)lbDataModel.SelectedItem;
+
+            DialogResult dialogResult = MessageBox.Show("Weet u zeker dat u datamodel "+ selectedItem.dataModelNaam +" en onderliggende elementen wil verwijderen?", "Verwijderen", MessageBoxButtons.YesNo);
 
             if (dialogResult == DialogResult.Yes)
             {
-                lbDataModel.Items.Remove(lbDataModel.SelectedItem);
+                deleteDatamodel(selectedItem);
             }
         }
 
@@ -50,16 +80,73 @@ namespace FO_ERM_ISE.Forms
 
             if (renameDataModelForm.DataModelName != null || renameDataModelForm.DataModelName != String.Empty)
             {
-                
+                var selectedModel = (DataModel)lbDataModel.SelectedItem;
+                updateDatamodel(renameDataModelForm.DataModelName, selectedModel);
             }
         }
 
         private void btnFactTypeManagement_Click(object sender, EventArgs e)
         {
-            var facttypeManagementForm = new FacttypeManagementForm();
+            var facttypeManagementForm = new FacttypeManagementForm((DataModel)lbDataModel.SelectedItem);
 
             facttypeManagementForm.Show();
             this.Hide();
+
+            facttypeManagementForm.FormClosing += delegate
+            {
+                this.Show();
+            };
+        }
+
+        private void addDatamodel(String datamodelName)
+        {
+            DataModel dm = new DataModel { dataModelNaam = datamodelName }; //Create a new datamodel object
+
+            try
+            {
+                dmBusiness.addDatamodel(dm); //Try to save the datamodel
+                this.datamodels.Add(dm); //Add the new datamodel to the datamodel list
+                setlbDatamodelDatasource(); //Update the datasource of lbDatamodel
+            }
+            catch(Exception e)
+            {
+                //Exception handling
+            }
+        }
+
+        private void deleteDatamodel(DataModel datamodel)
+        {
+            try
+            {
+                dmBusiness.deleteDataModel(datamodel); //Try to delete the datamodel
+                this.datamodels.Remove(datamodel); //Remove the datamodel from the datamodel list
+                setlbDatamodelDatasource(); //Update the datasource of lbDatamodel
+            }
+            catch(Exception e)
+            {
+                //Exception handling
+            }
+        }
+
+        private void updateDatamodel(String newDatamodelName, DataModel selectedModel)
+        {
+            try
+            {
+                selectedModel.dataModelNaam = newDatamodelName;
+                dmBusiness.updateDataModel();
+                setlbDatamodelDatasource();
+            }
+            catch(Exception e)
+            {
+                //Exception handling
+            }
+        }
+
+        private void setlbDatamodelDatasource()
+        {
+            lbDataModel.DataSource = null; //Clear the datasource
+            lbDataModel.DataSource = datamodels; //Add the updated datasource
+            lbDataModel.DisplayMember = "dataModelNaam"; //Set display member
         }
     }
 }

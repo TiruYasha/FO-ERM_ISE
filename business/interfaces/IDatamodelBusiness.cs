@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FO_ERM_ISE.domain;
 
-namespace FO_ERM_ISE.datasource
+namespace FO_ERM_ISE.business.interfaces
 {
-    interface IDatamodelDatasource
+    interface IDatamodelBusiness
     {
         DataModel getDataModelOnId(int datamodelNumber);
         List<DataModel> getAllDatamodels();
