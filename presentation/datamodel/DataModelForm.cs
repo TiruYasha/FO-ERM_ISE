@@ -146,7 +146,7 @@ namespace FO_ERM_ISE.Forms
         private void setlbDatamodelDatasource()
         {
             lbDataModel.DataSource = null; //Clear the datasource
-            lbDataModel.DataSource = datamodels; //Add the updated datasource
+            lbDataModel.DataSource = dmBusiness.getAllDatamodels(); //Add the updated datasource
             lbDataModel.DisplayMember = "dataModelNaam"; //Set display member
         }
     }
