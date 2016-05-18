@@ -31,11 +31,11 @@ namespace FO_ERM_ISE.presentation.facttype
             {
                 var newFacttype = new FacttypeDTO
                 {
-                    factCode = addFacttypeForm.factCode,
-                    verbalization = addFacttypeForm.verbalization
+                    feitTypeCode = addFacttypeForm.factCode,
+                    verwoording = addFacttypeForm.verbalization
                 };
 
-                string[] row = { newFacttype.factCode, newFacttype.verbalization };
+                string[] row = { newFacttype.feitTypeCode, newFacttype.verwoording };
                 ListViewItem item = new ListViewItem(row);
                 item.Tag = newFacttype;
                 lvFacttypes.Items.Add(item);

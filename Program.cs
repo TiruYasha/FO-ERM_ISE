@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FO_ERM_ISE.Forms;
+using AutoMapper;
+using FO_ERM_ISE.domain;
 
 namespace FO_ERM_ISE
 {
@@ -17,7 +19,18 @@ namespace FO_ERM_ISE
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DataModelForm());
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<AutoMapperConfiguration>();
+            });
+
+             mapper = config.CreateMapper();
+            //var config = new MapperConfiguration(cfg => cfg.CreateMap<DataModel, DatamodelDTO>());
+
+             Application.Run(new DataModelForm());
         }
+
+        public static IMapper mapper { get; set; } 
     }
 }

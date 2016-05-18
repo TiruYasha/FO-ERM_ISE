@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FO_ERM_ISE.business.interfaces;
 using FO_ERM_ISE.datasource;
 using FO_ERM_ISE.dependencyManager;
+using FO_ERM_ISE.domain;
 
 namespace FO_ERM_ISE.business
 {
@@ -19,21 +20,16 @@ namespace FO_ERM_ISE.business
             dmDatasource = depman.getIDatamodelDatasource();
         }
 
-        public DataModel getDataModelOnId(int datamodelNumber)
+        public List<DatamodelDTO> getAllDatamodels()
         {
-            return this.dmDatasource.getDataModelOnId(datamodelNumber);
+            return this.dmDatasource.GetAll();
         }
 
-        public List<DataModel> getAllDatamodels()
-        {
-            return this.dmDatasource.getAllDatamodels();
-        }
-
-        public void addDatamodel(DataModel datamodel)
+        public void addDatamodel(DatamodelDTO datamodel)
         {
             try
             {
-                this.dmDatasource.addDatamodel(datamodel);
+                this.dmDatasource.Create(datamodel);
             }
             catch(Exception e)
             {
@@ -41,11 +37,11 @@ namespace FO_ERM_ISE.business
             }
         }
 
-        public void deleteDataModel(DataModel datamodel)
+        public void deleteDataModel(DatamodelDTO datamodel)
         {
             try
             {
-                this.dmDatasource.deleteDataModel(datamodel);
+                this.dmDatasource.Delete(datamodel);               
             }
             catch(Exception e)
             {
@@ -53,11 +49,11 @@ namespace FO_ERM_ISE.business
             }
         }
 
-        public void updateDataModel()
+        public void updateDataModel(DatamodelDTO datamodel)
         {
             try
             {
-                this.dmDatasource.updateDataModel();
+                this.dmDatasource.Update(datamodel);
             }
             catch(Exception e)
             {

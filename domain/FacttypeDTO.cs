@@ -8,8 +8,9 @@ namespace FO_ERM_ISE.domain
 {
     class FacttypeDTO
     {
-        public string factCode { get; set; }
-        public string verbalization { get; set; }
-        public DatamodelDTO datamodel { get; set; }
+        public string feitTypeCode { get; set; }
+        public int dataModelNummer { get; set; }
+        public string verwoording { get; set; }
+        public DatamodelDTO DataModel { get; set; }
     }
 }

@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -56,6 +59,7 @@
     <Compile Include="Attribuut.cs">
       <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="AutoMapperConfiguration.cs" />
     <Compile Include="business\DatamodelBusiness.cs" />
     <Compile Include="business\interfaces\IDatamodelBusiness.cs" />
     <Compile Include="DataModel.cs">
@@ -65,6 +69,7 @@
     <Compile Include="datasource\Datasource.cs" />
     <Compile Include="datasource\FacttypeDatasource.cs" />
     <Compile Include="datasource\interfaces\IDatamodelDatasource.cs" />
+    <Compile Include="datasource\interfaces\IDatasource.cs" />
     <Compile Include="datasource\interfaces\IFacttypeDatasource.cs" />
     <Compile Include="dependencyManager\DependencyManager.cs" />
     <Compile Include="domain\DatamodelDTO.cs" />

@@ -8,18 +8,18 @@ namespace FO_ERM_ISE.domain
 {
     class DatamodelDTO
     {
-        public int dataModelNumber { get; set; }
-        public string dataModelName { get; set; }
-        public List<FacttypeDTO> facttypes { get; set; }
+        public int dataModelNummer { get; set; }
+        public string dataModelNaam { get; set; }
+        public List<FacttypeDTO> FeitType { get; set; }
 
         public void addFacttype(FacttypeDTO facttype)
         {
-            facttypes.Add(facttype);
+            FeitType.Add(facttype);
         }
 
         public void addFacttypes(List<FacttypeDTO> facttypes)
         {
-            this.facttypes.AddRange(facttypes);
+            this.FeitType.AddRange(facttypes);
         }
     }
 }

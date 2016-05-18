@@ -5,13 +5,14 @@ using FO_ERM_ISE.business;
 using FO_ERM_ISE.business.interfaces;
 using System.Collections.Generic;
 using FO_ERM_ISE.dependencyManager;
+using FO_ERM_ISE.domain;
 
 namespace FO_ERM_ISE.Forms
 {
     public partial class DataModelForm : Form
     {
         IDatamodelBusiness dmBusiness; //Datamodel business layer
-        List<DataModel> datamodels; //Serves as datasource for the listbox lbDatamodels
+        List<DatamodelDTO> datamodels; //Serves as datasource for the listbox lbDatamodels
 
         public DataModelForm()
         {
@@ -62,7 +63,7 @@ namespace FO_ERM_ISE.Forms
          */
         private void btnDeleteDataModel_Click(object sender, EventArgs e)
         {
-            var selectedItem = (DataModel)lbDataModel.SelectedItem;
+            var selectedItem = (DatamodelDTO)lbDataModel.SelectedItem;
 
             DialogResult dialogResult = MessageBox.Show("Weet u zeker dat u datamodel "+ selectedItem.dataModelNaam +" en onderliggende elementen wil verwijderen?", "Verwijderen", MessageBoxButtons.YesNo);
 
@@ -80,7 +81,7 @@ namespace FO_ERM_ISE.Forms
 
             if (renameDataModelForm.DataModelName != null || renameDataModelForm.DataModelName != String.Empty)
             {
-                var selectedModel = (DataModel)lbDataModel.SelectedItem;
+                var selectedModel = (DatamodelDTO)lbDataModel.SelectedItem;
                 updateDatamodel(renameDataModelForm.DataModelName, selectedModel);
             }
         }
@@ -100,7 +101,7 @@ namespace FO_ERM_ISE.Forms
 
         private void addDatamodel(String datamodelName)
         {
-            DataModel dm = new DataModel { dataModelNaam = datamodelName }; //Create a new datamodel object
+            DatamodelDTO dm = new DatamodelDTO { dataModelNaam = datamodelName }; //Create a new datamodel object
 
             try
             {
@@ -114,7 +115,7 @@ namespace FO_ERM_ISE.Forms
             }
         }
 
-        private void deleteDatamodel(DataModel datamodel)
+        private void deleteDatamodel(DatamodelDTO datamodel)
         {
             try
             {
@@ -128,12 +129,12 @@ namespace FO_ERM_ISE.Forms
             }
         }
 
-        private void updateDatamodel(String newDatamodelName, DataModel selectedModel)
+        private void updateDatamodel(String newDatamodelName, DatamodelDTO selectedModel)
         {
             try
             {
                 selectedModel.dataModelNaam = newDatamodelName;
-                dmBusiness.updateDataModel();
+                dmBusiness.updateDataModel(selectedModel);
                 setlbDatamodelDatasource();
             }
             catch(Exception e)
