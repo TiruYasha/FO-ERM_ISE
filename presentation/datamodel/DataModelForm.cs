@@ -88,7 +88,7 @@ namespace FO_ERM_ISE.Forms
 
         private void btnFactTypeManagement_Click(object sender, EventArgs e)
         {
-            var facttypeManagementForm = new FacttypeManagementForm((DataModel)lbDataModel.SelectedItem);
+            var facttypeManagementForm = new FacttypeManagementForm((DatamodelDTO)lbDataModel.SelectedItem);
 
             facttypeManagementForm.Show();
             this.Hide();
