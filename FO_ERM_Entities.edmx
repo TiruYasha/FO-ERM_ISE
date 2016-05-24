@@ -9,7 +9,6 @@
           <Key>
             <PropertyRef Name="attribuutNummer" />
           </Key>
-          <Property Name="dataModelNummer" Type="int" Nullable="false" />
           <Property Name="entiteitTypeNummer" Type="int" Nullable="false" />
           <Property Name="attribuutNaam" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="verplicht" Type="bit" Nullable="false" />
@@ -39,6 +38,7 @@
           <Property Name="dataModelNummer" Type="int" Nullable="false" />
           <Property Name="feitTypeCode" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="verwoording" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="geverifieerd" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Kardinaliteit">
           <Key>
@@ -80,7 +80,7 @@
           <Property Name="onderdeelNummer" Type="smallint" Nullable="false" />
           <Property Name="minimaleKardinaliteit" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="maximaleKardinaliteit" Type="char" MaxLength="1" Nullable="false" />
-          <Property Name="entiteitNummer" Type="int" Nullable="false" />
+          <Property Name="entiteitTypeNummer" Type="int" Nullable="false" />
           <Property Name="afhankelijk" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Segment">
@@ -211,7 +211,7 @@
               <PropertyRef Name="entiteitTypeNummer" />
             </Principal>
             <Dependent Role="RelatieTypeOnderdeel">
-              <PropertyRef Name="entiteitNummer" />
+              <PropertyRef Name="entiteitTypeNummer" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -309,6 +309,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="spr_CheckEntityDependency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="entityTypeNumber" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_EntityTypeHasID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="entityTypeNumber" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_Niew_segment_aanmaken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dataModelNummer" Type="int" Mode="In" />
+          <Parameter Name="feitTypeCode" Type="varchar" Mode="In" />
+          <Parameter Name="segmentNummer" Type="int" Mode="In" />
+          <Parameter Name="segmentDeelTekst" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="FO_ERMModelStoreContainer">
           <EntitySet Name="Attribuut" EntityType="Self.Attribuut" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DataModel" EntityType="Self.DataModel" Schema="dbo" store:Type="Tables" />
@@ -378,40 +390,116 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FO_ERMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FO_ERMEntities1" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="spr_CheckEntityDependency">
+          <Parameter Name="entityTypeNumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_EntityTypeHasID">
+          <Parameter Name="entityTypeNumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_Niew_segment_aanmaken">
+            <Parameter Name="dataModelNummer" Mode="In" Type="Int32" />
+            <Parameter Name="feitTypeCode" Mode="In" Type="String" />
+            <Parameter Name="segmentNummer" Mode="In" Type="Int32" />
+            <Parameter Name="segmentDeelTekst" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Attribuut" EntityType="FO_ERMModel.Attribuut" />
+          <EntitySet Name="DataModel" EntityType="FO_ERMModel.DataModel" />
+          <EntitySet Name="EntiteitType" EntityType="FO_ERMModel.EntiteitType" />
+          <EntitySet Name="FeitType" EntityType="FO_ERMModel.FeitType" />
+          <EntitySet Name="Kardinaliteit" EntityType="FO_ERMModel.Kardinaliteit" />
+          <EntitySet Name="PredicaatDeel" EntityType="FO_ERMModel.PredicaatDeel" />
+          <EntitySet Name="Relatietype" EntityType="FO_ERMModel.Relatietype" />
+          <EntitySet Name="RelatieTypeOnderdeel" EntityType="FO_ERMModel.RelatieTypeOnderdeel" />
+          <EntitySet Name="Segment" EntityType="FO_ERMModel.Segment" />
+          <EntitySet Name="SegmentDeel" EntityType="FO_ERMModel.SegmentDeel" />
+          <EntitySet Name="VoorbeeldData" EntityType="FO_ERMModel.VoorbeeldData" />
+          <AssociationSet Name="FK_ATTRIBUU_R_ENTITEI_ENTITEIT" Association="FO_ERMModel.FK_ATTRIBUU_R_ENTITEI_ENTITEIT">
+            <End Role="EntiteitType" EntitySet="EntiteitType" />
+            <End Role="Attribuut" EntitySet="Attribuut" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PREDICAA_R_ATTRIBU_ATTRIBUU" Association="FO_ERMModel.FK_PREDICAA_R_ATTRIBU_ATTRIBUU">
+            <End Role="Attribuut" EntitySet="Attribuut" />
+            <End Role="PredicaatDeel" EntitySet="PredicaatDeel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VOORBEEL_R_ATTRIBU_ATTRIBUU" Association="FO_ERMModel.FK_VOORBEEL_R_ATTRIBU_ATTRIBUU">
+            <End Role="Attribuut" EntitySet="Attribuut" />
+            <End Role="VoorbeeldData" EntitySet="VoorbeeldData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ENTITEIT_R_DATAMOD_DATAMODE" Association="FO_ERMModel.FK_ENTITEIT_R_DATAMOD_DATAMODE">
+            <End Role="DataModel" EntitySet="DataModel" />
+            <End Role="EntiteitType" EntitySet="EntiteitType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FEITTYPE_R_DATAMOD_DATAMODE" Association="FO_ERMModel.FK_FEITTYPE_R_DATAMOD_DATAMODE">
+            <End Role="DataModel" EntitySet="DataModel" />
+            <End Role="FeitType" EntitySet="FeitType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RELATIET_R_DATAMOD_DATAMODE" Association="FO_ERMModel.FK_RELATIET_R_DATAMOD_DATAMODE">
+            <End Role="DataModel" EntitySet="DataModel" />
+            <End Role="Relatietype" EntitySet="Relatietype" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RELATIET_R_ENTITEI_ENTITEIT" Association="FO_ERMModel.FK_RELATIET_R_ENTITEI_ENTITEIT">
+            <End Role="EntiteitType" EntitySet="EntiteitType" />
+            <End Role="RelatieTypeOnderdeel" EntitySet="RelatieTypeOnderdeel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PREDICAA_R_FEITTYP_FEITTYPE" Association="FO_ERMModel.FK_PREDICAA_R_FEITTYP_FEITTYPE">
+            <End Role="FeitType" EntitySet="FeitType" />
+            <End Role="PredicaatDeel" EntitySet="PredicaatDeel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RELATIET_R_FEITTYP_FEITTYPE" Association="FO_ERMModel.FK_RELATIET_R_FEITTYP_FEITTYPE">
+            <End Role="FeitType" EntitySet="FeitType" />
+            <End Role="Relatietype" EntitySet="Relatietype" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEGMENT_R_FEITTYP_FEITTYPE" Association="FO_ERMModel.FK_SEGMENT_R_FEITTYP_FEITTYPE">
+            <End Role="FeitType" EntitySet="FeitType" />
+            <End Role="Segment" EntitySet="Segment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RELATIET_R_RELATIE_KARDINAL" Association="FO_ERMModel.FK_RELATIET_R_RELATIE_KARDINAL">
+            <End Role="Kardinaliteit" EntitySet="Kardinaliteit" />
+            <End Role="RelatieTypeOnderdeel" EntitySet="RelatieTypeOnderdeel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RELATIET_R_RELATIE_RELATIET" Association="FO_ERMModel.FK_RELATIET_R_RELATIE_RELATIET">
+            <End Role="Relatietype" EntitySet="Relatietype" />
+            <End Role="RelatieTypeOnderdeel" EntitySet="RelatieTypeOnderdeel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEGMENTD_R_SEGMENT_SEGMENT" Association="FO_ERMModel.FK_SEGMENTD_R_SEGMENT_SEGMENT">
+            <End Role="Segment" EntitySet="Segment" />
+            <End Role="SegmentDeel" EntitySet="SegmentDeel" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Attribuut">
           <Key>
             <PropertyRef Name="attribuutNummer" />
           </Key>
-          <Property Name="dataModelNummer" Type="Int32" Nullable="false" />
           <Property Name="entiteitTypeNummer" Type="Int32" Nullable="false" />
-          <Property Name="attribuutNaam" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="attribuutNaam" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="verplicht" Type="Boolean" Nullable="false" />
           <Property Name="identificerend" Type="Boolean" Nullable="false" />
           <Property Name="attribuutNummer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="EntiteitType" Relationship="Self.FK_ATTRIBUU_R_ENTITEI_ENTITEIT" FromRole="Attribuut" ToRole="EntiteitType" />
-          <NavigationProperty Name="PredicaatDeel" Relationship="Self.FK_PREDICAA_R_ATTRIBU_ATTRIBUU" FromRole="Attribuut" ToRole="PredicaatDeel" />
-          <NavigationProperty Name="VoorbeeldData" Relationship="Self.FK_VOORBEEL_R_ATTRIBU_ATTRIBUU" FromRole="Attribuut" ToRole="VoorbeeldData" />
+          <NavigationProperty Name="EntiteitType" Relationship="FO_ERMModel.FK_ATTRIBUU_R_ENTITEI_ENTITEIT" FromRole="Attribuut" ToRole="EntiteitType" />
+          <NavigationProperty Name="PredicaatDeel" Relationship="FO_ERMModel.FK_PREDICAA_R_ATTRIBU_ATTRIBUU" FromRole="Attribuut" ToRole="PredicaatDeel" />
+          <NavigationProperty Name="VoorbeeldData" Relationship="FO_ERMModel.FK_VOORBEEL_R_ATTRIBU_ATTRIBUU" FromRole="Attribuut" ToRole="VoorbeeldData" />
         </EntityType>
         <EntityType Name="DataModel">
           <Key>
             <PropertyRef Name="dataModelNummer" />
           </Key>
           <Property Name="dataModelNummer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="dataModelNaam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="EntiteitType" Relationship="Self.FK_ENTITEIT_R_DATAMOD_DATAMODE" FromRole="DataModel" ToRole="EntiteitType" />
-          <NavigationProperty Name="FeitType" Relationship="Self.FK_FEITTYPE_R_DATAMOD_DATAMODE" FromRole="DataModel" ToRole="FeitType" />
-          <NavigationProperty Name="Relatietype" Relationship="Self.FK_RELATIET_R_DATAMOD_DATAMODE" FromRole="DataModel" ToRole="Relatietype" />
+          <Property Name="dataModelNaam" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EntiteitType" Relationship="FO_ERMModel.FK_ENTITEIT_R_DATAMOD_DATAMODE" FromRole="DataModel" ToRole="EntiteitType" />
+          <NavigationProperty Name="FeitType" Relationship="FO_ERMModel.FK_FEITTYPE_R_DATAMOD_DATAMODE" FromRole="DataModel" ToRole="FeitType" />
+          <NavigationProperty Name="Relatietype" Relationship="FO_ERMModel.FK_RELATIET_R_DATAMOD_DATAMODE" FromRole="DataModel" ToRole="Relatietype" />
         </EntityType>
         <EntityType Name="EntiteitType">
           <Key>
             <PropertyRef Name="entiteitTypeNummer" />
           </Key>
           <Property Name="dataModelNummer" Type="Int32" Nullable="false" />
-          <Property Name="entiteitTypeNaam" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="entiteitTypeNaam" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="entiteitTypeNummer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Attribuut" Relationship="Self.FK_ATTRIBUU_R_ENTITEI_ENTITEIT" FromRole="EntiteitType" ToRole="Attribuut" />
-          <NavigationProperty Name="DataModel" Relationship="Self.FK_ENTITEIT_R_DATAMOD_DATAMODE" FromRole="EntiteitType" ToRole="DataModel" />
-          <NavigationProperty Name="RelatieTypeOnderdeel" Relationship="Self.FK_RELATIET_R_ENTITEI_ENTITEIT" FromRole="EntiteitType" ToRole="RelatieTypeOnderdeel" />
+          <NavigationProperty Name="Attribuut" Relationship="FO_ERMModel.FK_ATTRIBUU_R_ENTITEI_ENTITEIT" FromRole="EntiteitType" ToRole="Attribuut" />
+          <NavigationProperty Name="DataModel" Relationship="FO_ERMModel.FK_ENTITEIT_R_DATAMOD_DATAMODE" FromRole="EntiteitType" ToRole="DataModel" />
+          <NavigationProperty Name="RelatieTypeOnderdeel" Relationship="FO_ERMModel.FK_RELATIET_R_ENTITEI_ENTITEIT" FromRole="EntiteitType" ToRole="RelatieTypeOnderdeel" />
         </EntityType>
         <EntityType Name="FeitType">
           <Key>
@@ -419,21 +507,22 @@
             <PropertyRef Name="feitTypeCode" />
           </Key>
           <Property Name="dataModelNummer" Type="Int32" Nullable="false" />
-          <Property Name="feitTypeCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="verwoording" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="DataModel" Relationship="Self.FK_FEITTYPE_R_DATAMOD_DATAMODE" FromRole="FeitType" ToRole="DataModel" />
-          <NavigationProperty Name="PredicaatDeel" Relationship="Self.FK_PREDICAA_R_FEITTYP_FEITTYPE" FromRole="FeitType" ToRole="PredicaatDeel" />
-          <NavigationProperty Name="Relatietype" Relationship="Self.FK_RELATIET_R_FEITTYP_FEITTYPE" FromRole="FeitType" ToRole="Relatietype" />
-          <NavigationProperty Name="Segment" Relationship="Self.FK_SEGMENT_R_FEITTYP_FEITTYPE" FromRole="FeitType" ToRole="Segment" />
+          <Property Name="feitTypeCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="verwoording" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="geverifieerd" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DataModel" Relationship="FO_ERMModel.FK_FEITTYPE_R_DATAMOD_DATAMODE" FromRole="FeitType" ToRole="DataModel" />
+          <NavigationProperty Name="PredicaatDeel" Relationship="FO_ERMModel.FK_PREDICAA_R_FEITTYP_FEITTYPE" FromRole="FeitType" ToRole="PredicaatDeel" />
+          <NavigationProperty Name="Relatietype" Relationship="FO_ERMModel.FK_RELATIET_R_FEITTYP_FEITTYPE" FromRole="FeitType" ToRole="Relatietype" />
+          <NavigationProperty Name="Segment" Relationship="FO_ERMModel.FK_SEGMENT_R_FEITTYP_FEITTYPE" FromRole="FeitType" ToRole="Segment" />
         </EntityType>
         <EntityType Name="Kardinaliteit">
           <Key>
             <PropertyRef Name="minimaleKardinaliteit" />
             <PropertyRef Name="maximaleKardinaliteit" />
           </Key>
-          <Property Name="minimaleKardinaliteit" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="maximaleKardinaliteit" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="RelatieTypeOnderdeel" Relationship="Self.FK_RELATIET_R_RELATIE_KARDINAL" FromRole="Kardinaliteit" ToRole="RelatieTypeOnderdeel" />
+          <Property Name="minimaleKardinaliteit" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="maximaleKardinaliteit" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="RelatieTypeOnderdeel" Relationship="FO_ERMModel.FK_RELATIET_R_RELATIE_KARDINAL" FromRole="Kardinaliteit" ToRole="RelatieTypeOnderdeel" />
         </EntityType>
         <EntityType Name="PredicaatDeel">
           <Key>
@@ -442,12 +531,12 @@
             <PropertyRef Name="predicaatDeelNummer" />
           </Key>
           <Property Name="dataModelNummer" Type="Int32" Nullable="false" />
-          <Property Name="feitTypeCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="feitTypeCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="predicaatDeelNummer" Type="Int32" Nullable="false" />
           <Property Name="attribuutNummer" Type="Int32" />
           <Property Name="predicaatDeelTekst" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Attribuut" Relationship="Self.FK_PREDICAA_R_ATTRIBU_ATTRIBUU" FromRole="PredicaatDeel" ToRole="Attribuut" />
-          <NavigationProperty Name="FeitType" Relationship="Self.FK_PREDICAA_R_FEITTYP_FEITTYPE" FromRole="PredicaatDeel" ToRole="FeitType" />
+          <NavigationProperty Name="Attribuut" Relationship="FO_ERMModel.FK_PREDICAA_R_ATTRIBU_ATTRIBUU" FromRole="PredicaatDeel" ToRole="Attribuut" />
+          <NavigationProperty Name="FeitType" Relationship="FO_ERMModel.FK_PREDICAA_R_FEITTYP_FEITTYPE" FromRole="PredicaatDeel" ToRole="FeitType" />
         </EntityType>
         <EntityType Name="Relatietype">
           <Key>
@@ -455,11 +544,11 @@
             <PropertyRef Name="relatieTypeNaam" />
           </Key>
           <Property Name="dataModelNummer" Type="Int32" Nullable="false" />
-          <Property Name="relatieTypeNaam" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="feitTypeCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="DataModel" Relationship="Self.FK_RELATIET_R_DATAMOD_DATAMODE" FromRole="Relatietype" ToRole="DataModel" />
-          <NavigationProperty Name="FeitType" Relationship="Self.FK_RELATIET_R_FEITTYP_FEITTYPE" FromRole="Relatietype" ToRole="FeitType" />
-          <NavigationProperty Name="RelatieTypeOnderdeel" Relationship="Self.FK_RELATIET_R_RELATIE_RELATIET" FromRole="Relatietype" ToRole="RelatieTypeOnderdeel" />
+          <Property Name="relatieTypeNaam" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="feitTypeCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DataModel" Relationship="FO_ERMModel.FK_RELATIET_R_DATAMOD_DATAMODE" FromRole="Relatietype" ToRole="DataModel" />
+          <NavigationProperty Name="FeitType" Relationship="FO_ERMModel.FK_RELATIET_R_FEITTYP_FEITTYPE" FromRole="Relatietype" ToRole="FeitType" />
+          <NavigationProperty Name="RelatieTypeOnderdeel" Relationship="FO_ERMModel.FK_RELATIET_R_RELATIE_RELATIET" FromRole="Relatietype" ToRole="RelatieTypeOnderdeel" />
         </EntityType>
         <EntityType Name="RelatieTypeOnderdeel">
           <Key>
@@ -468,15 +557,15 @@
             <PropertyRef Name="onderdeelNummer" />
           </Key>
           <Property Name="dataModelNummer" Type="Int32" Nullable="false" />
-          <Property Name="relatieTypeNaam" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="relatieTypeNaam" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="onderdeelNummer" Type="Int16" Nullable="false" />
-          <Property Name="minimaleKardinaliteit" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="maximaleKardinaliteit" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="entiteitNummer" Type="Int32" Nullable="false" />
+          <Property Name="minimaleKardinaliteit" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="maximaleKardinaliteit" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="entiteitTypeNummer" Type="Int32" Nullable="false" />
           <Property Name="afhankelijk" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="EntiteitType" Relationship="Self.FK_RELATIET_R_ENTITEI_ENTITEIT" FromRole="RelatieTypeOnderdeel" ToRole="EntiteitType" />
-          <NavigationProperty Name="Kardinaliteit" Relationship="Self.FK_RELATIET_R_RELATIE_KARDINAL" FromRole="RelatieTypeOnderdeel" ToRole="Kardinaliteit" />
-          <NavigationProperty Name="Relatietype" Relationship="Self.FK_RELATIET_R_RELATIE_RELATIET" FromRole="RelatieTypeOnderdeel" ToRole="Relatietype" />
+          <NavigationProperty Name="EntiteitType" Relationship="FO_ERMModel.FK_RELATIET_R_ENTITEI_ENTITEIT" FromRole="RelatieTypeOnderdeel" ToRole="EntiteitType" />
+          <NavigationProperty Name="Kardinaliteit" Relationship="FO_ERMModel.FK_RELATIET_R_RELATIE_KARDINAL" FromRole="RelatieTypeOnderdeel" ToRole="Kardinaliteit" />
+          <NavigationProperty Name="Relatietype" Relationship="FO_ERMModel.FK_RELATIET_R_RELATIE_RELATIET" FromRole="RelatieTypeOnderdeel" ToRole="Relatietype" />
         </EntityType>
         <EntityType Name="Segment">
           <Key>
@@ -485,12 +574,12 @@
             <PropertyRef Name="segmentNummer" />
           </Key>
           <Property Name="dataModelNummer" Type="Int32" Nullable="false" />
-          <Property Name="feitTypeCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="feitTypeCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="segmentNummer" Type="Int32" Nullable="false" />
           <Property Name="attribuutNummer" Type="Int32" />
           <Property Name="entiteitTypeNummer" Type="Int32" />
-          <NavigationProperty Name="FeitType" Relationship="Self.FK_SEGMENT_R_FEITTYP_FEITTYPE" FromRole="Segment" ToRole="FeitType" />
-          <NavigationProperty Name="SegmentDeel" Relationship="Self.FK_SEGMENTD_R_SEGMENT_SEGMENT" FromRole="Segment" ToRole="SegmentDeel" />
+          <NavigationProperty Name="FeitType" Relationship="FO_ERMModel.FK_SEGMENT_R_FEITTYP_FEITTYPE" FromRole="Segment" ToRole="FeitType" />
+          <NavigationProperty Name="SegmentDeel" Relationship="FO_ERMModel.FK_SEGMENTD_R_SEGMENT_SEGMENT" FromRole="Segment" ToRole="SegmentDeel" />
         </EntityType>
         <EntityType Name="SegmentDeel">
           <Key>
@@ -500,11 +589,11 @@
             <PropertyRef Name="segmentDeelnummer" />
           </Key>
           <Property Name="dataModelNummer" Type="Int32" Nullable="false" />
-          <Property Name="feitTypeCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="feitTypeCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="segmentNummer" Type="Int32" Nullable="false" />
           <Property Name="segmentDeelnummer" Type="Int32" Nullable="false" />
-          <Property Name="segmentDeelTekst" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Segment" Relationship="Self.FK_SEGMENTD_R_SEGMENT_SEGMENT" FromRole="SegmentDeel" ToRole="Segment" />
+          <Property Name="segmentDeelTekst" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Segment" Relationship="FO_ERMModel.FK_SEGMENTD_R_SEGMENT_SEGMENT" FromRole="SegmentDeel" ToRole="Segment" />
         </EntityType>
         <EntityType Name="VoorbeeldData">
           <Key>
@@ -517,14 +606,14 @@
           <Property Name="entiteitNummer" Type="Int32" Nullable="false" />
           <Property Name="attribuutNummer" Type="Int32" Nullable="false" />
           <Property Name="rijNummer" Type="Int32" Nullable="false" />
-          <Property Name="data" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Attribuut" Relationship="Self.FK_VOORBEEL_R_ATTRIBU_ATTRIBUU" FromRole="VoorbeeldData" ToRole="Attribuut" />
+          <Property Name="data" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Attribuut" Relationship="FO_ERMModel.FK_VOORBEEL_R_ATTRIBU_ATTRIBUU" FromRole="VoorbeeldData" ToRole="Attribuut" />
         </EntityType>
         <Association Name="FK_ATTRIBUU_R_ENTITEI_ENTITEIT">
-          <End Role="EntiteitType" Type="Self.EntiteitType" Multiplicity="1">
+          <End Type="FO_ERMModel.EntiteitType" Role="EntiteitType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Attribuut" Type="Self.Attribuut" Multiplicity="*" />
+          <End Type="FO_ERMModel.Attribuut" Role="Attribuut" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EntiteitType">
               <PropertyRef Name="entiteitTypeNummer" />
@@ -535,8 +624,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PREDICAA_R_ATTRIBU_ATTRIBUU">
-          <End Role="Attribuut" Type="Self.Attribuut" Multiplicity="0..1" />
-          <End Role="PredicaatDeel" Type="Self.PredicaatDeel" Multiplicity="*" />
+          <End Type="FO_ERMModel.Attribuut" Role="Attribuut" Multiplicity="0..1" />
+          <End Type="FO_ERMModel.PredicaatDeel" Role="PredicaatDeel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Attribuut">
               <PropertyRef Name="attribuutNummer" />
@@ -547,10 +636,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VOORBEEL_R_ATTRIBU_ATTRIBUU">
-          <End Role="Attribuut" Type="Self.Attribuut" Multiplicity="1">
+          <End Type="FO_ERMModel.Attribuut" Role="Attribuut" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="VoorbeeldData" Type="Self.VoorbeeldData" Multiplicity="*" />
+          <End Type="FO_ERMModel.VoorbeeldData" Role="VoorbeeldData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Attribuut">
               <PropertyRef Name="attribuutNummer" />
@@ -561,10 +650,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ENTITEIT_R_DATAMOD_DATAMODE">
-          <End Role="DataModel" Type="Self.DataModel" Multiplicity="1">
+          <End Type="FO_ERMModel.DataModel" Role="DataModel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="EntiteitType" Type="Self.EntiteitType" Multiplicity="*" />
+          <End Type="FO_ERMModel.EntiteitType" Role="EntiteitType" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DataModel">
               <PropertyRef Name="dataModelNummer" />
@@ -575,10 +664,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FEITTYPE_R_DATAMOD_DATAMODE">
-          <End Role="DataModel" Type="Self.DataModel" Multiplicity="1">
+          <End Type="FO_ERMModel.DataModel" Role="DataModel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="FeitType" Type="Self.FeitType" Multiplicity="*" />
+          <End Type="FO_ERMModel.FeitType" Role="FeitType" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DataModel">
               <PropertyRef Name="dataModelNummer" />
@@ -589,8 +678,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RELATIET_R_DATAMOD_DATAMODE">
-          <End Role="DataModel" Type="Self.DataModel" Multiplicity="1" />
-          <End Role="Relatietype" Type="Self.Relatietype" Multiplicity="*" />
+          <End Type="FO_ERMModel.DataModel" Role="DataModel" Multiplicity="1" />
+          <End Type="FO_ERMModel.Relatietype" Role="Relatietype" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DataModel">
               <PropertyRef Name="dataModelNummer" />
@@ -601,22 +690,22 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RELATIET_R_ENTITEI_ENTITEIT">
-          <End Role="EntiteitType" Type="Self.EntiteitType" Multiplicity="1" />
-          <End Role="RelatieTypeOnderdeel" Type="Self.RelatieTypeOnderdeel" Multiplicity="*" />
+          <End Type="FO_ERMModel.EntiteitType" Role="EntiteitType" Multiplicity="1" />
+          <End Type="FO_ERMModel.RelatieTypeOnderdeel" Role="RelatieTypeOnderdeel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EntiteitType">
               <PropertyRef Name="entiteitTypeNummer" />
             </Principal>
             <Dependent Role="RelatieTypeOnderdeel">
-              <PropertyRef Name="entiteitNummer" />
+              <PropertyRef Name="entiteitTypeNummer" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PREDICAA_R_FEITTYP_FEITTYPE">
-          <End Role="FeitType" Type="Self.FeitType" Multiplicity="1">
+          <End Type="FO_ERMModel.FeitType" Role="FeitType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PredicaatDeel" Type="Self.PredicaatDeel" Multiplicity="*" />
+          <End Type="FO_ERMModel.PredicaatDeel" Role="PredicaatDeel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FeitType">
               <PropertyRef Name="dataModelNummer" />
@@ -629,10 +718,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RELATIET_R_FEITTYP_FEITTYPE">
-          <End Role="FeitType" Type="Self.FeitType" Multiplicity="1">
+          <End Type="FO_ERMModel.FeitType" Role="FeitType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Relatietype" Type="Self.Relatietype" Multiplicity="*" />
+          <End Type="FO_ERMModel.Relatietype" Role="Relatietype" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FeitType">
               <PropertyRef Name="dataModelNummer" />
@@ -645,10 +734,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SEGMENT_R_FEITTYP_FEITTYPE">
-          <End Role="FeitType" Type="Self.FeitType" Multiplicity="1">
+          <End Type="FO_ERMModel.FeitType" Role="FeitType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Segment" Type="Self.Segment" Multiplicity="*" />
+          <End Type="FO_ERMModel.Segment" Role="Segment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FeitType">
               <PropertyRef Name="dataModelNummer" />
@@ -661,8 +750,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RELATIET_R_RELATIE_KARDINAL">
-          <End Role="Kardinaliteit" Type="Self.Kardinaliteit" Multiplicity="1" />
-          <End Role="RelatieTypeOnderdeel" Type="Self.RelatieTypeOnderdeel" Multiplicity="*" />
+          <End Type="FO_ERMModel.Kardinaliteit" Role="Kardinaliteit" Multiplicity="1" />
+          <End Type="FO_ERMModel.RelatieTypeOnderdeel" Role="RelatieTypeOnderdeel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Kardinaliteit">
               <PropertyRef Name="minimaleKardinaliteit" />
@@ -675,10 +764,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RELATIET_R_RELATIE_RELATIET">
-          <End Role="Relatietype" Type="Self.Relatietype" Multiplicity="1">
+          <End Type="FO_ERMModel.Relatietype" Role="Relatietype" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="RelatieTypeOnderdeel" Type="Self.RelatieTypeOnderdeel" Multiplicity="*" />
+          <End Type="FO_ERMModel.RelatieTypeOnderdeel" Role="RelatieTypeOnderdeel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Relatietype">
               <PropertyRef Name="dataModelNummer" />
@@ -691,10 +780,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SEGMENTD_R_SEGMENT_SEGMENT">
-          <End Role="Segment" Type="Self.Segment" Multiplicity="1">
+          <End Type="FO_ERMModel.Segment" Role="Segment" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="SegmentDeel" Type="Self.SegmentDeel" Multiplicity="*" />
+          <End Type="FO_ERMModel.SegmentDeel" Role="SegmentDeel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Segment">
               <PropertyRef Name="dataModelNummer" />
@@ -708,186 +797,124 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FO_ERMEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Attribuut" EntityType="Self.Attribuut" />
-          <EntitySet Name="DataModel" EntityType="Self.DataModel" />
-          <EntitySet Name="EntiteitType" EntityType="Self.EntiteitType" />
-          <EntitySet Name="FeitType" EntityType="Self.FeitType" />
-          <EntitySet Name="Kardinaliteit" EntityType="Self.Kardinaliteit" />
-          <EntitySet Name="PredicaatDeel" EntityType="Self.PredicaatDeel" />
-          <EntitySet Name="Relatietype" EntityType="Self.Relatietype" />
-          <EntitySet Name="RelatieTypeOnderdeel" EntityType="Self.RelatieTypeOnderdeel" />
-          <EntitySet Name="Segment" EntityType="Self.Segment" />
-          <EntitySet Name="SegmentDeel" EntityType="Self.SegmentDeel" />
-          <EntitySet Name="VoorbeeldData" EntityType="Self.VoorbeeldData" />
-          <AssociationSet Name="FK_ATTRIBUU_R_ENTITEI_ENTITEIT" Association="Self.FK_ATTRIBUU_R_ENTITEI_ENTITEIT">
-            <End Role="EntiteitType" EntitySet="EntiteitType" />
-            <End Role="Attribuut" EntitySet="Attribuut" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PREDICAA_R_ATTRIBU_ATTRIBUU" Association="Self.FK_PREDICAA_R_ATTRIBU_ATTRIBUU">
-            <End Role="Attribuut" EntitySet="Attribuut" />
-            <End Role="PredicaatDeel" EntitySet="PredicaatDeel" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VOORBEEL_R_ATTRIBU_ATTRIBUU" Association="Self.FK_VOORBEEL_R_ATTRIBU_ATTRIBUU">
-            <End Role="Attribuut" EntitySet="Attribuut" />
-            <End Role="VoorbeeldData" EntitySet="VoorbeeldData" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ENTITEIT_R_DATAMOD_DATAMODE" Association="Self.FK_ENTITEIT_R_DATAMOD_DATAMODE">
-            <End Role="DataModel" EntitySet="DataModel" />
-            <End Role="EntiteitType" EntitySet="EntiteitType" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FEITTYPE_R_DATAMOD_DATAMODE" Association="Self.FK_FEITTYPE_R_DATAMOD_DATAMODE">
-            <End Role="DataModel" EntitySet="DataModel" />
-            <End Role="FeitType" EntitySet="FeitType" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RELATIET_R_DATAMOD_DATAMODE" Association="Self.FK_RELATIET_R_DATAMOD_DATAMODE">
-            <End Role="DataModel" EntitySet="DataModel" />
-            <End Role="Relatietype" EntitySet="Relatietype" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RELATIET_R_ENTITEI_ENTITEIT" Association="Self.FK_RELATIET_R_ENTITEI_ENTITEIT">
-            <End Role="EntiteitType" EntitySet="EntiteitType" />
-            <End Role="RelatieTypeOnderdeel" EntitySet="RelatieTypeOnderdeel" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PREDICAA_R_FEITTYP_FEITTYPE" Association="Self.FK_PREDICAA_R_FEITTYP_FEITTYPE">
-            <End Role="FeitType" EntitySet="FeitType" />
-            <End Role="PredicaatDeel" EntitySet="PredicaatDeel" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RELATIET_R_FEITTYP_FEITTYPE" Association="Self.FK_RELATIET_R_FEITTYP_FEITTYPE">
-            <End Role="FeitType" EntitySet="FeitType" />
-            <End Role="Relatietype" EntitySet="Relatietype" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SEGMENT_R_FEITTYP_FEITTYPE" Association="Self.FK_SEGMENT_R_FEITTYP_FEITTYPE">
-            <End Role="FeitType" EntitySet="FeitType" />
-            <End Role="Segment" EntitySet="Segment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RELATIET_R_RELATIE_KARDINAL" Association="Self.FK_RELATIET_R_RELATIE_KARDINAL">
-            <End Role="Kardinaliteit" EntitySet="Kardinaliteit" />
-            <End Role="RelatieTypeOnderdeel" EntitySet="RelatieTypeOnderdeel" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RELATIET_R_RELATIE_RELATIET" Association="Self.FK_RELATIET_R_RELATIE_RELATIET">
-            <End Role="Relatietype" EntitySet="Relatietype" />
-            <End Role="RelatieTypeOnderdeel" EntitySet="RelatieTypeOnderdeel" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SEGMENTD_R_SEGMENT_SEGMENT" Association="Self.FK_SEGMENTD_R_SEGMENT_SEGMENT">
-            <End Role="Segment" EntitySet="Segment" />
-            <End Role="SegmentDeel" EntitySet="SegmentDeel" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="FO_ERMModelStoreContainer" CdmEntityContainer="FO_ERMEntities1">
+          <FunctionImportMapping FunctionImportName="spr_CheckEntityDependency" FunctionName="FO_ERMModel.Store.spr_CheckEntityDependency" />
+          <FunctionImportMapping FunctionImportName="spr_EntityTypeHasID" FunctionName="FO_ERMModel.Store.spr_EntityTypeHasID" />
+          <FunctionImportMapping FunctionImportName="spr_Niew_segment_aanmaken" FunctionName="FO_ERMModel.Store.spr_Niew_segment_aanmaken" />
           <EntitySetMapping Name="Attribuut">
             <EntityTypeMapping TypeName="FO_ERMModel.Attribuut">
               <MappingFragment StoreEntitySet="Attribuut">
-                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
-                <ScalarProperty Name="entiteitTypeNummer" ColumnName="entiteitTypeNummer" />
-                <ScalarProperty Name="attribuutNaam" ColumnName="attribuutNaam" />
-                <ScalarProperty Name="verplicht" ColumnName="verplicht" />
-                <ScalarProperty Name="identificerend" ColumnName="identificerend" />
                 <ScalarProperty Name="attribuutNummer" ColumnName="attribuutNummer" />
+                <ScalarProperty Name="identificerend" ColumnName="identificerend" />
+                <ScalarProperty Name="verplicht" ColumnName="verplicht" />
+                <ScalarProperty Name="attribuutNaam" ColumnName="attribuutNaam" />
+                <ScalarProperty Name="entiteitTypeNummer" ColumnName="entiteitTypeNummer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DataModel">
             <EntityTypeMapping TypeName="FO_ERMModel.DataModel">
               <MappingFragment StoreEntitySet="DataModel">
-                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
                 <ScalarProperty Name="dataModelNaam" ColumnName="dataModelNaam" />
+                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EntiteitType">
             <EntityTypeMapping TypeName="FO_ERMModel.EntiteitType">
               <MappingFragment StoreEntitySet="EntiteitType">
-                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
-                <ScalarProperty Name="entiteitTypeNaam" ColumnName="entiteitTypeNaam" />
                 <ScalarProperty Name="entiteitTypeNummer" ColumnName="entiteitTypeNummer" />
+                <ScalarProperty Name="entiteitTypeNaam" ColumnName="entiteitTypeNaam" />
+                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FeitType">
             <EntityTypeMapping TypeName="FO_ERMModel.FeitType">
               <MappingFragment StoreEntitySet="FeitType">
-                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
-                <ScalarProperty Name="feitTypeCode" ColumnName="feitTypeCode" />
+                <ScalarProperty Name="geverifieerd" ColumnName="geverifieerd" />
                 <ScalarProperty Name="verwoording" ColumnName="verwoording" />
+                <ScalarProperty Name="feitTypeCode" ColumnName="feitTypeCode" />
+                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Kardinaliteit">
             <EntityTypeMapping TypeName="FO_ERMModel.Kardinaliteit">
               <MappingFragment StoreEntitySet="Kardinaliteit">
-                <ScalarProperty Name="minimaleKardinaliteit" ColumnName="minimaleKardinaliteit" />
                 <ScalarProperty Name="maximaleKardinaliteit" ColumnName="maximaleKardinaliteit" />
+                <ScalarProperty Name="minimaleKardinaliteit" ColumnName="minimaleKardinaliteit" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PredicaatDeel">
             <EntityTypeMapping TypeName="FO_ERMModel.PredicaatDeel">
               <MappingFragment StoreEntitySet="PredicaatDeel">
-                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
-                <ScalarProperty Name="feitTypeCode" ColumnName="feitTypeCode" />
-                <ScalarProperty Name="predicaatDeelNummer" ColumnName="predicaatDeelNummer" />
-                <ScalarProperty Name="attribuutNummer" ColumnName="attribuutNummer" />
                 <ScalarProperty Name="predicaatDeelTekst" ColumnName="predicaatDeelTekst" />
+                <ScalarProperty Name="attribuutNummer" ColumnName="attribuutNummer" />
+                <ScalarProperty Name="predicaatDeelNummer" ColumnName="predicaatDeelNummer" />
+                <ScalarProperty Name="feitTypeCode" ColumnName="feitTypeCode" />
+                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Relatietype">
             <EntityTypeMapping TypeName="FO_ERMModel.Relatietype">
               <MappingFragment StoreEntitySet="Relatietype">
-                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
-                <ScalarProperty Name="relatieTypeNaam" ColumnName="relatieTypeNaam" />
                 <ScalarProperty Name="feitTypeCode" ColumnName="feitTypeCode" />
+                <ScalarProperty Name="relatieTypeNaam" ColumnName="relatieTypeNaam" />
+                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RelatieTypeOnderdeel">
             <EntityTypeMapping TypeName="FO_ERMModel.RelatieTypeOnderdeel">
               <MappingFragment StoreEntitySet="RelatieTypeOnderdeel">
-                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
-                <ScalarProperty Name="relatieTypeNaam" ColumnName="relatieTypeNaam" />
-                <ScalarProperty Name="onderdeelNummer" ColumnName="onderdeelNummer" />
-                <ScalarProperty Name="minimaleKardinaliteit" ColumnName="minimaleKardinaliteit" />
-                <ScalarProperty Name="maximaleKardinaliteit" ColumnName="maximaleKardinaliteit" />
-                <ScalarProperty Name="entiteitNummer" ColumnName="entiteitNummer" />
                 <ScalarProperty Name="afhankelijk" ColumnName="afhankelijk" />
+                <ScalarProperty Name="entiteitTypeNummer" ColumnName="entiteitTypeNummer" />
+                <ScalarProperty Name="maximaleKardinaliteit" ColumnName="maximaleKardinaliteit" />
+                <ScalarProperty Name="minimaleKardinaliteit" ColumnName="minimaleKardinaliteit" />
+                <ScalarProperty Name="onderdeelNummer" ColumnName="onderdeelNummer" />
+                <ScalarProperty Name="relatieTypeNaam" ColumnName="relatieTypeNaam" />
+                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Segment">
             <EntityTypeMapping TypeName="FO_ERMModel.Segment">
               <MappingFragment StoreEntitySet="Segment">
-                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
-                <ScalarProperty Name="feitTypeCode" ColumnName="feitTypeCode" />
-                <ScalarProperty Name="segmentNummer" ColumnName="segmentNummer" />
-                <ScalarProperty Name="attribuutNummer" ColumnName="attribuutNummer" />
                 <ScalarProperty Name="entiteitTypeNummer" ColumnName="entiteitTypeNummer" />
+                <ScalarProperty Name="attribuutNummer" ColumnName="attribuutNummer" />
+                <ScalarProperty Name="segmentNummer" ColumnName="segmentNummer" />
+                <ScalarProperty Name="feitTypeCode" ColumnName="feitTypeCode" />
+                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SegmentDeel">
             <EntityTypeMapping TypeName="FO_ERMModel.SegmentDeel">
               <MappingFragment StoreEntitySet="SegmentDeel">
-                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
-                <ScalarProperty Name="feitTypeCode" ColumnName="feitTypeCode" />
-                <ScalarProperty Name="segmentNummer" ColumnName="segmentNummer" />
-                <ScalarProperty Name="segmentDeelnummer" ColumnName="segmentDeelnummer" />
                 <ScalarProperty Name="segmentDeelTekst" ColumnName="segmentDeelTekst" />
+                <ScalarProperty Name="segmentDeelnummer" ColumnName="segmentDeelnummer" />
+                <ScalarProperty Name="segmentNummer" ColumnName="segmentNummer" />
+                <ScalarProperty Name="feitTypeCode" ColumnName="feitTypeCode" />
+                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="VoorbeeldData">
             <EntityTypeMapping TypeName="FO_ERMModel.VoorbeeldData">
               <MappingFragment StoreEntitySet="VoorbeeldData">
-                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
-                <ScalarProperty Name="entiteitNummer" ColumnName="entiteitNummer" />
-                <ScalarProperty Name="attribuutNummer" ColumnName="attribuutNummer" />
-                <ScalarProperty Name="rijNummer" ColumnName="rijNummer" />
                 <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="rijNummer" ColumnName="rijNummer" />
+                <ScalarProperty Name="attribuutNummer" ColumnName="attribuutNummer" />
+                <ScalarProperty Name="entiteitNummer" ColumnName="entiteitNummer" />
+                <ScalarProperty Name="dataModelNummer" ColumnName="dataModelNummer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

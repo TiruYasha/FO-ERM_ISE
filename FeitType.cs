@@ -24,6 +24,7 @@ namespace FO_ERM_ISE
         public int dataModelNummer { get; set; }
         public string feitTypeCode { get; set; }
         public string verwoording { get; set; }
+        public bool geverifieerd { get; set; }
     
         public virtual DataModel DataModel { get; set; }
         public virtual ICollection<PredicaatDeel> PredicaatDeel { get; set; }

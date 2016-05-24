@@ -22,14 +22,14 @@ namespace FO_ERM_ISE.business
 
         public List<FacttypeDTO> getAllFactTypes()
         {
-            return ftDatasource.GetAll();
+            return ftDatasource.getAll();
         }
 
         public void addFactType(FacttypeDTO factType)
         {
             try
             {
-                ftDatasource.Create(factType);
+                ftDatasource.create(factType);
             }
             catch(Exception e)
             {
@@ -41,7 +41,7 @@ namespace FO_ERM_ISE.business
         {
             try
             {
-                ftDatasource.Delete(factType);
+                ftDatasource.delete(factType);
             }
             catch(Exception e)
             {
@@ -53,7 +53,7 @@ namespace FO_ERM_ISE.business
         {
             try
             {
-                ftDatasource.Update(factType);
+                ftDatasource.update(factType);
             }
             catch (Exception e)
             {
