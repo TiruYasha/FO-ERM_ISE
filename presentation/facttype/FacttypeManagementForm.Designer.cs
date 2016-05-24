@@ -49,7 +49,7 @@
             // 
             // btnAddFactType
             // 
-            this.btnAddFactType.Location = new System.Drawing.Point(404, 4);
+            this.btnAddFactType.Location = new System.Drawing.Point(618, 8);
             this.btnAddFactType.Name = "btnAddFactType";
             this.btnAddFactType.Size = new System.Drawing.Size(121, 23);
             this.btnAddFactType.TabIndex = 1;
@@ -82,7 +82,7 @@
             // btnSegmentManagement
             // 
             this.btnSegmentManagement.Enabled = false;
-            this.btnSegmentManagement.Location = new System.Drawing.Point(450, 443);
+            this.btnSegmentManagement.Location = new System.Drawing.Point(664, 443);
             this.btnSegmentManagement.Name = "btnSegmentManagement";
             this.btnSegmentManagement.Size = new System.Drawing.Size(75, 23);
             this.btnSegmentManagement.TabIndex = 4;
@@ -99,7 +99,7 @@
             this.lvFacttypes.Location = new System.Drawing.Point(15, 37);
             this.lvFacttypes.MultiSelect = false;
             this.lvFacttypes.Name = "lvFacttypes";
-            this.lvFacttypes.Size = new System.Drawing.Size(510, 400);
+            this.lvFacttypes.Size = new System.Drawing.Size(724, 400);
             this.lvFacttypes.TabIndex = 5;
             this.lvFacttypes.UseCompatibleStateImageBehavior = false;
             this.lvFacttypes.View = System.Windows.Forms.View.Details;
@@ -113,13 +113,13 @@
             // columnHeaderVerbalization
             // 
             this.columnHeaderVerbalization.Text = "Verwoording";
-            this.columnHeaderVerbalization.Width = 500;
+            this.columnHeaderVerbalization.Width = 1000;
             // 
             // FacttypeManagementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(537, 478);
+            this.ClientSize = new System.Drawing.Size(751, 478);
             this.Controls.Add(this.lvFacttypes);
             this.Controls.Add(this.btnSegmentManagement);
             this.Controls.Add(this.btnUpdateFactType);

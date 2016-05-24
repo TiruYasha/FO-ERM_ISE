@@ -11,8 +11,13 @@ namespace FO_ERM_ISE.Forms
 {
     public partial class DataModelForm : Form
     {
+        /*
+         * TODO
+         * 
+         * Exception handling!
+         */
+
         IDatamodelBusiness dmBusiness; //Datamodel business layer
-        List<DatamodelDTO> datamodels; //Serves as datasource for the listbox lbDatamodels
 
         public DataModelForm()
         {
@@ -20,7 +25,6 @@ namespace FO_ERM_ISE.Forms
 
             DependencyManager depman = new DependencyManager();
             this.dmBusiness = depman.getIDatamodelBusiness();          
-            datamodels = dmBusiness.getAllDatamodels();
 
             setlbDatamodelDatasource();
         }
@@ -105,13 +109,12 @@ namespace FO_ERM_ISE.Forms
 
             try
             {
-                dmBusiness.addDatamodel(dm); //Try to save the datamodel
-                this.datamodels.Add(dm); //Add the new datamodel to the datamodel list
+                dmBusiness.addDatamodel(dm); //Try to save the datamodel                
                 setlbDatamodelDatasource(); //Update the datasource of lbDatamodel
             }
             catch(Exception e)
             {
-                //Exception handling
+                MessageBox.Show("Er is een onverwachte fout opgetreden: " + e.Message);
             }
         }
 
@@ -119,13 +122,12 @@ namespace FO_ERM_ISE.Forms
         {
             try
             {
-                dmBusiness.deleteDataModel(datamodel); //Try to delete the datamodel
-                this.datamodels.Remove(datamodel); //Remove the datamodel from the datamodel list
+                dmBusiness.deleteDataModel(datamodel); //Try to delete the datamodel               
                 setlbDatamodelDatasource(); //Update the datasource of lbDatamodel
             }
             catch(Exception e)
             {
-                //Exception handling
+                MessageBox.Show("Er is een onverwachte fout opgetreden: " + e.Message);
             }
         }
 
@@ -139,7 +141,7 @@ namespace FO_ERM_ISE.Forms
             }
             catch(Exception e)
             {
-                //Exception handling
+                MessageBox.Show("Er is een onverwachte fout opgetreden: " + e.Message);
             }
         }
 

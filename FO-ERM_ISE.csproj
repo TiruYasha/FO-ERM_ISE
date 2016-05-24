@@ -61,7 +61,9 @@
     </Compile>
     <Compile Include="AutoMapperConfiguration.cs" />
     <Compile Include="business\DatamodelBusiness.cs" />
+    <Compile Include="business\FactTypeBusiness.cs" />
     <Compile Include="business\interfaces\IDatamodelBusiness.cs" />
+    <Compile Include="business\interfaces\IFactTypeBusiness.cs" />
     <Compile Include="DataModel.cs">
       <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
     </Compile>

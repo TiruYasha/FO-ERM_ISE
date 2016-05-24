@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FO_ERM_ISE.domain
 {
-    class DatamodelDTO
+    public class DatamodelDTO
     {
         public int dataModelNummer { get; set; }
         public string dataModelNaam { get; set; }

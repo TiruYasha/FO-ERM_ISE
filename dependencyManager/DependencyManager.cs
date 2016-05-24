@@ -20,5 +20,15 @@ namespace FO_ERM_ISE.dependencyManager
         {
             return new DatamodelBusiness();
         }
+
+        public IFacttypeDatasource getIFactTypeDatasource()
+        {
+            return new FacttypeDatasource();
+        }
+
+        public IFactTypeBusiness getIFactTypeBusiness()
+        {
+            return new FactTypeBusiness();
+        }
     }
 }

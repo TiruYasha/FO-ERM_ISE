@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FO_ERM_ISE.domain
 {
-    class FacttypeDTO
+    public class FacttypeDTO
     {
         public string feitTypeCode { get; set; }
         public int dataModelNummer { get; set; }

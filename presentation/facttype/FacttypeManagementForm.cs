@@ -8,18 +8,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FO_ERM_ISE.domain;
+using FO_ERM_ISE.dependencyManager;
+using FO_ERM_ISE.business.interfaces;
 
 namespace FO_ERM_ISE.presentation.facttype
 {
     public partial class FacttypeManagementForm : Form
     {
-        public DataModel datamodel;
+        /*
+         * TODO 
+         * 
+         * Exception handling
+         * Update
+         * Delete
+         */
+        private DatamodelDTO dm;
+        private IFactTypeBusiness ftBusiness;
 
-        public FacttypeManagementForm(DataModel datamodel)
+        public FacttypeManagementForm(DatamodelDTO datamodel)
         {
             InitializeComponent();
-            this.datamodel = datamodel;
-            this.Text = "Feittype beheren - Datamodel: " + this.datamodel.dataModelNaam;
+            this.dm = datamodel;
+            this.Text = "Feittype beheren - Datamodel: " + this.dm.dataModelNaam;
+
+            DependencyManager depman = new DependencyManager();
+            this.ftBusiness = depman.getIFactTypeBusiness();
+
+            setLvFacttypesItems();
         }
 
         private void btnAddFactType_Click(object sender, EventArgs e)
@@ -29,16 +44,7 @@ namespace FO_ERM_ISE.presentation.facttype
 
             if (addFacttypeForm.factCode != string.Empty && addFacttypeForm.verbalization != string.Empty)
             {
-                var newFacttype = new FacttypeDTO
-                {
-                    feitTypeCode = addFacttypeForm.factCode,
-                    verwoording = addFacttypeForm.verbalization
-                };
-
-                string[] row = { newFacttype.feitTypeCode, newFacttype.verwoording };
-                ListViewItem item = new ListViewItem(row);
-                item.Tag = newFacttype;
-                lvFacttypes.Items.Add(item);
+                addFactType(addFacttypeForm.factCode, addFacttypeForm.verbalization);
             }
         }
 
@@ -48,7 +54,7 @@ namespace FO_ERM_ISE.presentation.facttype
 
             if (dialogResult == DialogResult.Yes)
             {
-                
+                           
             }
         }
 
@@ -57,16 +63,49 @@ namespace FO_ERM_ISE.presentation.facttype
 
         }
 
-        private void lbFacttype_SelectedIndexChanged(object sender, EventArgs e)
+        private void lvFacttypes_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnDeleteFactType.Enabled = true;
             btnUpdateFactType.Enabled = true;
             btnSegmentManagement.Enabled = true;
         }
 
-        private void lvFacttypes_SelectedIndexChanged(object sender, EventArgs e)
+        private void addFactType(string factCode, string verbalization)
         {
-            
+            var newFacttype = new FacttypeDTO { feitTypeCode = factCode, verwoording = verbalization, dataModelNummer = dm.dataModelNummer };
+
+            try
+            {
+                ftBusiness.addFactType(newFacttype);
+                setLvFacttypesItems();
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Er is een onverwachte fout opgetreden: " + e.Message);
+            }
+        }
+
+        private void deleteFactType(FacttypeDTO selectedItem)
+        {
+
+        }
+
+        private void setLvFacttypesItems()
+        {
+            lvFacttypes.Items.Clear();
+            foreach(var i in ftBusiness.getAllFactTypesOnDatamodel(this.dm))
+            {
+                addFacttypeToListView(i);
+            }
+        }
+
+        private void addFacttypeToListView(FacttypeDTO newFacttype)
+        {
+            string[] row = { newFacttype.feitTypeCode, newFacttype.verwoording };
+            ListViewItem item = new ListViewItem(row);
+            item.Tag = newFacttype;
+
+            lvFacttypes.Items.Add(item);
         }
     }
 }

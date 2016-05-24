@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FO_ERM_ISE.domain;
+using FO_ERM_ISE.datasource.interfaces;
 
 namespace FO_ERM_ISE.datasource
 {
-    interface IFacttypeDatasource
+    interface IFacttypeDatasource : IDatasource<FeitType, FacttypeDTO>
     {
-        FacttypeDTO getFacttypeOnId(String factCode, int datamodelNumber);
-        List<FacttypeDTO> getAllOnDatamodelNumber(int datamodelNumber);
-        void addFacttype(FacttypeDTO facttype);
-        void deleteFacttype(FacttypeDTO facttype);
-        void updateFacttype(FacttypeDTO factype);
+        List<FacttypeDTO> getAllFactTypesOnDatamodel(DatamodelDTO datamodel);
     }
 }
