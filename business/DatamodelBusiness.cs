@@ -22,14 +22,14 @@ namespace FO_ERM_ISE.business
 
         public List<DatamodelDTO> getAllDatamodels()
         {
-            return this.dmDatasource.GetAll();
+            return this.dmDatasource.getAll();
         }
 
         public void addDatamodel(DatamodelDTO datamodel)
         {
             try
             {
-                this.dmDatasource.Create(datamodel);
+                this.dmDatasource.create(datamodel);
             }
             catch(Exception e)
             {
@@ -41,7 +41,7 @@ namespace FO_ERM_ISE.business
         {
             try
             {
-                this.dmDatasource.Delete(datamodel);               
+                this.dmDatasource.delete(datamodel);               
             }
             catch(Exception e)
             {
@@ -53,7 +53,7 @@ namespace FO_ERM_ISE.business
         {
             try
             {
-                this.dmDatasource.Update(datamodel);
+                this.dmDatasource.update(datamodel);
             }
             catch(Exception e)
             {

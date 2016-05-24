@@ -16,6 +16,7 @@ namespace FO_ERM_ISE.datasource
          * If possible transfer mapping to own function or even own class!
          */
         private FO_ERMEntities1 _db;
+        public  DTOMapper<T, T2> dtoMapper;
 
         protected FO_ERMEntities1 Db
         {
@@ -32,7 +33,7 @@ namespace FO_ERM_ISE.datasource
 
         protected Datasource()
         {
-            //Db = new FO_ERMEntities1();
+            this.dtoMapper = new DTOMapper<T, T2>();
         }
         
         public FO_ERMEntities1 get_DB()
@@ -40,14 +41,14 @@ namespace FO_ERM_ISE.datasource
             return Db;
         }
 
-        public virtual void Create(T2 dto)
+        public virtual void create(T2 dto)
         {
             using (var db = new FO_ERMEntities1()) { 
                 if (dto == null)
                 {
                     throw new ArgumentNullException("entity");
                 }
-                T entity = Program.mapper.Map<T>(dto);
+                T entity = dtoMapper.mapDTOToEntity(dto);
 
                 db.Set<T>().Add(entity);
                 db.SaveChanges();
@@ -55,12 +56,12 @@ namespace FO_ERM_ISE.datasource
         }
 
 
-        public virtual void Update(T2 dto)
+        public virtual void update(T2 dto)
         {
             using (var db = new FO_ERMEntities1())
             {
                 if (dto == null) throw new ArgumentNullException("entity");
-                T entity = Program.mapper.Map<T>(dto);
+                T entity = dtoMapper.mapDTOToEntity(dto);
 
                 db.Set<T>().Attach(entity);
                 db.Entry(entity).State = EntityState.Modified;
@@ -72,12 +73,12 @@ namespace FO_ERM_ISE.datasource
             }
         }
 
-        public virtual void Delete(T2 dto)
+        public virtual void delete(T2 dto)
         {
             using (var db = new FO_ERMEntities1())
             {
                 if (dto == null) throw new ArgumentNullException("entity");
-                T entity = Program.mapper.Map<T>(dto);
+                T entity = dtoMapper.mapDTOToEntity(dto);
 
                 db.Set<T>().Attach(entity);
                 db.Set<T>().Remove(entity);
@@ -85,14 +86,14 @@ namespace FO_ERM_ISE.datasource
             }
         }
 
-        public virtual List<T2> GetAll() 
+        public virtual List<T2> getAll() 
         {
             using (Db)
             {
                 List<T> objects = Db.Set<T>().ToList();
-                List<T2> dtos = Program.mapper.Map<List<T>, List<T2>>(objects);
+                List<T2> dtos = dtoMapper.mapEntitiesToDTOs(objects);
             
-            return dtos;
+                return dtos;
             }
         }
     }

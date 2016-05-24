@@ -20,7 +20,6 @@ namespace FO_ERM_ISE
             this.VoorbeeldData = new HashSet<VoorbeeldData>();
         }
     
-        public int dataModelNummer { get; set; }
         public int entiteitTypeNummer { get; set; }
         public string attribuutNaam { get; set; }
         public bool verplicht { get; set; }

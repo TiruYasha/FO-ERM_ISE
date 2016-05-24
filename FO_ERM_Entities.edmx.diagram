@@ -5,30 +5,30 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="342df54539e542e580a323c72a06e169" Name="Diagram1">
-        <EntityTypeShape EntityType="FO_ERMModel.Attribuut" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FO_ERMModel.DataModel" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FO_ERMModel.EntiteitType" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FO_ERMModel.FeitType" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="FO_ERMModel.Kardinaliteit" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FO_ERMModel.PredicaatDeel" Width="1.5" PointX="7.5" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FO_ERMModel.Relatietype" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FO_ERMModel.RelatieTypeOnderdeel" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="FO_ERMModel.Segment" Width="1.5" PointX="5.25" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="FO_ERMModel.SegmentDeel" Width="1.5" PointX="7.5" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="FO_ERMModel.VoorbeeldData" Width="1.5" PointX="7.5" PointY="9.5" IsExpanded="true" />
-        <AssociationConnector Association="FO_ERMModel.FK_ATTRIBUU_R_ENTITEI_ENTITEIT" ManuallyRouted="false" />
-        <AssociationConnector Association="FO_ERMModel.FK_PREDICAA_R_ATTRIBU_ATTRIBUU" ManuallyRouted="false" />
-        <AssociationConnector Association="FO_ERMModel.FK_VOORBEEL_R_ATTRIBU_ATTRIBUU" ManuallyRouted="false" />
-        <AssociationConnector Association="FO_ERMModel.FK_ENTITEIT_R_DATAMOD_DATAMODE" ManuallyRouted="false" />
-        <AssociationConnector Association="FO_ERMModel.FK_FEITTYPE_R_DATAMOD_DATAMODE" ManuallyRouted="false" />
-        <AssociationConnector Association="FO_ERMModel.FK_RELATIET_R_DATAMOD_DATAMODE" ManuallyRouted="false" />
-        <AssociationConnector Association="FO_ERMModel.FK_RELATIET_R_ENTITEI_ENTITEIT" ManuallyRouted="false" />
-        <AssociationConnector Association="FO_ERMModel.FK_PREDICAA_R_FEITTYP_FEITTYPE" ManuallyRouted="false" />
-        <AssociationConnector Association="FO_ERMModel.FK_RELATIET_R_FEITTYP_FEITTYPE" ManuallyRouted="false" />
-        <AssociationConnector Association="FO_ERMModel.FK_SEGMENT_R_FEITTYP_FEITTYPE" ManuallyRouted="false" />
-        <AssociationConnector Association="FO_ERMModel.FK_RELATIET_R_RELATIE_KARDINAL" ManuallyRouted="false" />
-        <AssociationConnector Association="FO_ERMModel.FK_RELATIET_R_RELATIE_RELATIET" ManuallyRouted="false" />
-        <AssociationConnector Association="FO_ERMModel.FK_SEGMENTD_R_SEGMENT_SEGMENT" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FO_ERMModel.Attribuut" Width="1.5" PointX="5.25" PointY="13.125" />
+        <EntityTypeShape EntityType="FO_ERMModel.DataModel" Width="1.5" PointX="0.75" PointY="8.125" />
+        <EntityTypeShape EntityType="FO_ERMModel.EntiteitType" Width="1.5" PointX="3" PointY="9.625" />
+        <EntityTypeShape EntityType="FO_ERMModel.FeitType" Width="1.5" PointX="3" PointY="6.125" />
+        <EntityTypeShape EntityType="FO_ERMModel.Kardinaliteit" Width="1.5" PointX="5.25" PointY="3.125" />
+        <EntityTypeShape EntityType="FO_ERMModel.PredicaatDeel" Width="1.5" PointX="10.5" PointY="9.75" />
+        <EntityTypeShape EntityType="FO_ERMModel.Relatietype" Width="1.5" PointX="5.25" PointY="10" />
+        <EntityTypeShape EntityType="FO_ERMModel.RelatieTypeOnderdeel" Width="1.5" PointX="7.5" PointY="9.5" />
+        <EntityTypeShape EntityType="FO_ERMModel.Segment" Width="1.5" PointX="5.25" PointY="6.25" />
+        <EntityTypeShape EntityType="FO_ERMModel.SegmentDeel" Width="1.5" PointX="7.5" PointY="6.375" />
+        <EntityTypeShape EntityType="FO_ERMModel.VoorbeeldData" Width="1.5" PointX="7.5" PointY="16.5" />
+        <AssociationConnector Association="FO_ERMModel.FK_ATTRIBUU_R_ENTITEI_ENTITEIT" />
+        <AssociationConnector Association="FO_ERMModel.FK_PREDICAA_R_ATTRIBU_ATTRIBUU" />
+        <AssociationConnector Association="FO_ERMModel.FK_VOORBEEL_R_ATTRIBU_ATTRIBUU" />
+        <AssociationConnector Association="FO_ERMModel.FK_ENTITEIT_R_DATAMOD_DATAMODE" />
+        <AssociationConnector Association="FO_ERMModel.FK_FEITTYPE_R_DATAMOD_DATAMODE" />
+        <AssociationConnector Association="FO_ERMModel.FK_RELATIET_R_DATAMOD_DATAMODE" />
+        <AssociationConnector Association="FO_ERMModel.FK_RELATIET_R_ENTITEI_ENTITEIT" />
+        <AssociationConnector Association="FO_ERMModel.FK_PREDICAA_R_FEITTYP_FEITTYPE" />
+        <AssociationConnector Association="FO_ERMModel.FK_RELATIET_R_FEITTYP_FEITTYPE" />
+        <AssociationConnector Association="FO_ERMModel.FK_SEGMENT_R_FEITTYP_FEITTYPE" />
+        <AssociationConnector Association="FO_ERMModel.FK_RELATIET_R_RELATIE_KARDINAL" />
+        <AssociationConnector Association="FO_ERMModel.FK_RELATIET_R_RELATIE_RELATIET" />
+        <AssociationConnector Association="FO_ERMModel.FK_SEGMENTD_R_SEGMENT_SEGMENT" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

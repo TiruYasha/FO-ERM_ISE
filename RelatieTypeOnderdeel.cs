@@ -19,7 +19,7 @@ namespace FO_ERM_ISE
         public short onderdeelNummer { get; set; }
         public string minimaleKardinaliteit { get; set; }
         public string maximaleKardinaliteit { get; set; }
-        public int entiteitNummer { get; set; }
+        public int entiteitTypeNummer { get; set; }
         public bool afhankelijk { get; set; }
     
         public virtual EntiteitType EntiteitType { get; set; }

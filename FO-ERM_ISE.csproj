@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="datasource\DatamodelDatasource.cs" />
     <Compile Include="datasource\Datasource.cs" />
+    <Compile Include="datasource\DTOMapper.cs" />
     <Compile Include="datasource\FacttypeDatasource.cs" />
     <Compile Include="datasource\interfaces\IDatamodelDatasource.cs" />
     <Compile Include="datasource\interfaces\IDatasource.cs" />
