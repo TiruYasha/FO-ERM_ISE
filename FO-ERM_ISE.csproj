@@ -64,6 +64,8 @@
     <Compile Include="business\FactTypeBusiness.cs" />
     <Compile Include="business\interfaces\IDatamodelBusiness.cs" />
     <Compile Include="business\interfaces\IFactTypeBusiness.cs" />
+    <Compile Include="business\interfaces\ISegmentBusiness.cs" />
+    <Compile Include="business\SegmentBusiness.cs" />
     <Compile Include="DataModel.cs">
       <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
     </Compile>
@@ -73,9 +75,15 @@
     <Compile Include="datasource\interfaces\IDatamodelDatasource.cs" />
     <Compile Include="datasource\interfaces\IDatasource.cs" />
     <Compile Include="datasource\interfaces\IFacttypeDatasource.cs" />
+    <Compile Include="datasource\interfaces\ISegmentDatasource.cs" />
+    <Compile Include="datasource\interfaces\ISegmentDeelDatasource.cs" />
+    <Compile Include="datasource\SegmentDatasource.cs" />
+    <Compile Include="datasource\SegmentDeelDatasource.cs" />
     <Compile Include="dependencyManager\DependencyManager.cs" />
     <Compile Include="domain\DatamodelDTO.cs" />
+    <Compile Include="domain\SegmentDeelDTO.cs" />
     <Compile Include="domain\FacttypeDTO.cs" />
+    <Compile Include="domain\SegmentDTO.cs" />
     <Compile Include="EntiteitType.cs">
       <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
     </Compile>
@@ -133,6 +141,12 @@
     <Compile Include="presentation\facttype\FacttypeManagementForm.Designer.cs">
       <DependentUpon>FacttypeManagementForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="presentation\segment\SegmentManagementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\segment\SegmentManagementForm.Designer.cs">
+      <DependentUpon>SegmentManagementForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relatietype.cs">
@@ -164,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="presentation\facttype\FacttypeManagementForm.resx">
       <DependentUpon>FacttypeManagementForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\segment\SegmentManagementForm.resx">
+      <DependentUpon>SegmentManagementForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

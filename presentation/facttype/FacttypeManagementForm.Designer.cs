@@ -88,6 +88,7 @@
             this.btnSegmentManagement.TabIndex = 4;
             this.btnSegmentManagement.Text = "Verder";
             this.btnSegmentManagement.UseVisualStyleBackColor = true;
+            this.btnSegmentManagement.Click += new System.EventHandler(this.btnSegmentManagement_Click);
             // 
             // lvFacttypes
             // 

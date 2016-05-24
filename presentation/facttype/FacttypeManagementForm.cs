@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using FO_ERM_ISE.domain;
 using FO_ERM_ISE.dependencyManager;
 using FO_ERM_ISE.business.interfaces;
+using FO_ERM_ISE.presentation.segment;
 
 namespace FO_ERM_ISE.presentation.facttype
 {
@@ -157,6 +158,17 @@ namespace FO_ERM_ISE.presentation.facttype
             lvFacttypes.Items.Add(item);
         }
 
+        private void btnSegmentManagement_Click(object sender, EventArgs e)
+        {
+            var segmentManagementForm = new SegmentManagementForm((FacttypeDTO)lvFacttypes.SelectedItems[0].Tag);
 
+            segmentManagementForm.Show();
+            this.Hide();
+
+            segmentManagementForm.FormClosing += delegate
+            {
+                this.Show();
+            };
+        }
     }
 }
