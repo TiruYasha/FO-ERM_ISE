@@ -121,11 +121,11 @@
     <Compile Include="presentation\datamodel\RenameDataModelForm.Designer.cs">
       <DependentUpon>RenameDataModelForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="presentation\facttype\AddFacttypeForm.cs">
+    <Compile Include="presentation\facttype\EditFactTypeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="presentation\facttype\AddFacttypeForm.Designer.cs">
-      <DependentUpon>AddFacttypeForm.cs</DependentUpon>
+    <Compile Include="presentation\facttype\EditFactTypeForm.Designer.cs">
+      <DependentUpon>EditFactTypeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="presentation\facttype\FacttypeManagementForm.cs">
       <SubType>Form</SubType>
@@ -159,8 +159,8 @@
     <EmbeddedResource Include="presentation\datamodel\RenameDataModelForm.resx">
       <DependentUpon>RenameDataModelForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="presentation\facttype\AddFacttypeForm.resx">
-      <DependentUpon>AddFacttypeForm.cs</DependentUpon>
+    <EmbeddedResource Include="presentation\facttype\EditFactTypeForm.resx">
+      <DependentUpon>EditFactTypeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="presentation\facttype\FacttypeManagementForm.resx">
       <DependentUpon>FacttypeManagementForm.cs</DependentUpon>
