@@ -15,7 +15,7 @@ namespace FO_ERM_ISE.datasource
             throw new NotImplementedException();
         }
 
-        public override void Create(SegmentDTO segment)
+        public void Create(SegmentDTO segment)
         {
             // roep sp aan
 

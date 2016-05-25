@@ -10,6 +10,5 @@ namespace FO_ERM_ISE.datasource.interfaces
     interface ISegmentDatasource : IDatasource<Segment, SegmentDTO>
     {
         List<SegmentDTO> getAllSegmentenOnFacttype(FacttypeDTO facttype);
-        
     }
 }

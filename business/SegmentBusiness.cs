@@ -24,12 +24,12 @@ namespace FO_ERM_ISE.business
 
         public void addSegment(SegmentDTO segment)
         {
-            this.dmDatasource.Create(segment);
+            this.dmDatasource.create(segment);
         }
 
         public void deleteSegment(SegmentDTO segment)
         {
-            this.dmDatasource.Delete(segment);
+            this.dmDatasource.delete(segment);
         }
 
         public List<SegmentDTO> getAllSegmentenOnFacttype(FacttypeDTO facttype)
@@ -39,7 +39,7 @@ namespace FO_ERM_ISE.business
 
         public void updateSegment(SegmentDTO segment)
         {
-            this.dmDatasource.Update(segment);
+            this.dmDatasource.update(segment);
         }
     }
 }

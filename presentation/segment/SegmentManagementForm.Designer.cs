@@ -39,7 +39,8 @@
             this.radioSegment1 = new System.Windows.Forms.RadioButton();
             this.btnToevoegen = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
-            this.btnAnalyseren = new System.Windows.Forms.Button();
+            this.btnAnalyseSegment2 = new System.Windows.Forms.Button();
+            this.btnAnalyseSegment1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,18 +56,20 @@
             // lbSegment1
             // 
             this.lbSegment1.FormattingEnabled = true;
-            this.lbSegment1.Location = new System.Drawing.Point(15, 132);
+            this.lbSegment1.Location = new System.Drawing.Point(15, 131);
             this.lbSegment1.Name = "lbSegment1";
             this.lbSegment1.Size = new System.Drawing.Size(178, 160);
             this.lbSegment1.TabIndex = 1;
+            this.lbSegment1.SelectedIndexChanged += new System.EventHandler(this.lbSegment1_SelectedIndexChanged);
             // 
             // lbSegment2
             // 
             this.lbSegment2.FormattingEnabled = true;
-            this.lbSegment2.Location = new System.Drawing.Point(224, 132);
+            this.lbSegment2.Location = new System.Drawing.Point(251, 132);
             this.lbSegment2.Name = "lbSegment2";
             this.lbSegment2.Size = new System.Drawing.Size(182, 160);
             this.lbSegment2.TabIndex = 2;
+            this.lbSegment2.SelectedIndexChanged += new System.EventHandler(this.lbSegment2_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -80,7 +83,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(221, 116);
+            this.label3.Location = new System.Drawing.Point(248, 116);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(111, 13);
             this.label3.TabIndex = 4;
@@ -141,28 +144,41 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(15, 304);
+            this.btnRemove.Location = new System.Drawing.Point(199, 197);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnRemove.Size = new System.Drawing.Size(46, 41);
             this.btnRemove.TabIndex = 8;
-            this.btnRemove.Text = "Verwijderen";
+            this.btnRemove.Text = "Delete";
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
-            // btnAnalyseren
+            // btnAnalyseSegment2
             // 
-            this.btnAnalyseren.Location = new System.Drawing.Point(96, 304);
-            this.btnAnalyseren.Name = "btnAnalyseren";
-            this.btnAnalyseren.Size = new System.Drawing.Size(75, 23);
-            this.btnAnalyseren.TabIndex = 9;
-            this.btnAnalyseren.Text = "Analyseren";
-            this.btnAnalyseren.UseVisualStyleBackColor = true;
+            this.btnAnalyseSegment2.Location = new System.Drawing.Point(251, 297);
+            this.btnAnalyseSegment2.Name = "btnAnalyseSegment2";
+            this.btnAnalyseSegment2.Size = new System.Drawing.Size(185, 23);
+            this.btnAnalyseSegment2.TabIndex = 9;
+            this.btnAnalyseSegment2.Text = "Analyseer segment 2";
+            this.btnAnalyseSegment2.UseVisualStyleBackColor = true;
+            this.btnAnalyseSegment2.Click += new System.EventHandler(this.btnAnalyseSegment2_Click);
+            // 
+            // btnAnalyseSegment1
+            // 
+            this.btnAnalyseSegment1.Location = new System.Drawing.Point(15, 297);
+            this.btnAnalyseSegment1.Name = "btnAnalyseSegment1";
+            this.btnAnalyseSegment1.Size = new System.Drawing.Size(178, 23);
+            this.btnAnalyseSegment1.TabIndex = 10;
+            this.btnAnalyseSegment1.Text = "Analyseer segment 1";
+            this.btnAnalyseSegment1.UseVisualStyleBackColor = true;
+            this.btnAnalyseSegment1.Click += new System.EventHandler(this.btnAnalyseSegment1_Click);
             // 
             // SegmentManagementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(426, 339);
-            this.Controls.Add(this.btnAnalyseren);
+            this.ClientSize = new System.Drawing.Size(450, 332);
+            this.Controls.Add(this.btnAnalyseSegment1);
+            this.Controls.Add(this.btnAnalyseSegment2);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.btnToevoegen);
             this.Controls.Add(this.groupBox1);
@@ -194,6 +210,7 @@
         private System.Windows.Forms.RadioButton radioSegment1;
         private System.Windows.Forms.Button btnToevoegen;
         private System.Windows.Forms.Button btnRemove;
-        private System.Windows.Forms.Button btnAnalyseren;
+        private System.Windows.Forms.Button btnAnalyseSegment2;
+        private System.Windows.Forms.Button btnAnalyseSegment1;
     }
 }
