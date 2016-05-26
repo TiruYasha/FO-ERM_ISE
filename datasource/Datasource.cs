@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FO_ERM_ISE.datasource.interfaces;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using AutoMapper;
 
 namespace FO_ERM_ISE.datasource
@@ -15,18 +16,10 @@ namespace FO_ERM_ISE.datasource
         /*
          * If possible transfer mapping to own function or even own class!
          */
-        private FO_ERMEntities1 _db;
         public  DTOMapper<T, T2> dtoMapper;
+        protected FO_ERMEntities1 Db { get; set; }
 
-        protected FO_ERMEntities1 Db
-        {
-            get
-            {
-                return _db ?? new FO_ERMEntities1();
-            }
-        }
-
-        protected DbSet Dbset
+        protected DbSet<T> Dbset
         {
             get { return Db.Set<T>(); }
         }
@@ -35,66 +28,95 @@ namespace FO_ERM_ISE.datasource
         {
             this.dtoMapper = new DTOMapper<T, T2>();
         }
-        
-        public FO_ERMEntities1 get_DB()
-        {
-            return Db;
-        }
 
-        public virtual void create(T2 dto)
+        public virtual void Create(T2 dto)
         {
-            using (var db = new FO_ERMEntities1()) { 
-                if (dto == null)
+            using (Db = new FO_ERMEntities1()) 
+            {
+                try
                 {
-                    throw new ArgumentNullException("entity");
+                    if (dto == null)
+                    {
+                        throw new ArgumentNullException("entity");
+                    }
+                    T entity = dtoMapper.MapDTOToEntity(dto);
+
+                    Dbset.Add(entity);
+                    Db.SaveChanges();
                 }
-                T entity = dtoMapper.mapDTOToEntity(dto);
-
-                db.Set<T>().Add(entity);
-                db.SaveChanges();
+                catch (DbEntityValidationException dbEx)
+                {
+                    throw new Exception(ParseErrorMessage(dbEx), dbEx);
+                }
             }
         }
 
-
-        public virtual void update(T2 dto)
+        public virtual void Update(T2 dto)
         {
-            using (var db = new FO_ERMEntities1())
+            using (Db = new FO_ERMEntities1())
             {
-                if (dto == null) throw new ArgumentNullException("entity");
-                T entity = dtoMapper.mapDTOToEntity(dto);
+                try
+                {
+                    if (dto == null) throw new ArgumentNullException("entity");
+                    T entity = dtoMapper.MapDTOToEntity(dto);
 
-                db.Set<T>().Attach(entity);
-                db.Entry(entity).State = EntityState.Modified;
-                db.SaveChanges();
-
-               /* Dbset.Attach(entity);
-                Db.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-                Db.SaveChanges();*/
+                    Dbset.Attach(entity);
+                    Db.Entry(entity).State = EntityState.Modified;
+                    Db.SaveChanges();
+                }
+                catch (DbEntityValidationException dbEx)
+                {
+                    throw new Exception(ParseErrorMessage(dbEx), dbEx);
+                }
             }
         }
 
-        public virtual void delete(T2 dto)
+        public virtual void Delete(T2 dto)
         {
-            using (var db = new FO_ERMEntities1())
+            using (Db = new FO_ERMEntities1())
             {
-                if (dto == null) throw new ArgumentNullException("entity");
-                T entity = dtoMapper.mapDTOToEntity(dto);
+                try
+                {
+                    if (dto == null) throw new ArgumentNullException("entity");
+                    T entity = dtoMapper.MapDTOToEntity(dto);
 
-                db.Set<T>().Attach(entity);
-                db.Set<T>().Remove(entity);
-                db.SaveChanges();
+                    Dbset.Attach(entity);
+                    Dbset.Remove(entity);
+
+                    Db.SaveChanges();
+                }
+                catch (DbEntityValidationException dbEx)
+                {
+                    throw new Exception(ParseErrorMessage(dbEx), dbEx);
+                }
             }
         }
 
-        public virtual List<T2> getAll() 
+        public virtual List<T2> GetAll() 
         {
-            using (Db)
+            using (Db = new FO_ERMEntities1())
             {
-                List<T> objects = Db.Set<T>().ToList();
-                List<T2> dtos = dtoMapper.mapEntitiesToDTOs(objects);
+                List<T> objects = Dbset.ToList(); 
+                List<T2> dtos = dtoMapper.MapEntitiesToDTOs(objects);
             
                 return dtos;
             }
+        }
+
+        protected string ParseErrorMessage(DbEntityValidationException dbEx)
+        {
+            string errorMessage = String.Empty;
+
+            foreach (var validationErrors in dbEx.EntityValidationErrors)
+            {
+                foreach (var validationError in validationErrors.ValidationErrors)
+                {
+                    errorMessage += string.Format("Property: {0} Error: {1}",
+                    validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
+                }
+            }
+
+            return errorMessage;
         }
     }
 }

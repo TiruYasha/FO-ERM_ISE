@@ -17,19 +17,19 @@ namespace FO_ERM_ISE.business
         public FactTypeBusiness()
         {
             DependencyManager depman = new DependencyManager();
-            this.ftDatasource = depman.getIFactTypeDatasource();
+            this.ftDatasource = depman.GetIFactTypeDatasource();
         }
 
-        public List<FacttypeDTO> getAllFactTypes()
+        public List<FacttypeDTO> GetAllFactTypes()
         {
-            return ftDatasource.getAll();
+            return ftDatasource.GetAll();
         }
 
-        public void addFactType(FacttypeDTO factType)
+        public void AddFactType(FacttypeDTO factType)
         {
             try
             {
-                ftDatasource.create(factType);
+                ftDatasource.Create(factType);
             }
             catch(Exception e)
             {
@@ -37,11 +37,11 @@ namespace FO_ERM_ISE.business
             }
         }
 
-        public void deleteFactType(FacttypeDTO factType)
+        public void DeleteFactType(FacttypeDTO factType)
         {
             try
             {
-                ftDatasource.delete(factType);
+                ftDatasource.Delete(factType);
             }
             catch(Exception e)
             {
@@ -49,11 +49,11 @@ namespace FO_ERM_ISE.business
             }
         }
 
-        public void updateFactType(FacttypeDTO factType)
+        public void UpdateFactType(FacttypeDTO factType)
         {
             try
             {
-                ftDatasource.update(factType);
+                ftDatasource.Update(factType);
             }
             catch (Exception e)
             {
@@ -61,9 +61,9 @@ namespace FO_ERM_ISE.business
             }        
         }
 
-        public List<FacttypeDTO> getAllFactTypesOnDatamodel(DatamodelDTO datamodel)
+        public List<FacttypeDTO> GetAllFactTypesOnDatamodel(DatamodelDTO datamodel)
         {
-            return ftDatasource.getAllFactTypesOnDatamodel(datamodel);
+            return ftDatasource.GetAllFactTypesOnDatamodel(datamodel);
         }
     }
 }

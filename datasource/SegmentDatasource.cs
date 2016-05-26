@@ -10,12 +10,12 @@ namespace FO_ERM_ISE.datasource
 {
     class SegmentDatasource : Datasource<Segment, SegmentDTO>, ISegmentDatasource
     {
-        public List<SegmentDTO> getAllSegmentenOnFacttype(FacttypeDTO facttype)
+        public List<SegmentDTO> GetAllSegmentenOnFacttype(FacttypeDTO facttype)
         {
             throw new NotImplementedException();
         }
 
-        public void Create(SegmentDTO segment)
+        public override void Create(SegmentDTO segment)
         {
             // roep sp aan
 

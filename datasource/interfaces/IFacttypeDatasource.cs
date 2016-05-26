@@ -10,6 +10,6 @@ namespace FO_ERM_ISE.datasource
 {
     interface IFacttypeDatasource : IDatasource<FeitType, FacttypeDTO>
     {
-        List<FacttypeDTO> getAllFactTypesOnDatamodel(DatamodelDTO datamodel);
+        List<FacttypeDTO> GetAllFactTypesOnDatamodel(DatamodelDTO datamodel);
     }
 }

@@ -33,9 +33,9 @@ namespace FO_ERM_ISE.presentation.facttype
             this.Text = "Feittype beheren - Datamodel: " + this.dm.dataModelNaam;
 
             DependencyManager depman = new DependencyManager();
-            this.ftBusiness = depman.getIFactTypeBusiness();
+            this.ftBusiness = depman.GetIFactTypeBusiness();
 
-            setLvFacttypesItems();
+            SetLvFacttypesItems();
         }
 
         private void btnAddFactType_Click(object sender, EventArgs e)
@@ -47,7 +47,7 @@ namespace FO_ERM_ISE.presentation.facttype
             if ( !String.IsNullOrWhiteSpace(editFactTypeForm.factCode) &&
                  !String.IsNullOrWhiteSpace(editFactTypeForm.verbalization) )
             {
-                addFactType(editFactTypeForm.factCode, editFactTypeForm.verbalization);
+                AddFactType(editFactTypeForm.factCode, editFactTypeForm.verbalization);
             }
 
         }
@@ -60,7 +60,7 @@ namespace FO_ERM_ISE.presentation.facttype
 
             if (dialogResult == DialogResult.Yes)
             {
-                deleteFactType(selectedItem);
+                DeleteFactType(selectedItem);
             }
         }
 
@@ -76,7 +76,7 @@ namespace FO_ERM_ISE.presentation.facttype
             {
                 selectedModel.feitTypeCode = editFactTypeForm.factCode;
                 selectedModel.verwoording = editFactTypeForm.verbalization;
-                updateFactType(selectedModel);
+                UpdateFactType(selectedModel);
             }
         }
 
@@ -99,14 +99,14 @@ namespace FO_ERM_ISE.presentation.facttype
 
     
 
-        private void addFactType(string factCode, string verbalization)
+        private void AddFactType(string factCode, string verbalization)
         {
             var newFacttype = new FacttypeDTO { feitTypeCode = factCode, verwoording = verbalization, dataModelNummer = dm.dataModelNummer };
 
             try
             {
-                ftBusiness.addFactType(newFacttype);
-                setLvFacttypesItems();
+                ftBusiness.AddFactType(newFacttype);
+                SetLvFacttypesItems();
             }
             catch(Exception e)
             {
@@ -114,12 +114,12 @@ namespace FO_ERM_ISE.presentation.facttype
             }
         }
 
-        private void deleteFactType(FacttypeDTO selectedItem)
+        private void DeleteFactType(FacttypeDTO selectedItem)
         {
             try
             {
-                ftBusiness.deleteFactType(selectedItem); //Try to delete the facttype               
-                setLvFacttypesItems(); //Update the list view facttypes
+                ftBusiness.DeleteFactType(selectedItem); //Try to delete the facttype               
+                SetLvFacttypesItems(); //Update the list view facttypes
             }
             catch (Exception e)
             {
@@ -127,12 +127,12 @@ namespace FO_ERM_ISE.presentation.facttype
             }
         }
 
-        private void updateFactType(FacttypeDTO selectedItem)
+        private void UpdateFactType(FacttypeDTO selectedItem)
         {
             try
             {
-                ftBusiness.updateFactType(selectedItem); //Try to delete the facttype               
-                setLvFacttypesItems(); //Update the list view facttypes
+                ftBusiness.UpdateFactType(selectedItem); //Try to delete the facttype               
+                SetLvFacttypesItems(); //Update the list view facttypes
             }
             catch (Exception e)
             {
@@ -140,16 +140,16 @@ namespace FO_ERM_ISE.presentation.facttype
             }
         }
 
-        private void setLvFacttypesItems()
+        private void SetLvFacttypesItems()
         {
             lvFacttypes.Items.Clear();
-            foreach(var i in ftBusiness.getAllFactTypesOnDatamodel(this.dm))
+            foreach(var i in ftBusiness.GetAllFactTypesOnDatamodel(this.dm))
             {
-                addFacttypeToListView(i);
+                AddFacttypeToListView(i);
             }
         }
 
-        private void addFacttypeToListView(FacttypeDTO newFacttype)
+        private void AddFacttypeToListView(FacttypeDTO newFacttype)
         {
             string[] row = { newFacttype.feitTypeCode, newFacttype.verwoording };
             ListViewItem item = new ListViewItem(row);

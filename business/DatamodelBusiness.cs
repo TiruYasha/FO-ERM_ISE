@@ -17,19 +17,19 @@ namespace FO_ERM_ISE.business
         public DatamodelBusiness()
         {
             DependencyManager depman = new DependencyManager();
-            dmDatasource = depman.getIDatamodelDatasource();
+            dmDatasource = depman.GetIDatamodelDatasource();
         }
 
-        public List<DatamodelDTO> getAllDatamodels()
+        public List<DatamodelDTO> GetAllDatamodels()
         {
-            return this.dmDatasource.getAll();
+            return this.dmDatasource.GetAll();
         }
 
-        public void addDatamodel(DatamodelDTO datamodel)
+        public void AddDatamodel(DatamodelDTO datamodel)
         {
             try
             {
-                this.dmDatasource.create(datamodel);
+                this.dmDatasource.Create(datamodel);
             }
             catch(Exception e)
             {
@@ -37,11 +37,11 @@ namespace FO_ERM_ISE.business
             }
         }
 
-        public void deleteDataModel(DatamodelDTO datamodel)
+        public void DeleteDataModel(DatamodelDTO datamodel)
         {
             try
             {
-                this.dmDatasource.delete(datamodel);               
+                this.dmDatasource.Delete(datamodel);               
             }
             catch(Exception e)
             {
@@ -49,11 +49,11 @@ namespace FO_ERM_ISE.business
             }
         }
 
-        public void updateDataModel(DatamodelDTO datamodel)
+        public void UpdateDataModel(DatamodelDTO datamodel)
         {
             try
             {
-                this.dmDatasource.update(datamodel);
+                this.dmDatasource.Update(datamodel);
             }
             catch(Exception e)
             {
