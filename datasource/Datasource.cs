@@ -55,7 +55,6 @@ namespace FO_ERM_ISE.datasource
             }
         }
 
-
         public virtual void update(T2 dto)
         {
             using (var db = new FO_ERMEntities1())

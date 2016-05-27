@@ -15,7 +15,8 @@ namespace FO_ERM_ISE.datasource
             DataModel entity = Program.mapper.Map<DataModel>(datamodel);
 
             List<FeitType> objects = this.get_DB().FeitType.Where(i => i.dataModelNummer == entity.dataModelNummer).ToList();
-            List<FacttypeDTO> dtos = Program.mapper.Map<List<FeitType>, List<FacttypeDTO>>(objects);
+            List<FacttypeDTO> dtos = this.dtoMapper.mapEntitiesToDTOs(objects);
+            //List<FacttypeDTO> dtos = Program.mapper.Map<List<FeitType>, List<FacttypeDTO>>(objects);
 
             return dtos;
         }

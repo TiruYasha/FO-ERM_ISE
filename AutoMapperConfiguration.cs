@@ -17,6 +17,12 @@ namespace FO_ERM_ISE
 
             CreateMap<FeitType, FacttypeDTO>();
             CreateMap<FacttypeDTO, FeitType>();
+
+            CreateMap<Segment, SegmentDTO>();
+            CreateMap<SegmentDTO, Segment>();
+
+            CreateMap<SegmentDeel, SegmentDeelDTO>();
+            CreateMap<SegmentDeelDTO, SegmentDeel>();
         }
     }
 }

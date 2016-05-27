@@ -8,16 +8,59 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FO_ERM_ISE.domain;
+using FO_ERM_ISE.business.interfaces;
+using FO_ERM_ISE.dependencyManager;
 
 namespace FO_ERM_ISE.presentation.segment
 {
     public partial class SegmentManagementForm : Form
     {
+        private FacttypeDTO factType; 
+
+        private SegmentDTO segmentOne;
+        private SegmentDTO segmentTwo;
+
+        private ISegmentBusiness sb;
 
         public SegmentManagementForm(FacttypeDTO facttype)
         {
             InitializeComponent();
-            txtVerwoording.Text = facttype.verwoording;
+            DependencyManager dp = new DependencyManager();
+            this.sb = dp.getISegmentBusiness();
+
+            this.factType = facttype;
+            txtVerwoording.Text = this.factType.verwoording;
+
+            initSegment();
+        }
+
+        private void initSegment()
+        {
+            this.factType.Segment = sb.getAllSegmentenOnFacttype(factType); 
+
+            if (factType.Segment.FirstOrDefault(i => i.segmentNummer == 1) == null)
+            {
+                this.segmentOne = new SegmentDTO();
+                this.segmentOne.setFactType(factType);
+                this.segmentOne.segmentNummer = 1;
+            }
+            else
+            {
+                this.segmentOne = factType.Segment.FirstOrDefault(i => i.segmentNummer == 1);
+            }
+
+            if (factType.Segment.FirstOrDefault(i => i.segmentNummer == 2) == null)
+            {
+                this.segmentTwo = new SegmentDTO();
+                this.segmentTwo.setFactType(factType);
+                this.segmentTwo.segmentNummer = 2;
+            }
+            else
+            {
+                this.segmentTwo = factType.Segment.FirstOrDefault(i => i.segmentNummer == 2);
+            }
+
+            updateListboxes();
         }
 
         /// <summary>
@@ -41,13 +84,16 @@ namespace FO_ERM_ISE.presentation.segment
                 
                 if (radioSegment1.Checked)
                 {
-                    lbSegment1.Items.Add(selectedTekst);
+                    segmentOne.addSegmentDeel(selectedTekst);
+                    sb.addSegment(segmentOne);
                 }
                 else
                 {
-                    lbSegment2.Items.Add(selectedTekst);
+                    segmentTwo.addSegmentDeel(selectedTekst);
+                    sb.addSegment(segmentTwo);
                 }
 
+                updateListboxes();
             }
         }
 
@@ -117,5 +163,18 @@ namespace FO_ERM_ISE.presentation.segment
             return true;
         }
 
+        private void updateListboxes()
+        {
+            lbSegment1.DataSource = null;
+            lbSegment2.DataSource = null;
+
+            if (segmentOne.SegmentDeel != null)
+                lbSegment1.DataSource = segmentOne.SegmentDeel;
+            if(segmentTwo != null)
+                lbSegment2.DataSource = segmentTwo.SegmentDeel;
+
+            lbSegment1.DisplayMember = "segmentDeelTekst";
+            lbSegment2.DisplayMember = "segmentDeelTekst";
+        }
     }
 }
