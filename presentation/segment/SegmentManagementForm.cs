@@ -26,7 +26,7 @@ namespace FO_ERM_ISE.presentation.segment
         {
             InitializeComponent();
             DependencyManager dp = new DependencyManager();
-            this.sb = dp.getISegmentBusiness();
+            this.sb = dp.GetISegmentBusiness();
 
             this.factType = facttype;
             txtVerwoording.Text = this.factType.verwoording;
@@ -36,7 +36,7 @@ namespace FO_ERM_ISE.presentation.segment
 
         private void initSegment()
         {
-            this.factType.Segment = sb.getAllSegmentenOnFacttype(factType); 
+            this.factType.Segment = sb.GetAllSegmentenOnFacttype(factType); 
 
             if (factType.Segment.FirstOrDefault(i => i.segmentNummer == 1) == null)
             {
@@ -85,12 +85,12 @@ namespace FO_ERM_ISE.presentation.segment
                 if (radioSegment1.Checked)
                 {
                     segmentOne.addSegmentDeel(selectedTekst);
-                    sb.addSegment(segmentOne);
+                    sb.AddSegment(segmentOne);
                 }
                 else
                 {
                     segmentTwo.addSegmentDeel(selectedTekst);
-                    sb.addSegment(segmentTwo);
+                    sb.AddSegment(segmentTwo);
                 }
 
                 updateListboxes();
@@ -99,8 +99,8 @@ namespace FO_ERM_ISE.presentation.segment
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            lbSegment1.Items.Remove(lbSegment1.SelectedItem);
-            lbSegment2.Items.Remove(lbSegment2.SelectedItem);
+            //lbSegment1.Items.Remove(lbSegment1.SelectedItem);
+            //lbSegment2.Items.Remove(lbSegment2.SelectedItem);
         }
 
         private void lbSegment1_SelectedIndexChanged(object sender, EventArgs e)

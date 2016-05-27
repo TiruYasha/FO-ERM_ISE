@@ -10,30 +10,36 @@ namespace FO_ERM_ISE.datasource
 {
     class SegmentDatasource : Datasource<Segment, SegmentDTO>, ISegmentDatasource
     {
-        public List<SegmentDTO> getAllSegmentenOnFacttype(FacttypeDTO facttype)
+        public List<SegmentDTO> GetAllSegmentenOnFacttype(FacttypeDTO facttype)
         {
-            List<Segment> factTypes = this.get_DB().Segment.Where(i => i.feitTypeCode == facttype.feitTypeCode && i.dataModelNummer == facttype.dataModelNummer).ToList();          
-            return this.dtoMapper.mapEntitiesToDTOs(factTypes);
+            using (Db = new FO_ERMEntities1())
+            {
+                List<Segment> factTypes = Db.Segment.Where(i => i.feitTypeCode == facttype.feitTypeCode && i.dataModelNummer == facttype.dataModelNummer).ToList();
+                return this.dtoMapper.MapEntitiesToDTOs(factTypes);
+            }
         }
 
-        public override void create(SegmentDTO dto)
-        {           
-            if(!this.get_DB().Segment.Where( i => i.dataModelNummer == dto.dataModelNummer &&
-                                             i.feitTypeCode == dto.feitTypeCode &&
-                                             i.segmentNummer == dto.segmentNummer).Any())
+        public override void Create(SegmentDTO dto)
+        {
+            using (Db = new FO_ERMEntities1())
             {
-                base.create(dto);
-            }
-            else
-            {
-                foreach(var segDeel in dto.SegmentDeel)
+                if (!Db.Segment.Where(i => i.dataModelNummer == dto.dataModelNummer &&
+                                                 i.feitTypeCode == dto.feitTypeCode &&
+                                                 i.segmentNummer == dto.segmentNummer).Any())
                 {
-                    if(!this.get_DB().SegmentDeel.Where(    i => i.dataModelNummer == segDeel.dataModelNummer &&
-                                                            i.feitTypeCode == segDeel.feitTypeCode &&
-                                                            i.segmentNummer == segDeel.segmentNummer &&
-                                                            i.segmentDeelnummer == segDeel.segmentDeelNummer).Any())
+                    base.Create(dto);
+                }
+                else
+                {
+                    foreach (var segDeel in dto.SegmentDeel)
                     {
-                        addNewSegmentDeel(segDeel);
+                        if (!Db.SegmentDeel.Where(i => i.dataModelNummer == segDeel.dataModelNummer &&
+                                                                i.feitTypeCode == segDeel.feitTypeCode &&
+                                                                i.segmentNummer == segDeel.segmentNummer &&
+                                                                i.segmentDeelnummer == segDeel.segmentDeelNummer).Any())
+                        {
+                            addNewSegmentDeel(segDeel);
+                        }
                     }
                 }
             }
@@ -44,7 +50,7 @@ namespace FO_ERM_ISE.datasource
             using (var db = new FO_ERMEntities1())
             {
                 DTOMapper<SegmentDeel, SegmentDeelDTO> segmentDeelMapper = new DTOMapper<SegmentDeel, SegmentDeelDTO>();
-                db.SegmentDeel.Add(segmentDeelMapper.mapDTOToEntity(segmentDeelDTO));
+                db.SegmentDeel.Add(segmentDeelMapper.MapDTOToEntity(segmentDeelDTO));
                 db.SaveChanges();
             }
         }
