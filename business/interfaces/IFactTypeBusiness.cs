@@ -9,10 +9,10 @@ namespace FO_ERM_ISE.business.interfaces
 {
     interface IFactTypeBusiness
     {
-        List<FacttypeDTO> getAllFactTypes();
-        void addFactType(FacttypeDTO factType);
-        void deleteFactType(FacttypeDTO factType);
-        void updateFactType(FacttypeDTO factType);
-        List<FacttypeDTO> getAllFactTypesOnDatamodel(DatamodelDTO datamodel);
+        List<FacttypeDTO> GetAllFactTypes();
+        void AddFactType(FacttypeDTO factType);
+        void DeleteFactType(FacttypeDTO factType);
+        void UpdateFactType(FacttypeDTO factType);
+        List<FacttypeDTO> GetAllFactTypesOnDatamodel(DatamodelDTO datamodel);
     }
 }

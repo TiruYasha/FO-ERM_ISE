@@ -12,32 +12,32 @@ namespace FO_ERM_ISE.dependencyManager
 {
     class DependencyManager
     {
-        public IDatamodelDatasource getIDatamodelDatasource()
+        public IDatamodelDatasource GetIDatamodelDatasource()
         {
             return new DatamodelDatasource();
         }
 
-        public IDatamodelBusiness getIDatamodelBusiness()
+        public IDatamodelBusiness GetIDatamodelBusiness()
         {
             return new DatamodelBusiness();
         }
 
-        public IFacttypeDatasource getIFactTypeDatasource()
+        public IFacttypeDatasource GetIFactTypeDatasource()
         {
             return new FacttypeDatasource();
         }
 
-        public IFactTypeBusiness getIFactTypeBusiness()
+        public IFactTypeBusiness GetIFactTypeBusiness()
         {
             return new FactTypeBusiness();
         }
 
-        public ISegmentBusiness getISegmentBusiness()
+        public ISegmentBusiness GetISegmentBusiness()
         {
             return new SegmentBusiness();
         }
 
-        public ISegmentDatasource getISegmentDatasource()
+        public ISegmentDatasource GetISegmentDatasource()
         {
             return new SegmentDatasource();
         }

@@ -13,33 +13,32 @@ namespace FO_ERM_ISE.business
 {
     class SegmentBusiness : ISegmentBusiness
     {
-
         public ISegmentDatasource dmDatasource;
 
         public SegmentBusiness()
         {
             DependencyManager depman = new DependencyManager();
-            dmDatasource = depman.getISegmentDatasource();
+            dmDatasource = depman.GetISegmentDatasource();
         }
 
-        public void addSegment(SegmentDTO segment)
+        public void AddSegment(SegmentDTO segment)
         {
-            this.dmDatasource.create(segment);
+            this.dmDatasource.Create(segment);
         }
 
-        public void deleteSegment(SegmentDTO segment)
+        public void DeleteSegment(SegmentDTO segment)
         {
-            this.dmDatasource.delete(segment);
+            this.dmDatasource.Delete(segment);
         }
 
-        public List<SegmentDTO> getAllSegmentenOnFacttype(FacttypeDTO facttype)
+        public List<SegmentDTO> GetAllSegmentenOnFacttype(FacttypeDTO facttype)
         {
-            return this.dmDatasource.getAllSegmentenOnFacttype(facttype);
+            return this.dmDatasource.GetAllSegmentenOnFacttype(facttype);
         }
 
-        public void updateSegment(SegmentDTO segment)
+        public void UpdateSegment(SegmentDTO segment)
         {
-            this.dmDatasource.update(segment);
+            this.dmDatasource.Update(segment);
         }
     }
 }

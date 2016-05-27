@@ -24,9 +24,9 @@ namespace FO_ERM_ISE.Forms
             InitializeComponent();
 
             DependencyManager depman = new DependencyManager();
-            this.dmBusiness = depman.getIDatamodelBusiness();          
+            this.dmBusiness = depman.GetIDatamodelBusiness();          
 
-            setlbDatamodelDatasource();
+            SetlbDatamodelDatasource();
         }
 
         /*
@@ -35,7 +35,7 @@ namespace FO_ERM_ISE.Forms
          * Shows addDatamodelForm
          * Checks if input is not null or empty
          * 
-         * Executes addDatamodel(datamodelName)
+         * Executes AddDatamodel(datamodelName)
          */
         private void btnAddDataModel_Click(object sender, EventArgs e)
         {
@@ -43,9 +43,9 @@ namespace FO_ERM_ISE.Forms
             addDataModelForm.ShowDialog(); //Show addDatamodelForm
 
             //Check if input is not null or empty
-            if (addDataModelForm.DataModelName != null && addDataModelForm.DataModelName != string.Empty)
+            if (!string.IsNullOrEmpty(addDataModelForm.DataModelName))
             {  
-                this.addDatamodel(addDataModelForm.DataModelName); 
+                this.AddDatamodel(addDataModelForm.DataModelName); 
             }
         }
 
@@ -73,7 +73,7 @@ namespace FO_ERM_ISE.Forms
 
             if (dialogResult == DialogResult.Yes)
             {
-                deleteDatamodel(selectedItem);
+                DeleteDatamodel(selectedItem);
             }
         }
 
@@ -86,7 +86,7 @@ namespace FO_ERM_ISE.Forms
             if (renameDataModelForm.DataModelName != null || renameDataModelForm.DataModelName != String.Empty)
             {
                 var selectedModel = (DatamodelDTO)lbDataModel.SelectedItem;
-                updateDatamodel(renameDataModelForm.DataModelName, selectedModel);
+                UpdateDatamodel(renameDataModelForm.DataModelName, selectedModel);
             }
         }
 
@@ -103,14 +103,14 @@ namespace FO_ERM_ISE.Forms
             };
         }
 
-        private void addDatamodel(String datamodelName)
+        private void AddDatamodel(String datamodelName)
         {
             DatamodelDTO dm = new DatamodelDTO { dataModelNaam = datamodelName }; //Create a new datamodel object
 
             try
             {
-                dmBusiness.addDatamodel(dm); //Try to save the datamodel                
-                setlbDatamodelDatasource(); //Update the datasource of lbDatamodel
+                dmBusiness.AddDatamodel(dm); //Try to save the datamodel                
+                SetlbDatamodelDatasource(); //Update the datasource of lbDatamodel
             }
             catch(Exception e)
             {
@@ -118,12 +118,12 @@ namespace FO_ERM_ISE.Forms
             }
         }
 
-        private void deleteDatamodel(DatamodelDTO datamodel)
+        private void DeleteDatamodel(DatamodelDTO datamodel)
         {
             try
             {
-                dmBusiness.deleteDataModel(datamodel); //Try to delete the datamodel               
-                setlbDatamodelDatasource(); //Update the datasource of lbDatamodel
+                dmBusiness.DeleteDataModel(datamodel); //Try to delete the datamodel               
+                SetlbDatamodelDatasource(); //Update the datasource of lbDatamodel
             }
             catch(Exception e)
             {
@@ -131,13 +131,13 @@ namespace FO_ERM_ISE.Forms
             }
         }
 
-        private void updateDatamodel(String newDatamodelName, DatamodelDTO selectedModel)
+        private void UpdateDatamodel(String newDatamodelName, DatamodelDTO selectedModel)
         {
             try
             {
                 selectedModel.dataModelNaam = newDatamodelName;
-                dmBusiness.updateDataModel(selectedModel);
-                setlbDatamodelDatasource();
+                dmBusiness.UpdateDataModel(selectedModel);
+                SetlbDatamodelDatasource();
             }
             catch(Exception e)
             {
@@ -145,10 +145,10 @@ namespace FO_ERM_ISE.Forms
             }
         }
 
-        private void setlbDatamodelDatasource()
+        private void SetlbDatamodelDatasource()
         {
             lbDataModel.DataSource = null; //Clear the datasource
-            lbDataModel.DataSource = dmBusiness.getAllDatamodels(); //Add the updated datasource
+            lbDataModel.DataSource = dmBusiness.GetAllDatamodels(); //Add the updated datasource
             lbDataModel.DisplayMember = "dataModelNaam"; //Set display member
         }
     }

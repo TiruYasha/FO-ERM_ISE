@@ -9,9 +9,9 @@ namespace FO_ERM_ISE.business.interfaces
 {
     interface IDatamodelBusiness
     {
-        List<DatamodelDTO> getAllDatamodels();
-        void addDatamodel(DatamodelDTO datamodel);
-        void deleteDataModel(DatamodelDTO datamodel);
-        void updateDataModel(DatamodelDTO datamodel);
+        List<DatamodelDTO> GetAllDatamodels();
+        void AddDatamodel(DatamodelDTO datamodel);
+        void DeleteDataModel(DatamodelDTO datamodel);
+        void UpdateDataModel(DatamodelDTO datamodel);
     }
 }

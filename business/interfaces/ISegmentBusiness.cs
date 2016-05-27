@@ -9,9 +9,9 @@ namespace FO_ERM_ISE.business.interfaces
 {
     interface ISegmentBusiness
     {
-        List<SegmentDTO> getAllSegmentenOnFacttype(FacttypeDTO facttype);
-        void addSegment(SegmentDTO segment);
-        void deleteSegment(SegmentDTO segment);
-        void updateSegment(SegmentDTO segment);
+        List<SegmentDTO> GetAllSegmentenOnFacttype(FacttypeDTO facttype);
+        void AddSegment(SegmentDTO segment);
+        void DeleteSegment(SegmentDTO segment);
+        void UpdateSegment(SegmentDTO segment);
     }
 }

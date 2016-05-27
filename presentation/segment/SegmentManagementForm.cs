@@ -76,7 +76,7 @@ namespace FO_ERM_ISE.presentation.segment
             if (!String.IsNullOrWhiteSpace(selectedTekst))
             {
 
-                if(!isUniqeSegmentDeel(selectedTekst))
+                if(!IsUniqueSegmentDeel(selectedTekst))
                 {
                     MessageBox.Show("Eenzelfde segmentdeel wordt al gebuikt.\nEen segmentdeel mag maar een keer voorkomen.");
                     return;
@@ -121,15 +121,15 @@ namespace FO_ERM_ISE.presentation.segment
 
         private void btnAnalyseSegment1_Click(object sender, EventArgs e)
         {
-            startAnalysation(1);
+            StartAnalysation(1);
         }
 
         private void btnAnalyseSegment2_Click(object sender, EventArgs e)
         {
-            startAnalysation(2);
+            StartAnalysation(2);
         }
 
-        private void startAnalysation(int segmentNumber)
+        private void StartAnalysation(int segmentNumber)
         {
             throw new NotImplementedException();
 
@@ -144,7 +144,7 @@ namespace FO_ERM_ISE.presentation.segment
             //};
         }
 
-        private Boolean isUniqeSegmentDeel(string selectedTekst)
+        private Boolean IsUniqueSegmentDeel(string selectedTekst)
         {
             
             //check if selected text is not in listbox.
