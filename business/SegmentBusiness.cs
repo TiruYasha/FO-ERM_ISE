@@ -23,7 +23,20 @@ namespace FO_ERM_ISE.business
 
         public void AddSegment(SegmentDTO segment)
         {
-            this.dmDatasource.Create(segment);
+            SegmentDTO sdto = this.dmDatasource.getSegmentOnSegmentNummer(segment.segmentNummer, segment.dataModelNummer, segment.feitTypeCode);
+            
+            if(sdto == null)
+            {
+                this.dmDatasource.Create(segment);
+            }
+            else
+            {
+                List<SegmentDeelDTO> newSegmentDelen = segment.SegmentDeel.Where(i => i.segmentDeelNummer > sdto.SegmentDeel.Max(x => x.segmentDeelNummer)).ToList();
+                foreach(var i in newSegmentDelen)
+                {
+                    this.dmDatasource.addNewSegmentDeel(i);
+                }
+            }
         }
 
         public void DeleteSegment(SegmentDTO segment)
@@ -39,6 +52,11 @@ namespace FO_ERM_ISE.business
         public void UpdateSegment(SegmentDTO segment)
         {
             this.dmDatasource.Update(segment);
+        }
+
+        public SegmentDTO getSegmentOnSegmentNummer(int segmentNumber, int datamodelNumber, string factTypeCode)
+        {
+            return this.dmDatasource.getSegmentOnSegmentNummer(segmentNumber, datamodelNumber, factTypeCode);
         }
     }
 }

@@ -13,5 +13,6 @@ namespace FO_ERM_ISE.business.interfaces
         void AddSegment(SegmentDTO segment);
         void DeleteSegment(SegmentDTO segment);
         void UpdateSegment(SegmentDTO segment);
+        SegmentDTO getSegmentOnSegmentNummer(int segmentNumber, int datamodelNumber, string factTypeCode);
     }
 }

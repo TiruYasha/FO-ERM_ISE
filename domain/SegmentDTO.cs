@@ -32,9 +32,12 @@ namespace FO_ERM_ISE.domain
             if(SegmentDeel == null)
             {
                 this.SegmentDeel = new List<SegmentDeelDTO>();
+                sd.segmentDeelNummer = 1;
             }
-
-            sd.segmentDeelNummer = this.SegmentDeel.Count + 1;
+            else
+            {
+                sd.segmentDeelNummer = this.SegmentDeel.Max(i => i.segmentDeelNummer) + 1;     
+            }          
             sd.segmentDeelTekst = segmentDeelText;
 
             this.SegmentDeel.Add(sd);

@@ -31,35 +31,6 @@ namespace FO_ERM_ISE.presentation.segment
             this.factType = facttype;
             txtVerwoording.Text = this.factType.verwoording;
 
-            initSegment();
-        }
-
-        private void initSegment()
-        {
-            this.factType.Segment = sb.GetAllSegmentenOnFacttype(factType); 
-
-            if (factType.Segment.FirstOrDefault(i => i.segmentNummer == 1) == null)
-            {
-                this.segmentOne = new SegmentDTO();
-                this.segmentOne.setFactType(factType);
-                this.segmentOne.segmentNummer = 1;
-            }
-            else
-            {
-                this.segmentOne = factType.Segment.FirstOrDefault(i => i.segmentNummer == 1);
-            }
-
-            if (factType.Segment.FirstOrDefault(i => i.segmentNummer == 2) == null)
-            {
-                this.segmentTwo = new SegmentDTO();
-                this.segmentTwo.setFactType(factType);
-                this.segmentTwo.segmentNummer = 2;
-            }
-            else
-            {
-                this.segmentTwo = factType.Segment.FirstOrDefault(i => i.segmentNummer == 2);
-            }
-
             updateListboxes();
         }
 
@@ -84,69 +55,21 @@ namespace FO_ERM_ISE.presentation.segment
                 
                 if (radioSegment1.Checked)
                 {
-                    segmentOne.addSegmentDeel(selectedTekst);
+                    this.segmentOne.addSegmentDeel(selectedTekst);
                     sb.AddSegment(segmentOne);
                 }
                 else
                 {
-                    segmentTwo.addSegmentDeel(selectedTekst);
+                    this.segmentTwo.addSegmentDeel(selectedTekst);
                     sb.AddSegment(segmentTwo);
                 }
 
                 updateListboxes();
             }
-        }
-
-        private void btnRemove_Click(object sender, EventArgs e)
-        {
-            //lbSegment1.Items.Remove(lbSegment1.SelectedItem);
-            //lbSegment2.Items.Remove(lbSegment2.SelectedItem);
-        }
-
-        private void lbSegment1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(lbSegment1.SelectedItem != null)
-            {
-                lbSegment2.ClearSelected();
-            }
-        }
-
-        private void lbSegment2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (lbSegment2.SelectedItem != null)
-            {
-                lbSegment1.ClearSelected();
-            }
-        }
-
-        private void btnAnalyseSegment1_Click(object sender, EventArgs e)
-        {
-            StartAnalysation(1);
-        }
-
-        private void btnAnalyseSegment2_Click(object sender, EventArgs e)
-        {
-            StartAnalysation(2);
-        }
-
-        private void StartAnalysation(int segmentNumber)
-        {
-            throw new NotImplementedException();
-
-            //var segmentAnalyseForm = new Form(); // SegmentAnalyseForm();
-
-            //segmentAnalyseForm.Show();
-            //this.Hide();
-
-            //segmentAnalyseForm.FormClosing += delegate
-            //{
-            //    this.Show();
-            //};
-        }
+        }       
 
         private Boolean IsUniqueSegmentDeel(string selectedTekst)
-        {
-            
+        {            
             //check if selected text is not in listbox.
             ListBox lb = new ListBox();
             lb.Items.AddRange(lbSegment1.Items);
@@ -165,16 +88,96 @@ namespace FO_ERM_ISE.presentation.segment
 
         private void updateListboxes()
         {
-            lbSegment1.DataSource = null;
-            lbSegment2.DataSource = null;
+            this.resetListboxes();
+            this.getSegmenten();            
 
-            if (segmentOne.SegmentDeel != null)
+            if (segmentOne != null && segmentOne.SegmentDeel != null)
                 lbSegment1.DataSource = segmentOne.SegmentDeel;
-            if(segmentTwo != null)
+            if (segmentTwo != null && segmentTwo != null)
                 lbSegment2.DataSource = segmentTwo.SegmentDeel;
 
             lbSegment1.DisplayMember = "segmentDeelTekst";
             lbSegment2.DisplayMember = "segmentDeelTekst";
+        }
+
+        private void getSegmenten()
+        {
+            this.segmentOne = this.getSegmentDeel(1);
+            this.segmentTwo = this.getSegmentDeel(2);
+
+            if(this.segmentOne == null)
+            {
+                this.segmentOne = new SegmentDTO();
+                this.segmentOne.setFactType(this.factType);
+                this.segmentOne.segmentNummer = 1;
+            }
+
+            if (this.segmentTwo == null)
+            {
+                this.segmentTwo = new SegmentDTO();
+                this.segmentTwo.setFactType(this.factType);
+                this.segmentTwo.segmentNummer = 2;
+            }
+        }
+
+        private void resetListboxes()
+        {
+            lbSegment1.DataSource = null;
+            lbSegment2.DataSource = null;
+        }
+
+        public SegmentDTO getSegmentDeel(int segmentNummer)
+        {
+            return this.sb.getSegmentOnSegmentNummer(segmentNummer, this.factType.dataModelNummer, this.factType.feitTypeCode);
+        }
+
+        private void lbSegment1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbSegment1.SelectedItem != null)
+            {
+                lbSegment2.ClearSelected();
+            }
+        }
+
+        private void lbSegment2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbSegment2.SelectedItem != null)
+            {
+                lbSegment1.ClearSelected();
+            }
+        }
+
+        //Not yet implemented!
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            //lbSegment1.Items.Remove(lbSegment1.SelectedItem);
+            //lbSegment2.Items.Remove(lbSegment2.SelectedItem);
+        }       
+
+        //Not yet implemented!
+        private void btnAnalyseSegment1_Click(object sender, EventArgs e)
+        {
+            StartAnalysation(1);
+        }
+        //Not yet implemented!
+        private void btnAnalyseSegment2_Click(object sender, EventArgs e)
+        {
+            StartAnalysation(2);
+        }
+        //Not yet implemented!
+        private void StartAnalysation(int segmentNumber)
+        {
+            throw new NotImplementedException();
+
+            //var segmentAnalyseForm = new Form(); // SegmentAnalyseForm();
+
+            //segmentAnalyseForm.Show();
+            //this.Hide();
+
+            //segmentAnalyseForm.FormClosing += delegate
+            //{
+            //    this.Show();
+            //};
         }
     }
 }
