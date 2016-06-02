@@ -12,5 +12,6 @@ namespace FO_ERM_ISE.datasource.interfaces
         List<SegmentDTO> GetAllSegmentenOnFacttype(FacttypeDTO facttype);
         SegmentDTO getSegmentOnSegmentNummer(int segmentNumber, int datamodelNumber, string factTypeCode);
         void addNewSegmentDeel(SegmentDeelDTO segmentDeelDTO);
+        void deleteSegmentDeel(SegmentDeelDTO segmentDeelDTO);
     }
 }

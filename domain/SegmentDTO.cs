@@ -13,12 +13,15 @@ namespace FO_ERM_ISE.domain
         public int dataModelNummer { get; set; }
         public FacttypeDTO factType { get; set; }
         public List<SegmentDeelDTO> SegmentDeel { get; set; }
-        
-        public void setFactType(FacttypeDTO ft)
+
+        public void SetFactType(FacttypeDTO ft)
         {
-            this.factType = ft;
-            this.feitTypeCode = ft.feitTypeCode;
-            this.dataModelNummer = ft.dataModelNummer;            
+            if (ft != null)
+            {
+                this.factType = ft;
+                this.feitTypeCode = ft.feitTypeCode;
+                this.dataModelNummer = ft.dataModelNummer;
+            }
         }
 
         public void addSegmentDeel(String segmentDeelText)
@@ -28,16 +31,21 @@ namespace FO_ERM_ISE.domain
             sd.factType = this.factType;
             sd.feitTypeCode = this.feitTypeCode;            
             sd.segmentNummer = this.segmentNummer;
-            
-            if(SegmentDeel == null)
+
+            if(SegmentDeel == null )
             {
                 this.SegmentDeel = new List<SegmentDeelDTO>();
+            }
+
+            if(SegmentDeel.Count() == 0)
+            {                
                 sd.segmentDeelNummer = 1;
             }
             else
             {
                 sd.segmentDeelNummer = this.SegmentDeel.Max(i => i.segmentDeelNummer) + 1;     
-            }          
+            }         
+ 
             sd.segmentDeelTekst = segmentDeelText;
 
             this.SegmentDeel.Add(sd);

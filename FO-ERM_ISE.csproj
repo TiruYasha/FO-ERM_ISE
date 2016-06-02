@@ -112,6 +112,7 @@
     <Compile Include="PredicaatDeel.cs">
       <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="presentation\DatabaseErrorHandler.cs" />
     <Compile Include="presentation\datamodel\AddDataModelForm.cs">
       <SubType>Form</SubType>
     </Compile>

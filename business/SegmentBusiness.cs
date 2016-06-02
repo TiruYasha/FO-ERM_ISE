@@ -41,7 +41,22 @@ namespace FO_ERM_ISE.business
 
         public void DeleteSegment(SegmentDTO segment)
         {
-            this.dmDatasource.Delete(segment);
+            if(segment.SegmentDeel.Count() == 0)
+            {
+                this.dmDatasource.Delete(segment);
+            }
+            else
+            {
+                SegmentDTO sdto = this.dmDatasource.getSegmentOnSegmentNummer(segment.segmentNummer, segment.dataModelNummer, segment.feitTypeCode);                
+                List<SegmentDeelDTO> toDeleteSegmentDelen = sdto.SegmentDeel.Except(sdto.SegmentDeel).ToList();
+
+                foreach(var i in toDeleteSegmentDelen)
+                {
+                    this.dmDatasource.deleteSegmentDeel(i);
+                }
+            }
+            
+            //this.dmDatasource.Delete(segment);
         }
 
         public List<SegmentDTO> GetAllSegmentenOnFacttype(FacttypeDTO facttype)

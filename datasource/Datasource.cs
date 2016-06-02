@@ -13,9 +13,6 @@ namespace FO_ERM_ISE.datasource
 {
     abstract class Datasource<T, T2> : IDatasource<T, T2>   where T : class where T2 : class
     {
-        /*
-         * If possible transfer mapping to own function or even own class!
-         */
         public  DTOMapper<T, T2> dtoMapper;
         protected FO_ERMEntities1 Db { get; set; }
 
@@ -44,9 +41,9 @@ namespace FO_ERM_ISE.datasource
                     Dbset.Add(entity);
                     Db.SaveChanges();
                 }
-                catch (DbEntityValidationException dbEx)
+                catch (Exception dbEx)
                 {
-                    throw new Exception(ParseErrorMessage(dbEx), dbEx);
+                    throw dbEx;
                 }
             }
         }
@@ -64,9 +61,9 @@ namespace FO_ERM_ISE.datasource
                     Db.Entry(entity).State = EntityState.Modified;
                     Db.SaveChanges();
                 }
-                catch (DbEntityValidationException dbEx)
+                catch (Exception dbEx)
                 {
-                    throw new Exception(ParseErrorMessage(dbEx), dbEx);
+                    throw dbEx;
                 }
             }
         }
@@ -85,9 +82,9 @@ namespace FO_ERM_ISE.datasource
 
                     Db.SaveChanges();
                 }
-                catch (DbEntityValidationException dbEx)
+                catch (Exception dbEx)
                 {
-                    throw new Exception(ParseErrorMessage(dbEx), dbEx);
+                    throw dbEx;
                 }
             }
         }
@@ -101,22 +98,6 @@ namespace FO_ERM_ISE.datasource
             
                 return dtos;
             }
-        }
-
-        protected string ParseErrorMessage(DbEntityValidationException dbEx)
-        {
-            string errorMessage = String.Empty;
-
-            foreach (var validationErrors in dbEx.EntityValidationErrors)
-            {
-                foreach (var validationError in validationErrors.ValidationErrors)
-                {
-                    errorMessage += string.Format("Property: {0} Error: {1}",
-                    validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
-                }
-            }
-
-            return errorMessage;
         }
     }
 }

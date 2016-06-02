@@ -20,30 +20,7 @@ namespace FO_ERM_ISE.datasource
                 List<Segment> factTypes = Db.Segment.Where(i => i.feitTypeCode == facttype.feitTypeCode && i.dataModelNummer == facttype.dataModelNummer).ToList();
                 return this.dtoMapper.MapEntitiesToDTOs(factTypes);
             }
-        }
-
-        //public override void Create(SegmentDTO dto)
-        //{
-        //    using (Db = new FO_ERMEntities1())
-        //    {
-        //        //If the segment doesn't exist yet create it.
-        //        if (!Db.Segment.Where(i => i.dataModelNummer == dto.dataModelNummer &&
-        //                                         i.feitTypeCode == dto.feitTypeCode &&
-        //                                         i.segmentNummer == dto.segmentNummer).Any())
-        //        {
-        //            base.Create(dto);
-        //        }
-        //        //If the segment does exists attach it and save the changes.
-        //        else
-        //        {
-        //            Segment entity = dtoMapper.MapDTOToEntity(dto);
-
-        //            Dbset.Attach(entity);
-        //            Db.Entry(entity).State = EntityState.Modified;
-        //            Db.SaveChanges();
-        //        }            
-        //    }
-        //}
+        }        
 
         public SegmentDTO getSegmentOnSegmentNummer(int segmentNumber, int datamodelNumber, string factTypeCode)
         {
@@ -59,6 +36,15 @@ namespace FO_ERM_ISE.datasource
             using (var db = new FO_ERMEntities1())
             {               
                 db.SegmentDeel.Add(segmentDeelMapper.MapDTOToEntity(segmentDeelDTO));
+                db.SaveChanges();
+            }
+        }
+
+        public void deleteSegmentDeel(SegmentDeelDTO segmentDeelDTO)
+        {
+            using (var db = new FO_ERMEntities1())
+            {
+                db.SegmentDeel.Remove(segmentDeelMapper.MapDTOToEntity(segmentDeelDTO));
                 db.SaveChanges();
             }
         }

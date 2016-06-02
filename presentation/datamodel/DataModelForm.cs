@@ -6,6 +6,7 @@ using FO_ERM_ISE.business.interfaces;
 using System.Collections.Generic;
 using FO_ERM_ISE.dependencyManager;
 using FO_ERM_ISE.domain;
+using FO_ERM_ISE.presentation;
 
 namespace FO_ERM_ISE.Forms
 {
@@ -18,13 +19,16 @@ namespace FO_ERM_ISE.Forms
          */
 
         IDatamodelBusiness dmBusiness; //Datamodel business layer
+        DatabaseErrorHandler errorHanlder;
 
         public DataModelForm()
         {
             InitializeComponent();
 
             DependencyManager depman = new DependencyManager();
-            this.dmBusiness = depman.GetIDatamodelBusiness();          
+            this.dmBusiness = depman.GetIDatamodelBusiness();
+
+            this.errorHanlder = new DatabaseErrorHandler();
 
             SetlbDatamodelDatasource();
         }
@@ -114,7 +118,7 @@ namespace FO_ERM_ISE.Forms
             }
             catch(Exception e)
             {
-                MessageBox.Show("Er is een onverwachte fout opgetreden: " + e.Message);
+                MessageBox.Show(errorHanlder.ParseErrorMessage(e));
             }
         }
 
@@ -127,7 +131,7 @@ namespace FO_ERM_ISE.Forms
             }
             catch(Exception e)
             {
-                MessageBox.Show("Er is een onverwachte fout opgetreden: " + e.Message);
+                MessageBox.Show(errorHanlder.ParseErrorMessage(e));
             }
         }
 
@@ -141,7 +145,7 @@ namespace FO_ERM_ISE.Forms
             }
             catch(Exception e)
             {
-                MessageBox.Show("Er is een onverwachte fout opgetreden: " + e.Message);
+                MessageBox.Show(errorHanlder.ParseErrorMessage(e));
             }
         }
 

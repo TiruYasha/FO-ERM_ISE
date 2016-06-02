@@ -39,8 +39,13 @@
             this.radioSegment1 = new System.Windows.Forms.RadioButton();
             this.btnToevoegen = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
-            this.btnAnalyseSegment2 = new System.Windows.Forms.Button();
-            this.btnAnalyseSegment1 = new System.Windows.Forms.Button();
+            this.btnSaveFactType = new System.Windows.Forms.Button();
+            this.btnAnalyse = new System.Windows.Forms.Button();
+            this.lablRelationType = new System.Windows.Forms.Label();
+            this.lbRelationType = new System.Windows.Forms.ListBox();
+            this.btnDeleteRelationType = new System.Windows.Forms.Button();
+            this.btnUpdateRelationType = new System.Windows.Forms.Button();
+            this.btnAddRelationType = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +70,7 @@
             // lbSegment2
             // 
             this.lbSegment2.FormattingEnabled = true;
-            this.lbSegment2.Location = new System.Drawing.Point(251, 132);
+            this.lbSegment2.Location = new System.Drawing.Point(303, 132);
             this.lbSegment2.Name = "lbSegment2";
             this.lbSegment2.Size = new System.Drawing.Size(182, 160);
             this.lbSegment2.TabIndex = 2;
@@ -83,11 +88,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(248, 116);
+            this.label3.Location = new System.Drawing.Point(300, 116);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(111, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Delen van segment 3:";
+            this.label3.Text = "Delen van segment 2:";
             // 
             // txtVerwoording
             // 
@@ -144,41 +149,88 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(199, 197);
+            this.btnRemove.Location = new System.Drawing.Point(199, 172);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(46, 41);
+            this.btnRemove.Size = new System.Drawing.Size(97, 25);
             this.btnRemove.TabIndex = 8;
             this.btnRemove.Text = "Delete";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
-            // btnAnalyseSegment2
+            // btnSaveFactType
             // 
-            this.btnAnalyseSegment2.Location = new System.Drawing.Point(251, 297);
-            this.btnAnalyseSegment2.Name = "btnAnalyseSegment2";
-            this.btnAnalyseSegment2.Size = new System.Drawing.Size(185, 23);
-            this.btnAnalyseSegment2.TabIndex = 9;
-            this.btnAnalyseSegment2.Text = "Analyseer segment 2";
-            this.btnAnalyseSegment2.UseVisualStyleBackColor = true;
-            this.btnAnalyseSegment2.Click += new System.EventHandler(this.btnAnalyseSegment2_Click);
+            this.btnSaveFactType.Location = new System.Drawing.Point(367, 493);
+            this.btnSaveFactType.Name = "btnSaveFactType";
+            this.btnSaveFactType.Size = new System.Drawing.Size(118, 32);
+            this.btnSaveFactType.TabIndex = 9;
+            this.btnSaveFactType.Text = "Opslaan";
+            this.btnSaveFactType.UseVisualStyleBackColor = true;
             // 
-            // btnAnalyseSegment1
+            // btnAnalyse
             // 
-            this.btnAnalyseSegment1.Location = new System.Drawing.Point(15, 297);
-            this.btnAnalyseSegment1.Name = "btnAnalyseSegment1";
-            this.btnAnalyseSegment1.Size = new System.Drawing.Size(178, 23);
-            this.btnAnalyseSegment1.TabIndex = 10;
-            this.btnAnalyseSegment1.Text = "Analyseer segment 1";
-            this.btnAnalyseSegment1.UseVisualStyleBackColor = true;
-            this.btnAnalyseSegment1.Click += new System.EventHandler(this.btnAnalyseSegment1_Click);
+            this.btnAnalyse.Location = new System.Drawing.Point(199, 132);
+            this.btnAnalyse.Name = "btnAnalyse";
+            this.btnAnalyse.Size = new System.Drawing.Size(97, 25);
+            this.btnAnalyse.TabIndex = 10;
+            this.btnAnalyse.Text = "Analyseren";
+            this.btnAnalyse.UseVisualStyleBackColor = true;
+            // 
+            // lablRelationType
+            // 
+            this.lablRelationType.AutoSize = true;
+            this.lablRelationType.Location = new System.Drawing.Point(15, 311);
+            this.lablRelationType.Name = "lablRelationType";
+            this.lablRelationType.Size = new System.Drawing.Size(72, 13);
+            this.lablRelationType.TabIndex = 11;
+            this.lablRelationType.Text = "Relatie typen:";
+            // 
+            // lbRelationType
+            // 
+            this.lbRelationType.FormattingEnabled = true;
+            this.lbRelationType.Location = new System.Drawing.Point(18, 327);
+            this.lbRelationType.Name = "lbRelationType";
+            this.lbRelationType.Size = new System.Drawing.Size(278, 160);
+            this.lbRelationType.TabIndex = 12;
+            // 
+            // btnDeleteRelationType
+            // 
+            this.btnDeleteRelationType.Location = new System.Drawing.Point(18, 493);
+            this.btnDeleteRelationType.Name = "btnDeleteRelationType";
+            this.btnDeleteRelationType.Size = new System.Drawing.Size(83, 32);
+            this.btnDeleteRelationType.TabIndex = 13;
+            this.btnDeleteRelationType.Text = "Verwijderen";
+            this.btnDeleteRelationType.UseVisualStyleBackColor = true;
+            // 
+            // btnUpdateRelationType
+            // 
+            this.btnUpdateRelationType.Location = new System.Drawing.Point(110, 493);
+            this.btnUpdateRelationType.Name = "btnUpdateRelationType";
+            this.btnUpdateRelationType.Size = new System.Drawing.Size(97, 32);
+            this.btnUpdateRelationType.TabIndex = 14;
+            this.btnUpdateRelationType.Text = "Bewerken";
+            this.btnUpdateRelationType.UseVisualStyleBackColor = true;
+            // 
+            // btnAddRelationType
+            // 
+            this.btnAddRelationType.Location = new System.Drawing.Point(213, 493);
+            this.btnAddRelationType.Name = "btnAddRelationType";
+            this.btnAddRelationType.Size = new System.Drawing.Size(83, 32);
+            this.btnAddRelationType.TabIndex = 15;
+            this.btnAddRelationType.Text = "Toevoegen";
+            this.btnAddRelationType.UseVisualStyleBackColor = true;
             // 
             // SegmentManagementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 332);
-            this.Controls.Add(this.btnAnalyseSegment1);
-            this.Controls.Add(this.btnAnalyseSegment2);
+            this.ClientSize = new System.Drawing.Size(503, 545);
+            this.Controls.Add(this.btnAddRelationType);
+            this.Controls.Add(this.btnUpdateRelationType);
+            this.Controls.Add(this.btnDeleteRelationType);
+            this.Controls.Add(this.lbRelationType);
+            this.Controls.Add(this.lablRelationType);
+            this.Controls.Add(this.btnAnalyse);
+            this.Controls.Add(this.btnSaveFactType);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.btnToevoegen);
             this.Controls.Add(this.groupBox1);
@@ -210,7 +262,12 @@
         private System.Windows.Forms.RadioButton radioSegment1;
         private System.Windows.Forms.Button btnToevoegen;
         private System.Windows.Forms.Button btnRemove;
-        private System.Windows.Forms.Button btnAnalyseSegment2;
-        private System.Windows.Forms.Button btnAnalyseSegment1;
+        private System.Windows.Forms.Button btnSaveFactType;
+        private System.Windows.Forms.Button btnAnalyse;
+        private System.Windows.Forms.Label lablRelationType;
+        private System.Windows.Forms.ListBox lbRelationType;
+        private System.Windows.Forms.Button btnDeleteRelationType;
+        private System.Windows.Forms.Button btnUpdateRelationType;
+        private System.Windows.Forms.Button btnAddRelationType;
     }
 }
