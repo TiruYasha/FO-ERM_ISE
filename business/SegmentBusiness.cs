@@ -24,19 +24,40 @@ namespace FO_ERM_ISE.business
         public void AddSegment(SegmentDTO segment)
         {
             SegmentDTO sdto = this.dmDatasource.getSegmentOnSegmentNummer(segment.segmentNummer, segment.dataModelNummer, segment.feitTypeCode);
-            
-            if(sdto == null)
+
+            if (this.validateSegmentOnFactType(segment.factType))
             {
-                this.dmDatasource.Create(segment);
+                if (sdto == null)
+                {
+                    this.dmDatasource.Create(segment);
+                }
+                else
+                {
+                    List<SegmentDeelDTO> newSegmentDelen = segment.SegmentDeel.Where(i => i.segmentDeelNummer > sdto.SegmentDeel.Max(x => x.segmentDeelNummer)).ToList();
+                    foreach (var i in newSegmentDelen)
+                    {
+                        this.dmDatasource.addNewSegmentDeel(i);
+                    }
+                }
             }
             else
             {
-                List<SegmentDeelDTO> newSegmentDelen = segment.SegmentDeel.Where(i => i.segmentDeelNummer > sdto.SegmentDeel.Max(x => x.segmentDeelNummer)).ToList();
-                foreach(var i in newSegmentDelen)
-                {
-                    this.dmDatasource.addNewSegmentDeel(i);
-                }
+                throw new System.ArgumentException("Voeg eerst segment 1 toe", "");
             }
+        }
+
+        private Boolean validateSegmentOnFactType(FacttypeDTO factType)
+        {
+            Boolean segmentValid = false;
+            SegmentDTO segmentOne = factType.Segment.Where(i => i.segmentNummer == 1).SingleOrDefault();
+
+            if (segmentOne.SegmentDeel != null && segmentOne.SegmentDeel.Any() && segmentOne != null)
+            {
+                //Segment 1 exists
+                segmentValid = true;
+            }
+
+            return segmentValid;
         }
 
         public void DeleteSegmentDeel(SegmentDeelDTO segmentDeel)

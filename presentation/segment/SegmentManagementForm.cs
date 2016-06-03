@@ -202,8 +202,9 @@ namespace FO_ERM_ISE.presentation.segment
         /// </summary>
         private void getSegmenten()
         {
-            this.segmentOne = this.getSegmentDeel(1);
-            this.segmentTwo = this.getSegmentDeel(2);
+            this.factType.Segment = new List<SegmentDTO>();
+            this.segmentOne = this.getSegmentOnSegmentNumber(1);
+            this.segmentTwo = this.getSegmentOnSegmentNumber(2);
 
             if (this.segmentOne == null)
             {
@@ -218,6 +219,9 @@ namespace FO_ERM_ISE.presentation.segment
                 this.segmentTwo.SetFactType(this.factType);
                 this.segmentTwo.segmentNummer = 2;
             }
+
+            this.factType.Segment.Add(segmentOne);
+            this.factType.Segment.Add(segmentTwo);
         }
 
         /// <summary>
@@ -238,7 +242,7 @@ namespace FO_ERM_ISE.presentation.segment
         /// </summary>
         /// <param name="segmentNummer"></param>
         /// <returns></returns>
-        private SegmentDTO getSegmentDeel(int segmentNummer)
+        private SegmentDTO getSegmentOnSegmentNumber(int segmentNummer)
         {
             return this.sb.getSegmentOnSegmentNummer(segmentNummer, this.factType.dataModelNummer, this.factType.feitTypeCode);
         }
@@ -285,6 +289,7 @@ namespace FO_ERM_ISE.presentation.segment
                     {
                         this.segmentTwo.SegmentDeel.Remove(segmentDeel);
                     }
+                    
                     this.sb.DeleteSegmentDeel(segmentDeel);
                 }
                 catch (Exception e)
