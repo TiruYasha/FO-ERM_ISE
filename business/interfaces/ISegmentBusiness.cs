@@ -11,7 +11,7 @@ namespace FO_ERM_ISE.business.interfaces
     {
         List<SegmentDTO> GetAllSegmentenOnFacttype(FacttypeDTO facttype);
         void AddSegment(SegmentDTO segment);
-        void DeleteSegment(SegmentDTO segment);
+        void DeleteSegmentDeel(SegmentDeelDTO segment);
         void UpdateSegment(SegmentDTO segment);
         SegmentDTO getSegmentOnSegmentNummer(int segmentNumber, int datamodelNumber, string factTypeCode);
     }

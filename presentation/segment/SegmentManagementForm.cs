@@ -277,16 +277,15 @@ namespace FO_ERM_ISE.presentation.segment
             {
                 try
                 {
-                    if (segmentDeel.segment.segmentNummer == 1)
+                    if (segmentDeel.segmentNummer == 1)
                     {
                         this.segmentOne.SegmentDeel.Remove(segmentDeel);
-                        this.sb.DeleteSegment(segmentOne);
                     }
                     else
                     {
                         this.segmentTwo.SegmentDeel.Remove(segmentDeel);
-                        this.sb.DeleteSegment(segmentTwo);
                     }
+                    this.sb.DeleteSegmentDeel(segmentDeel);
                 }
                 catch (Exception e)
                 {

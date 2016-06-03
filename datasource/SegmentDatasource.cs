@@ -44,7 +44,11 @@ namespace FO_ERM_ISE.datasource
         {
             using (var db = new FO_ERMEntities1())
             {
-                db.SegmentDeel.Remove(segmentDeelMapper.MapDTOToEntity(segmentDeelDTO));
+                SegmentDeel sd = segmentDeelMapper.MapDTOToEntity(segmentDeelDTO);
+                DbSet dbset = db.Set<SegmentDeel>();
+                
+                dbset.Attach(sd);
+                db.SegmentDeel.Remove(sd);
                 db.SaveChanges();
             }
         }

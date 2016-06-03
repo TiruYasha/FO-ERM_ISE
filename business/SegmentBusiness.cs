@@ -39,24 +39,16 @@ namespace FO_ERM_ISE.business
             }
         }
 
-        public void DeleteSegment(SegmentDTO segment)
+        public void DeleteSegmentDeel(SegmentDeelDTO segmentDeel)
         {
-            if(segment.SegmentDeel.Count() == 0)
+            if(segmentDeel.segment.SegmentDeel.Count() == 0)
             {
-                this.dmDatasource.Delete(segment);
+                this.dmDatasource.Delete(segmentDeel.segment);
             }
             else
             {
-                SegmentDTO sdto = this.dmDatasource.getSegmentOnSegmentNummer(segment.segmentNummer, segment.dataModelNummer, segment.feitTypeCode);                
-                List<SegmentDeelDTO> toDeleteSegmentDelen = sdto.SegmentDeel.Except(sdto.SegmentDeel).ToList();
-
-                foreach(var i in toDeleteSegmentDelen)
-                {
-                    this.dmDatasource.deleteSegmentDeel(i);
-                }
+                this.dmDatasource.deleteSegmentDeel(segmentDeel);
             }
-            
-            //this.dmDatasource.Delete(segment);
         }
 
         public List<SegmentDTO> GetAllSegmentenOnFacttype(FacttypeDTO facttype)
