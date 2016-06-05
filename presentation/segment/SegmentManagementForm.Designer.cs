@@ -174,6 +174,7 @@
             this.btnAnalyse.TabIndex = 10;
             this.btnAnalyse.Text = "Analyseren";
             this.btnAnalyse.UseVisualStyleBackColor = true;
+            this.btnAnalyse.Click += new System.EventHandler(this.btnAnalyse_Click);
             // 
             // lablRelationType
             // 

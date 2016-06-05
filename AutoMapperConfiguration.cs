@@ -23,6 +23,9 @@ namespace FO_ERM_ISE
 
             CreateMap<SegmentDeel, SegmentDeelDTO>();
             CreateMap<SegmentDeelDTO, SegmentDeel>();
+
+            CreateMap<EntiteitType, EntiteittypeDTO>();
+            CreateMap<EntiteittypeDTO, EntiteitType>();
         }
     }
 }

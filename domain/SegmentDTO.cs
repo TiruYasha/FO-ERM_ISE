@@ -14,6 +14,9 @@ namespace FO_ERM_ISE.domain
         public FacttypeDTO factType { get; set; }
         public List<SegmentDeelDTO> SegmentDeel { get; set; }
 
+        public int entiteitTypeNummer { get; set; }
+        public int attribuutNummer { get; set; }
+
         public void SetFactType(FacttypeDTO ft)
         {
             if (ft != null)
