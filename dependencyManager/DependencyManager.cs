@@ -52,5 +52,15 @@ namespace FO_ERM_ISE.dependencyManager
             return new EntitytypeDatasource();
         }
 
+        public IAttributeBusiness GetIAttributeBusiness()
+        {
+            return new AttributeBusiness();
+        }
+
+        public IAttributeDatasource GetIAttributeDatasource()
+        {
+            return new AttributeDatasource();
+        }
+
     }
 }

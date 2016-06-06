@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace FO_ERM_ISE.datasource
 {
 
-    class EntitytypeDatasource : Datasource<EntitytypeDatasource, EntiteittypeDTO>, IEntitytypeDatasource
+    class EntitytypeDatasource : Datasource<EntiteitType, EntiteittypeDTO>, IEntitytypeDatasource
     {
         public List<EntiteittypeDTO> GetEntitytypeOnDataModel(int dataModelNumber)
         {
@@ -37,5 +37,31 @@ namespace FO_ERM_ISE.datasource
                 return dtos;
             }
         }
+
+
+        public new int Create(EntiteittypeDTO dto)
+        {
+            using (Db = new FO_ERMEntities1())
+            {
+                try
+                {
+                    if (dto == null)
+                    {
+                        throw new ArgumentNullException("entity");
+                    }
+                    EntiteitType entity = dtoMapper.MapDTOToEntity(dto);
+
+                    Dbset.Add(entity);
+                    Db.SaveChanges();
+
+                    return entity.entiteitTypeNummer;
+                }
+                catch (Exception dbEx)
+                {
+                    throw dbEx;
+                }
+            }
+        }
+
     }
 }

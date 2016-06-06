@@ -60,9 +60,11 @@
       <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="AutoMapperConfiguration.cs" />
+    <Compile Include="business\AttributeBusiness.cs" />
     <Compile Include="business\DatamodelBusiness.cs" />
     <Compile Include="business\EntitytypeBusiness.cs" />
     <Compile Include="business\FactTypeBusiness.cs" />
+    <Compile Include="business\interfaces\IAttributeBusiness.cs" />
     <Compile Include="business\interfaces\IDatamodelBusiness.cs" />
     <Compile Include="business\interfaces\IEntitytypeBusiness.cs" />
     <Compile Include="business\interfaces\IFactTypeBusiness.cs" />
@@ -71,11 +73,13 @@
     <Compile Include="DataModel.cs">
       <DependentUpon>FO_ERM_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="datasource\AttributeDatasource.cs" />
     <Compile Include="datasource\DatamodelDatasource.cs" />
     <Compile Include="datasource\Datasource.cs" />
     <Compile Include="datasource\DTOMapper.cs" />
     <Compile Include="datasource\EntitytypeDatasource.cs" />
     <Compile Include="datasource\FacttypeDatasource.cs" />
+    <Compile Include="datasource\interfaces\IAttributeDatasource.cs" />
     <Compile Include="datasource\interfaces\IDatamodelDatasource.cs" />
     <Compile Include="datasource\interfaces\IDatasource.cs" />
     <Compile Include="datasource\interfaces\IEntitytypeDatasource.cs" />
@@ -123,6 +127,12 @@
     </Compile>
     <Compile Include="presentation\analyse\AnalyseSegmentForm.Designer.cs">
       <DependentUpon>AnalyseSegmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="presentation\analyse\NameIDAttributeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\analyse\NameIDAttributeForm.Designer.cs">
+      <DependentUpon>NameIDAttributeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="presentation\DatabaseErrorHandler.cs" />
     <Compile Include="presentation\datamodel\AddDataModelForm.cs">
@@ -180,6 +190,9 @@
     </Compile>
     <EmbeddedResource Include="presentation\analyse\AnalyseSegmentForm.resx">
       <DependentUpon>AnalyseSegmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\analyse\NameIDAttributeForm.resx">
+      <DependentUpon>NameIDAttributeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="presentation\datamodel\AddDataModelForm.resx">
       <DependentUpon>AddDataModelForm.cs</DependentUpon>

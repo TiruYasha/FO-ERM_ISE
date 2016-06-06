@@ -21,9 +21,9 @@ namespace FO_ERM_ISE.business
             datasource = dp.GetIEntitytypeDatasource();
         }
 
-        public void AddEntiteittype(EntiteittypeDTO entiteitype)
+        public int AddEntiteittype(EntiteittypeDTO entiteitype)
         {
-            datasource.Create(entiteitype);
+            return datasource.Create(entiteitype);
         }
 
         public void DeleteEntiteittype(EntiteittypeDTO entiteitype)

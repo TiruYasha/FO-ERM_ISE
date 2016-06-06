@@ -11,5 +11,6 @@ namespace FO_ERM_ISE.datasource.interfaces
     {
         EntiteittypeDTO GetEntitytypeOnEntityTypeNumber(int entityTypeNumber);
         List<EntiteittypeDTO> GetEntitytypeOnDataModel(int dataModelNumber);
+        new int Create(EntiteittypeDTO dto);
     }
 }

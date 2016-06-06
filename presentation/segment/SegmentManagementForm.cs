@@ -327,6 +327,8 @@ namespace FO_ERM_ISE.presentation.segment
                 segmentToAnalyse = segmentOne;
             }
 
+            segmentToAnalyse.factType = factType;
+
             var analyseSegmentFrom = new AnalyseSegmentForm(segmentToAnalyse);
             analyseSegmentFrom.Show();
             this.Enabled = false;

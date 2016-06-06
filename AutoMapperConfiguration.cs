@@ -26,6 +26,9 @@ namespace FO_ERM_ISE
 
             CreateMap<EntiteitType, EntiteittypeDTO>();
             CreateMap<EntiteittypeDTO, EntiteitType>();
+
+            CreateMap<Attribuut, AttributeDTO>();
+            CreateMap<AttributeDTO, Attribuut>();
         }
     }
 }

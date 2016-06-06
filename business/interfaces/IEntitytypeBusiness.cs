@@ -12,7 +12,7 @@ namespace FO_ERM_ISE.business.interfaces
         List<EntiteittypeDTO> GetEntitytype();
         List<EntiteittypeDTO> GetEntitytypeOnDataModel(int dataModelNumber);
         EntiteittypeDTO GetEntitytypeOnEntityTypeNumber(int entityTypeNumber);
-        void AddEntiteittype(EntiteittypeDTO entiteitype);
+        int AddEntiteittype(EntiteittypeDTO entiteitype);
         void DeleteEntiteittype(EntiteittypeDTO entiteitype);
         void UpdateEntiteittype(EntiteittypeDTO entiteitype);
     }

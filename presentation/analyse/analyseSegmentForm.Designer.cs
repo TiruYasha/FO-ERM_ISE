@@ -52,6 +52,7 @@
             this.txtAttrName = new System.Windows.Forms.TextBox();
             this.txtSegment = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnDeleteAttr = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabEntiteittype.SuspendLayout();
             this.tabAttribuut.SuspendLayout();
@@ -69,6 +70,7 @@
             // 
             // tabEntiteittype
             // 
+            this.tabEntiteittype.Controls.Add(this.btnDeleteAttr);
             this.tabEntiteittype.Controls.Add(this.btnSaveET);
             this.tabEntiteittype.Controls.Add(this.btnCancel);
             this.tabEntiteittype.Controls.Add(this.btnAddRelationType);
@@ -128,6 +130,7 @@
             this.btnAddAttribute.TabIndex = 10;
             this.btnAddAttribute.Text = "Toevoegen";
             this.btnAddAttribute.UseVisualStyleBackColor = true;
+            this.btnAddAttribute.Click += new System.EventHandler(this.btnAddAttribute_Click);
             // 
             // label5
             // 
@@ -204,7 +207,6 @@
             this.selectEntitytype.Name = "selectEntitytype";
             this.selectEntitytype.Size = new System.Drawing.Size(242, 21);
             this.selectEntitytype.TabIndex = 1;
-            this.selectEntitytype.SelectedIndexChanged += new System.EventHandler(this.selectEntitytype_SelectedIndexChanged);
             // 
             // chMatch
             // 
@@ -295,6 +297,16 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Segment tekst:";
             // 
+            // btnDeleteAttr
+            // 
+            this.btnDeleteAttr.Location = new System.Drawing.Point(238, 313);
+            this.btnDeleteAttr.Name = "btnDeleteAttr";
+            this.btnDeleteAttr.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteAttr.TabIndex = 14;
+            this.btnDeleteAttr.Text = "Verwijder";
+            this.btnDeleteAttr.UseVisualStyleBackColor = true;
+            this.btnDeleteAttr.Click += new System.EventHandler(this.btnDeleteAttr_Click);
+            // 
             // AnalyseSegmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -341,5 +353,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox chMandatory;
         private System.Windows.Forms.TextBox txtAttrName;
+        private System.Windows.Forms.Button btnDeleteAttr;
     }
 }
