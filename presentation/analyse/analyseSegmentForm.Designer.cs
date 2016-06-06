@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabEntiteittype = new System.Windows.Forms.TabPage();
+            this.btnDeleteAttr = new System.Windows.Forms.Button();
             this.btnSaveET = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAddRelationType = new System.Windows.Forms.Button();
@@ -52,7 +53,6 @@
             this.txtAttrName = new System.Windows.Forms.TextBox();
             this.txtSegment = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnDeleteAttr = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabEntiteittype.SuspendLayout();
             this.tabAttribuut.SuspendLayout();
@@ -93,6 +93,16 @@
             this.tabEntiteittype.Text = "Entiteittype";
             this.tabEntiteittype.UseVisualStyleBackColor = true;
             // 
+            // btnDeleteAttr
+            // 
+            this.btnDeleteAttr.Location = new System.Drawing.Point(238, 313);
+            this.btnDeleteAttr.Name = "btnDeleteAttr";
+            this.btnDeleteAttr.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteAttr.TabIndex = 14;
+            this.btnDeleteAttr.Text = "Verwijder";
+            this.btnDeleteAttr.UseVisualStyleBackColor = true;
+            this.btnDeleteAttr.Click += new System.EventHandler(this.btnDeleteAttr_Click);
+            // 
             // btnSaveET
             // 
             this.btnSaveET.Location = new System.Drawing.Point(301, 347);
@@ -121,6 +131,7 @@
             this.btnAddRelationType.TabIndex = 11;
             this.btnAddRelationType.Text = "Relatietype toevoegen";
             this.btnAddRelationType.UseVisualStyleBackColor = true;
+            this.btnAddRelationType.Click += new System.EventHandler(this.btnAddRelationType_Click);
             // 
             // btnAddAttribute
             // 
@@ -296,16 +307,6 @@
             this.label1.Size = new System.Drawing.Size(78, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Segment tekst:";
-            // 
-            // btnDeleteAttr
-            // 
-            this.btnDeleteAttr.Location = new System.Drawing.Point(238, 313);
-            this.btnDeleteAttr.Name = "btnDeleteAttr";
-            this.btnDeleteAttr.Size = new System.Drawing.Size(75, 23);
-            this.btnDeleteAttr.TabIndex = 14;
-            this.btnDeleteAttr.Text = "Verwijder";
-            this.btnDeleteAttr.UseVisualStyleBackColor = true;
-            this.btnDeleteAttr.Click += new System.EventHandler(this.btnDeleteAttr_Click);
             // 
             // AnalyseSegmentForm
             // 

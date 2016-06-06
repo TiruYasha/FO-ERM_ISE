@@ -11,6 +11,7 @@ using FO_ERM_ISE.domain;
 using FO_ERM_ISE.dependencyManager;
 using FO_ERM_ISE.business;
 using FO_ERM_ISE.business.interfaces;
+using FO_ERM_ISE.presentation.relationtype;
 
 namespace FO_ERM_ISE.presentation.analyse
 {
@@ -21,7 +22,6 @@ namespace FO_ERM_ISE.presentation.analyse
         private IEntitytypeBusiness ETBusiness;
         private IAttributeBusiness AttrBusiness;
         private ISegmentBusiness SegmentBusiness;
-
 
         public AnalyseSegmentForm(SegmentDTO segment)
         {
@@ -36,6 +36,7 @@ namespace FO_ERM_ISE.presentation.analyse
             fetchAnalyeFromSegment(segment);
 
             loadEntityTypesInForm(segment.dataModelNummer);
+
         }
 
 
@@ -66,14 +67,21 @@ namespace FO_ERM_ISE.presentation.analyse
         private void fillEntitytypeInForm(EntiteittypeDTO EtToAnalyse)
         {
             txtETNaam.Text = EtToAnalyse.entiteitTypeNaam;
-            // laad identificerende attribuuten.
+
+            foreach(AttributeDTO attr in
+                AttrBusiness.GetAttributesOnEntityTypeNumber(EtToAnalyse.entiteitTypeNummer))
+            {
+                lbIDAttr.Items.Add(attr);
+                lbIDAttr.DisplayMember = "attribuutNaam";
+            }
+
         }
 
         private void fillAttributeInForm(AttributeDTO AttrToAnalyse)
         {
-            if (AttrToAnalyse == null) return; 
+            if (AttrToAnalyse == null) return;
             txtAttrName.Text = AttrToAnalyse.attribuutNaam;
-            if(AttrToAnalyse.verplicht == "True")
+            if (AttrToAnalyse.verplicht == "True")
             {
                 chMandatory.Checked = true;
             } else
@@ -93,11 +101,6 @@ namespace FO_ERM_ISE.presentation.analyse
             selectEntitytype.DataSource = ets;
             selectEntitytype.DisplayMember = "entiteitTypeNaam";
         }
-
-        #endregion
-
-
-        #region MATCH functions
 
         private void chMatch_CheckedChanged(object sender, EventArgs e)
         {
@@ -125,11 +128,22 @@ namespace FO_ERM_ISE.presentation.analyse
 
         #region ACTIONS
 
-        private void saveET()
+        private EntiteittypeDTO saveET()
         {
+
+            if (segment.attribuutNummer != 0 && segment.attribuutNummer != null)
+            {
+                AttributeDTO attribuutToDelte = AttrBusiness.GetAttributeOnAttributeNumber(segment.attribuutNummer.Value);
+                AttrBusiness.DeleteAttribute(attribuutToDelte);
+                segment.attribuutNummer = null;
+                SegmentBusiness.UpdateSegment(segment);
+            }
+
+
             if (chMatch.Checked)
             { //checked so save segment with ET numer then exit.
                 segment.entiteitTypeNummer = ((EntiteittypeDTO)selectEntitytype.SelectedItem).entiteitTypeNummer;
+                return null;
             } else
             {  // new ET
 
@@ -138,32 +152,58 @@ namespace FO_ERM_ISE.presentation.analyse
                 newEt.dataModelNummer = segment.dataModelNummer;
                 newEt.entiteitTypeNaam = txtETNaam.Text;
 
-                int newETnummer = ETBusiness.AddEntiteittype(newEt);
 
-                // save ID Attr
-                //      for each in listbox create attrbibute
-                foreach(string naam in lbIDAttr.Items)
+                // if et does not exist make new else update 
+                int newEtNummer;
+                if (segment.entiteitTypeNummer == null || segment.entiteitTypeNummer == 0)
                 {
-                    AttributeDTO newAttr = new AttributeDTO();
-                    newAttr.attribuutNaam = naam;
-                    newAttr.dataModelNummer = segment.dataModelNummer;
-                    newAttr.entiteitTypeNummer = newETnummer;
-                    newAttr.identificerend = "True";
-                    newAttr.verplicht = "True";
-                    AttrBusiness.AddAttribute(newAttr);
+                    newEtNummer = ETBusiness.AddEntiteittype(newEt);
+                } else
+                {
+                    newEtNummer = segment.entiteitTypeNummer.Value;
+                    newEt.entiteitTypeNummer = newEtNummer;
+                    ETBusiness.UpdateEntiteittype(newEt);
                 }
 
-                // save relationtypes
+                // save ID Attr
+                syncAttributesWithDatabase(newEtNummer);
 
-
-                // update segment
-                segment.entiteitTypeNummer = newETnummer;
+                // new et update segment 
+                segment.entiteitTypeNummer = newEtNummer;
                 SegmentBusiness.UpdateSegment(segment);
+
+                return newEt;
             }
+        }
+
+        private void syncAttributesWithDatabase(int etNummer)
+        {
+
+            foreach (AttributeDTO attribuut in lbIDAttr.Items)
+            {
+                if (attribuut.attribuutNummer != 0)
+                {// attribuut bestaat dus update
+                    AttrBusiness.UpdateAttribute(attribuut);
+                }
+                else
+                { // bestaat nog niet voeg et nummer toe en sla op
+                    attribuut.entiteitTypeNummer = etNummer;
+                    AttrBusiness.AddAttribute(attribuut);
+                }
+            }
+
         }
 
         private void saveAttr()
         {
+            if (segment.entiteitTypeNummer != 0 && segment.entiteitTypeNummer != null)
+            {
+                EntiteittypeDTO etToDelte = ETBusiness.GetEntitytypeOnEntityTypeNumber(segment.entiteitTypeNummer.Value);
+                ETBusiness.DeleteEntiteittype(etToDelte);
+                segment.entiteitTypeNummer = null;
+                SegmentBusiness.UpdateSegment(segment);
+            }
+
 
             int segmentNummer;
             if(segment.segmentNummer == 1)
@@ -177,7 +217,7 @@ namespace FO_ERM_ISE.presentation.analyse
             SegmentDTO anderSegment = 
                 SegmentBusiness.getSegmentOnSegmentNummer(segmentNummer, segment.dataModelNummer, segment.feitTypeCode);
 
-            if(anderSegment == null || anderSegment.entiteitTypeNummer == 0)
+            if(anderSegment == null || anderSegment.entiteitTypeNummer == 0 || anderSegment.entiteitTypeNummer == null)
             {
                 // the other segment is null or is a Attr.
                 MessageBox.Show("Kan het attribuut niet opslaan: " +
@@ -257,7 +297,7 @@ namespace FO_ERM_ISE.presentation.analyse
             }
         }
 
-        #endregion
+        // manage buttons
 
         private void btnAddAttribute_Click(object sender, EventArgs e)
         {
@@ -266,17 +306,53 @@ namespace FO_ERM_ISE.presentation.analyse
 
             if (!string.IsNullOrEmpty(form.AttributeName))
             {
-                lbIDAttr.Items.Add(form.AttributeName);
+                AttributeDTO newAttr = new AttributeDTO();
+                newAttr.attribuutNaam = form.AttributeName;
+                newAttr.dataModelNummer = segment.dataModelNummer;
+                newAttr.identificerend = "True";
+                newAttr.verplicht = "True";
+
+                lbIDAttr.Items.Add(newAttr);
+                lbIDAttr.DisplayMember = "attribuutNaam";
+
             }
         }
 
         private void btnDeleteAttr_Click(object sender, EventArgs e)
         {
-            if(lbIDAttr.SelectedItem != null)
+            if(lbIDAttr.SelectedItem != null && 
+                ((AttributeDTO)lbIDAttr.SelectedItem).attribuutNummer != 0)
+            {
+                AttrBusiness.DeleteAttribute((AttributeDTO)lbIDAttr.SelectedItem);
+                lbIDAttr.Items.Remove(lbIDAttr.SelectedItem);
+            } else
             {
                 lbIDAttr.Items.Remove(lbIDAttr.SelectedItem);
             }
         }
+
+        private void btnAddRelationType_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Om een relatietype toe te voegen moet het entiteittype eerst worden opgeslagen. Wilt u deze nu opslaan?", "Entiteittype opslaan", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                EntiteittypeDTO dependant = saveET();
+                EntiteittypeDTO otherEt = (EntiteittypeDTO)lbDependentETs.SelectedItem;
+
+                // open relation type add forum
+                RelationTypeForm form = new RelationTypeForm(dependant, otherEt);
+                form.ShowDialog();
+                this.Enabled = false;
+
+                form.FormClosing += delegate
+                {
+                    this.Enabled = true;
+                };
+
+            }
+        }
+
+        #endregion
     }
 
 }
