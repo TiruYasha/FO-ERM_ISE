@@ -10,6 +10,7 @@ namespace FO_ERM_ISE.domain
     {
         public DatamodelDTO DataModel { get; set; }
         public List<SegmentDTO> Segment { get; set; }
+        public Boolean geverifieerd { get; set; }
 
         public string feitTypeCode { get; set; }
         public int dataModelNummer { get; set; }

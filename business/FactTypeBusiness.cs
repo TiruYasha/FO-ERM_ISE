@@ -65,5 +65,17 @@ namespace FO_ERM_ISE.business
         {
             return ftDatasource.GetAllFactTypesOnDatamodel(datamodel);
         }
+
+        public void verifyFactType(FacttypeDTO factType)
+        {
+            try
+            {
+                this.ftDatasource.verifyFactType(factType);
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace FO_ERM_ISE.presentation
 {
     class DatabaseErrorHandler
     {
+        //System.Exception {System.Data.Entity.Core.EntityCommandExecutionException}
         public string ParseErrorMessage(Exception e)
         {
             while (e.InnerException != null)
@@ -16,7 +17,7 @@ namespace FO_ERM_ISE.presentation
                 e = e.InnerException;
             }
 
-            return e.Message;           
+            return e.Message + " \n " + e.HelpLink;           
         }
     }
 }

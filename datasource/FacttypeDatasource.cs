@@ -23,5 +23,20 @@ namespace FO_ERM_ISE.datasource
                 return dtos;
             }
         }
+
+        public void verifyFactType(FacttypeDTO factType)
+        {
+            using (Db = new FO_ERMEntities1())
+            {
+                try
+                {
+                    Db.spr_FactTypeValidation(factType.dataModelNummer, factType.feitTypeCode);
+                }
+                catch(Exception e)
+                {
+                    throw e;
+                }
+            }
+        }
     }
 }
