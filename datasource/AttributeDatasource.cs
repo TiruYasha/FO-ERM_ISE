@@ -59,6 +59,16 @@ namespace FO_ERM_ISE.datasource
             }
         }
 
+        public List<AttributeDTO> getAttributeForPredicate(String FeitType, int datamodelNummer)
+        {
+            using (Db = new FO_ERMEntities1())
+            {
+                List<Attribuut> attributen = Db.Attribuut.Where( x=> x.EntiteitType.dataModelNummer == datamodelNummer ).ToList();
+
+                return dtoMapper.MapEntitiesToDTOs(attributen);
+            }
+        }
+
 
     }
 }

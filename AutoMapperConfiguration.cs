@@ -36,6 +36,9 @@ namespace FO_ERM_ISE
             CreateMap<Attribuut, AttributeDTO>();
             CreateMap<AttributeDTO, Attribuut>();
 
+            CreateMap<PredicaatDeel, PredicaatDeelDTO>();
+            CreateMap<PredicaatDeelDTO, PredicaatDeel>();
+
         }
     }
 }
