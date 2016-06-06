@@ -67,7 +67,7 @@ namespace FO_ERM_ISE.presentation.facttype
         /// <param name="e"></param>
         private void btnDeleteFactType_Click(object sender, EventArgs e)
         {
-            var selectedItem = (FacttypeDTO)lvFacttypes.SelectedItems[0].Tag;
+            var selectedItem = this.getSelectedDataModel();
 
             DialogResult dialogResult = MessageBox.Show("Weet u zeker dat u feitType " + selectedItem.feitTypeCode + " wil verwijderen?", "Verwijderen", MessageBoxButtons.YesNo);
 
@@ -90,7 +90,7 @@ namespace FO_ERM_ISE.presentation.facttype
         /// <param name="e"></param>
         private void btnUpdateFactType_Click(object sender, EventArgs e)
         {
-            var selectedModel = (FacttypeDTO)lvFacttypes.SelectedItems[0].Tag;
+            var selectedModel = this.getSelectedDataModel();
             var editFactTypeForm = new EditFactTypeForm("Feittypen aanpassen", selectedModel);
 
             editFactTypeForm.ShowDialog();
@@ -118,12 +118,14 @@ namespace FO_ERM_ISE.presentation.facttype
                 btnDeleteFactType.Enabled = false;
                 btnUpdateFactType.Enabled = false;
                 btnSegmentManagement.Enabled = false;
+                btnVerifyFactType.Enabled = false;
             }
             else
             {
                 btnDeleteFactType.Enabled = true;
                 btnUpdateFactType.Enabled = true;
                 btnSegmentManagement.Enabled = true;
+                btnVerifyFactType.Enabled = true;
             }
         }
 
@@ -135,7 +137,7 @@ namespace FO_ERM_ISE.presentation.facttype
         /// <param name="e"></param>
         private void btnSegmentManagement_Click(object sender, EventArgs e)
         {
-            var segmentManagementForm = new SegmentManagementForm((FacttypeDTO)lvFacttypes.SelectedItems[0].Tag);
+            var segmentManagementForm = new SegmentManagementForm(this.getSelectedDataModel());
 
             segmentManagementForm.Show();
             this.Hide();
@@ -146,9 +148,35 @@ namespace FO_ERM_ISE.presentation.facttype
             };
         }
 
+        /// <summary>
+        /// Verifies the selected factType
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnVerifyFactType_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FacttypeDTO ft = this.getSelectedDataModel();
+                this.ftBusiness.verifyFactType(ft);
+                SetLvFacttypesItems();
+
+                MessageBox.Show("Feit type: " + ft.feitTypeCode + " is geverifieerd!");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(this.errorHandler.ParseErrorMessage(ex));
+            }
+        }
+
         #endregion
 
         #region Functions
+
+        private FacttypeDTO getSelectedDataModel()
+        {
+            return (FacttypeDTO)lvFacttypes.SelectedItems[0].Tag;
+        }
 
         /// <summary>
         /// Creates a new FacttypeDTO object
@@ -160,7 +188,7 @@ namespace FO_ERM_ISE.presentation.facttype
         /// <param name="verbalization"></param>
         private void AddFactType(string factCode, string verbalization)
         {
-            var newFacttype = new FacttypeDTO { feitTypeCode = factCode, verwoording = verbalization, dataModelNummer = dm.dataModelNummer };
+            var newFacttype = new FacttypeDTO { feitTypeCode = factCode, verwoording = verbalization, dataModelNummer = dm.dataModelNummer, geverifieerd = false };
 
             try
             {
@@ -231,13 +259,23 @@ namespace FO_ERM_ISE.presentation.facttype
         /// <param name="newFacttype"></param>
         private void AddFacttypeToListView(FacttypeDTO newFacttype)
         {
-            string[] row = { newFacttype.feitTypeCode, newFacttype.verwoording };
+            string[] row = { newFacttype.feitTypeCode, newFacttype.verwoording, newFacttype.geverifieerd.ToString() };
             ListViewItem item = new ListViewItem(row);
             item.Tag = newFacttype;
+            
+            if(newFacttype.geverifieerd)
+            {
+                item.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                item.BackColor = Color.LightCoral;
+            }
 
             lvFacttypes.Items.Add(item);
         }
 
         #endregion                                             
+        
     }
 }
