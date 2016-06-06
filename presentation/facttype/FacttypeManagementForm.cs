@@ -11,6 +11,7 @@ using FO_ERM_ISE.domain;
 using FO_ERM_ISE.dependencyManager;
 using FO_ERM_ISE.business.interfaces;
 using FO_ERM_ISE.presentation.segment;
+using FO_ERM_ISE.presentation.predicaat;
 
 namespace FO_ERM_ISE.presentation.facttype
 {
@@ -67,7 +68,7 @@ namespace FO_ERM_ISE.presentation.facttype
         /// <param name="e"></param>
         private void btnDeleteFactType_Click(object sender, EventArgs e)
         {
-            var selectedItem = this.getSelectedDataModel();
+            var selectedItem = this.getSelectedFactType();
 
             DialogResult dialogResult = MessageBox.Show("Weet u zeker dat u feitType " + selectedItem.feitTypeCode + " wil verwijderen?", "Verwijderen", MessageBoxButtons.YesNo);
 
@@ -90,7 +91,7 @@ namespace FO_ERM_ISE.presentation.facttype
         /// <param name="e"></param>
         private void btnUpdateFactType_Click(object sender, EventArgs e)
         {
-            var selectedModel = this.getSelectedDataModel();
+            var selectedModel = this.getSelectedFactType();
             var editFactTypeForm = new EditFactTypeForm("Feittypen aanpassen", selectedModel);
 
             editFactTypeForm.ShowDialog();
@@ -119,6 +120,7 @@ namespace FO_ERM_ISE.presentation.facttype
                 btnUpdateFactType.Enabled = false;
                 btnSegmentManagement.Enabled = false;
                 btnVerifyFactType.Enabled = false;
+                btnPredicateManagement.Enabled = false;
             }
             else
             {
@@ -126,6 +128,7 @@ namespace FO_ERM_ISE.presentation.facttype
                 btnUpdateFactType.Enabled = true;
                 btnSegmentManagement.Enabled = true;
                 btnVerifyFactType.Enabled = true;
+                btnPredicateManagement.Enabled = true;
             }
         }
 
@@ -137,7 +140,7 @@ namespace FO_ERM_ISE.presentation.facttype
         /// <param name="e"></param>
         private void btnSegmentManagement_Click(object sender, EventArgs e)
         {
-            var segmentManagementForm = new SegmentManagementForm(this.getSelectedDataModel());
+            var segmentManagementForm = new SegmentManagementForm(this.getSelectedFactType());
 
             segmentManagementForm.Show();
             this.Hide();
@@ -157,7 +160,7 @@ namespace FO_ERM_ISE.presentation.facttype
         {
             try
             {
-                FacttypeDTO ft = this.getSelectedDataModel();
+                FacttypeDTO ft = this.getSelectedFactType();
                 this.ftBusiness.verifyFactType(ft);
                 SetLvFacttypesItems();
 
@@ -173,7 +176,7 @@ namespace FO_ERM_ISE.presentation.facttype
 
         #region Functions
 
-        private FacttypeDTO getSelectedDataModel()
+        private FacttypeDTO getSelectedFactType()
         {
             return (FacttypeDTO)lvFacttypes.SelectedItems[0].Tag;
         }
@@ -276,6 +279,12 @@ namespace FO_ERM_ISE.presentation.facttype
         }
 
         #endregion                                             
+
+        private void btnPredicateManagement_Click(object sender, EventArgs e)
+        {
+            PredicaatManagementFrm pmfrm = new PredicaatManagementFrm(this.getSelectedFactType());
+            pmfrm.ShowDialog();
+        }
         
     }
 }

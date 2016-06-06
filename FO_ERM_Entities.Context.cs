@@ -38,7 +38,6 @@ namespace FO_ERM_ISE
         public virtual DbSet<Segment> Segment { get; set; }
         public virtual DbSet<SegmentDeel> SegmentDeel { get; set; }
         public virtual DbSet<VoorbeeldData> VoorbeeldData { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     
         public virtual int spr_CheckEntityDependency(Nullable<int> entityTypeNumber)
         {

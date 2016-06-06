@@ -29,7 +29,6 @@
         <AssociationConnector Association="FO_ERMModel.FK_RELATIET_R_RELATIE_KARDINAL" />
         <AssociationConnector Association="FO_ERMModel.FK_RELATIET_R_RELATIE_RELATIET" />
         <AssociationConnector Association="FO_ERMModel.FK_SEGMENTD_R_SEGMENT_SEGMENT" />
-        <EntityTypeShape EntityType="FO_ERMModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

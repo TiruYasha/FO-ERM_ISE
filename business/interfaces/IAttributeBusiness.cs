@@ -14,5 +14,6 @@ namespace FO_ERM_ISE.business.interfaces
         int AddAttribute(AttributeDTO attribute);
         void DeleteAttribute(AttributeDTO attribute);
         void UpdateAttribute(AttributeDTO attribute);
+        List<AttributeDTO> getAttributeForPredicate(String FeitType, int datamodelNummer);
     }
 }

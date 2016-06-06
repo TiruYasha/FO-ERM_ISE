@@ -12,5 +12,6 @@ namespace FO_ERM_ISE.datasource.interfaces
         List<AttributeDTO> GetAttributesOnEntityTypeNumber(int entityTypeNumber);
         AttributeDTO GetAttributeOnAttributeNumber(int attributeNumber);
         new int Create(AttributeDTO dto);
+        List<AttributeDTO> getAttributeForPredicate(String FeitType, int datamodelNummer);
     }
 }

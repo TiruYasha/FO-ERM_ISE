@@ -38,6 +38,7 @@
             this.columnHeaderVerbalization = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderVerified = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnVerifyFactType = new System.Windows.Forms.Button();
+            this.btnPredicateManagement = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblFacttypes
@@ -133,11 +134,22 @@
             this.btnVerifyFactType.UseVisualStyleBackColor = true;
             this.btnVerifyFactType.Click += new System.EventHandler(this.btnVerifyFactType_Click);
             // 
+            // btnPredicateManagement
+            // 
+            this.btnPredicateManagement.Location = new System.Drawing.Point(268, 442);
+            this.btnPredicateManagement.Name = "btnPredicateManagement";
+            this.btnPredicateManagement.Size = new System.Drawing.Size(75, 23);
+            this.btnPredicateManagement.TabIndex = 7;
+            this.btnPredicateManagement.Text = "Predicaat beheren";
+            this.btnPredicateManagement.UseVisualStyleBackColor = true;
+            this.btnPredicateManagement.Click += new System.EventHandler(this.btnPredicateManagement_Click);
+            // 
             // FacttypeManagementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(987, 478);
+            this.Controls.Add(this.btnPredicateManagement);
             this.Controls.Add(this.btnVerifyFactType);
             this.Controls.Add(this.lvFacttypes);
             this.Controls.Add(this.btnSegmentManagement);
@@ -164,5 +176,6 @@
         private System.Windows.Forms.ColumnHeader columnHeaderVerbalization;
         private System.Windows.Forms.ColumnHeader columnHeaderVerified;
         private System.Windows.Forms.Button btnVerifyFactType;
+        private System.Windows.Forms.Button btnPredicateManagement;
     }
 }
