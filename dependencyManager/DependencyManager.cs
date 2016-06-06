@@ -41,5 +41,31 @@ namespace FO_ERM_ISE.dependencyManager
         {
             return new SegmentDatasource();
         }
+
+        public IRelationTypeDataSource GetIRelationTypeDataSource()
+        {
+            return new RelationTypeDataSource();
+        }
+
+        public IEntitytypeBusiness GetIEntitytypeBusiness()
+        {
+            return new EntitytypeBusiness();
+        }
+
+        public IEntitytypeDatasource GetIEntitytypeDatasource()
+        {
+            return new EntitytypeDatasource();
+        }
+
+        public IAttributeBusiness GetIAttributeBusiness()
+        {
+            return new AttributeBusiness();
+        }
+
+        public IAttributeDatasource GetIAttributeDatasource()
+        {
+            return new AttributeDatasource();
+        }
+
     }
 }

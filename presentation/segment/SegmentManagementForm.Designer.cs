@@ -174,6 +174,7 @@
             this.btnAnalyse.TabIndex = 10;
             this.btnAnalyse.Text = "Analyseren";
             this.btnAnalyse.UseVisualStyleBackColor = true;
+            this.btnAnalyse.Click += new System.EventHandler(this.btnAnalyse_Click);
             // 
             // lablRelationType
             // 
@@ -218,6 +219,7 @@
             this.btnAddRelationType.TabIndex = 15;
             this.btnAddRelationType.Text = "Toevoegen";
             this.btnAddRelationType.UseVisualStyleBackColor = true;
+            this.btnAddRelationType.Click += new System.EventHandler(this.btnAddRelationType_Click);
             // 
             // SegmentManagementForm
             // 
