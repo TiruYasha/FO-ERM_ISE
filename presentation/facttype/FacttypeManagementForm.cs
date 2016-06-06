@@ -16,15 +16,9 @@ namespace FO_ERM_ISE.presentation.facttype
 {
     public partial class FacttypeManagementForm : Form
     {
-        /*
-         * TODO 
-         * 
-         * Exception handling
-         * Update
-         * Delete
-         */
         private DatamodelDTO dm;
         private IFactTypeBusiness ftBusiness;
+        private DatabaseErrorHandler errorHandler;
 
         public FacttypeManagementForm(DatamodelDTO datamodel)
         {
@@ -35,28 +29,47 @@ namespace FO_ERM_ISE.presentation.facttype
             DependencyManager depman = new DependencyManager();
             this.ftBusiness = depman.GetIFactTypeBusiness();
 
+            this.errorHandler = new DatabaseErrorHandler();
+
             SetLvFacttypesItems();
         }
 
+        #region EventHandlers
+        
+        /// <summary>
+        /// Opens the editFactTypeForm
+        /// 
+        /// Checks if input if null or empty
+        /// Executes the function AddFactType        
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddFactType_Click(object sender, EventArgs e)
         {
             var editFactTypeForm = new EditFactTypeForm("Feittypen toevoegen", null);
 
             editFactTypeForm.ShowDialog();
 
-            if ( !String.IsNullOrWhiteSpace(editFactTypeForm.factCode) &&
-                 !String.IsNullOrWhiteSpace(editFactTypeForm.verbalization) )
+            if (!String.IsNullOrWhiteSpace(editFactTypeForm.factCode) &&
+                 !String.IsNullOrWhiteSpace(editFactTypeForm.verbalization))
             {
                 AddFactType(editFactTypeForm.factCode, editFactTypeForm.verbalization);
             }
-
         }
 
+        /// <summary>
+        /// Gets the selected factType
+        /// Ask the user if he wants to delete the selected factType
+        /// Deletes the selected factType
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDeleteFactType_Click(object sender, EventArgs e)
         {
             var selectedItem = (FacttypeDTO)lvFacttypes.SelectedItems[0].Tag;
 
-            DialogResult dialogResult = MessageBox.Show("Weet u het zeker?", "Verwijderen", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Weet u zeker dat u feitType " + selectedItem.feitTypeCode + " wil verwijderen?", "Verwijderen", MessageBoxButtons.YesNo);
 
             if (dialogResult == DialogResult.Yes)
             {
@@ -64,6 +77,17 @@ namespace FO_ERM_ISE.presentation.facttype
             }
         }
 
+        /// <summary>
+        /// Gets the selected factType
+        /// Opens the EditFactTypeForm(selectedFactType)
+        /// 
+        /// Checks if the input is not null or empty
+        /// Updates the selected FactType
+        /// Updates the selected FactType in the database
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUpdateFactType_Click(object sender, EventArgs e)
         {
             var selectedModel = (FacttypeDTO)lvFacttypes.SelectedItems[0].Tag;
@@ -71,7 +95,7 @@ namespace FO_ERM_ISE.presentation.facttype
 
             editFactTypeForm.ShowDialog();
 
-            if ( !String.IsNullOrWhiteSpace(editFactTypeForm.factCode) &&
+            if (!String.IsNullOrWhiteSpace(editFactTypeForm.factCode) &&
                  !String.IsNullOrWhiteSpace(editFactTypeForm.verbalization))
             {
                 selectedModel.feitTypeCode = editFactTypeForm.factCode;
@@ -80,9 +104,16 @@ namespace FO_ERM_ISE.presentation.facttype
             }
         }
 
+        /// <summary>
+        /// If there are no fact types selected btnDeleteFactType, btnUpdateFactType, btnSegmentManagement are disabled
+        /// If there is a factType selected the buttons are enabled
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lvFacttypes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(lvFacttypes.SelectedItems.Count <= 0)
+            if (lvFacttypes.SelectedItems.Count <= 0)
             {
                 btnDeleteFactType.Enabled = false;
                 btnUpdateFactType.Enabled = false;
@@ -94,70 +125,14 @@ namespace FO_ERM_ISE.presentation.facttype
                 btnUpdateFactType.Enabled = true;
                 btnSegmentManagement.Enabled = true;
             }
-            
         }
 
-    
-
-        private void AddFactType(string factCode, string verbalization)
-        {
-            var newFacttype = new FacttypeDTO { feitTypeCode = factCode, verwoording = verbalization, dataModelNummer = dm.dataModelNummer };
-
-            try
-            {
-                ftBusiness.AddFactType(newFacttype);
-                SetLvFacttypesItems();
-            }
-            catch(Exception e)
-            {
-                MessageBox.Show("Er is een onverwachte fout opgetreden: " + e.Message);
-            }
-        }
-
-        private void DeleteFactType(FacttypeDTO selectedItem)
-        {
-            try
-            {
-                ftBusiness.DeleteFactType(selectedItem); //Try to delete the facttype               
-                SetLvFacttypesItems(); //Update the list view facttypes
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Er is een onverwachte fout opgetreden: " + e.Message);
-            }
-        }
-
-        private void UpdateFactType(FacttypeDTO selectedItem)
-        {
-            try
-            {
-                ftBusiness.UpdateFactType(selectedItem); //Try to delete the facttype               
-                SetLvFacttypesItems(); //Update the list view facttypes
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Er is een onverwachte fout opgetreden: " + e.Message);
-            }
-        }
-
-        private void SetLvFacttypesItems()
-        {
-            lvFacttypes.Items.Clear();
-            foreach(var i in ftBusiness.GetAllFactTypesOnDatamodel(this.dm))
-            {
-                AddFacttypeToListView(i);
-            }
-        }
-
-        private void AddFacttypeToListView(FacttypeDTO newFacttype)
-        {
-            string[] row = { newFacttype.feitTypeCode, newFacttype.verwoording };
-            ListViewItem item = new ListViewItem(row);
-            item.Tag = newFacttype;
-
-            lvFacttypes.Items.Add(item);
-        }
-
+        /// <summary>
+        /// Opens the segmentManagementForm and sends the selected factType with it
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSegmentManagement_Click(object sender, EventArgs e)
         {
             var segmentManagementForm = new SegmentManagementForm((FacttypeDTO)lvFacttypes.SelectedItems[0].Tag);
@@ -170,5 +145,99 @@ namespace FO_ERM_ISE.presentation.facttype
                 this.Show();
             };
         }
+
+        #endregion
+
+        #region Functions
+
+        /// <summary>
+        /// Creates a new FacttypeDTO object
+        /// Attempts to save it via the business layer
+        /// 
+        /// Door: Harm Roerdink
+        /// </summary>
+        /// <param name="factCode"></param>
+        /// <param name="verbalization"></param>
+        private void AddFactType(string factCode, string verbalization)
+        {
+            var newFacttype = new FacttypeDTO { feitTypeCode = factCode, verwoording = verbalization, dataModelNummer = dm.dataModelNummer };
+
+            try
+            {
+                ftBusiness.AddFactType(newFacttype);
+                SetLvFacttypesItems();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(errorHandler.ParseErrorMessage(e));
+            }
+        }
+
+        /// <summary>
+        /// Attempts to delete the selected factType via the business layer.
+        /// 
+        /// Door: Harm Roerdink
+        /// </summary>
+        /// <param name="selectedItem"></param>
+        private void DeleteFactType(FacttypeDTO selectedItem)
+        {
+            try
+            {
+                ftBusiness.DeleteFactType(selectedItem); //Try to delete the facttype               
+                SetLvFacttypesItems(); //Update the list view facttypes
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(errorHandler.ParseErrorMessage(e));
+            }
+        }
+
+        /// <summary>
+        /// Attempts to update the selected FactType
+        /// 
+        /// </summary>
+        /// <param name="selectedItem"></param>
+        private void UpdateFactType(FacttypeDTO selectedItem)
+        {
+            try
+            {
+                ftBusiness.UpdateFactType(selectedItem); //Try to update the facttype               
+                SetLvFacttypesItems(); //Update the list view facttypes
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(errorHandler.ParseErrorMessage(e));
+            }
+        }
+
+        /// <summary>
+        /// Updates the factType list view with all the factTypes in the database
+        /// 
+        /// </summary>
+        private void SetLvFacttypesItems()
+        {
+            lvFacttypes.Items.Clear();
+            foreach (var i in ftBusiness.GetAllFactTypesOnDatamodel(this.dm))
+            {
+                AddFacttypeToListView(i);
+            }
+        }
+
+        /// <summary>
+        /// Adds a single factType to the factTypeListView
+        /// 
+        /// Door: Harm Roerdink
+        /// </summary>
+        /// <param name="newFacttype"></param>
+        private void AddFacttypeToListView(FacttypeDTO newFacttype)
+        {
+            string[] row = { newFacttype.feitTypeCode, newFacttype.verwoording };
+            ListViewItem item = new ListViewItem(row);
+            item.Tag = newFacttype;
+
+            lvFacttypes.Items.Add(item);
+        }
+
+        #endregion                                             
     }
 }

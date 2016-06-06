@@ -43,7 +43,7 @@ namespace FO_ERM_ISE.presentation.segment
         #region Event handlers
 
         /// <summary>
-        /// On click handler voor de verwijderen knop. Voert de functies RemoveSegmentDeelFromSegment en getSelectedSegmentDeel uit.
+        /// On click handler for btnRemove
         /// 
         /// Door: Harm Roerdink
         /// </summary>
@@ -56,7 +56,7 @@ namespace FO_ERM_ISE.presentation.segment
         }
 
         /// <summary>
-        /// Als de er een item in de listbox voor segment één geselecteerd is, mag er geen item geselecteerd zijn in de listbox voor segment twee.
+        /// When a segment is selected in lbSegment1 then clear any selected item in lbSegment2
         /// 
         /// Door: Marnix Dessing
         /// </summary>
@@ -71,7 +71,7 @@ namespace FO_ERM_ISE.presentation.segment
         }
 
         /// <summary>
-        /// Als de er een item in de listbox voor segment twee geselecteerd is, mag er geen item geselecteerd zijn in de listbox voor segment één.
+        /// When a segment is selected in lbSegment2 then clear any selected item in lbSegment1
         /// 
         /// Door: Marnix Dessing
         /// </summary>
@@ -86,8 +86,9 @@ namespace FO_ERM_ISE.presentation.segment
         }
 
         /// <summary>
-        /// Controleert of het segmentdeel uniek is binnen de segmentdelen die al aangegeven zijn via de functie IsUniqueSegmentDeel.
-        /// Voert de functies addSegmentDeel en updateListboxes uit.
+        /// Checks if the selectedTekst is unique
+        /// addsTheSegmentDeel(selectedTekst, segmentNummer)
+        /// Updates the segment listboxes
         /// 
         /// Door: Marnix Dessing, Harm Roerdink
         /// </summary>
@@ -123,7 +124,7 @@ namespace FO_ERM_ISE.presentation.segment
     
         #region Functions
         /// <summary>
-        /// Stuurt een segment dat toegevoegd moet worden door naar de business laag. Dit gebeurt op basis van segmentNummer.
+        /// Adds a segment via the business layer, this is based on segmentNumber
         /// 
         /// Door: Harm Roerdink
         /// </summary>
@@ -151,7 +152,7 @@ namespace FO_ERM_ISE.presentation.segment
         }
 
         /// <summary>
-        /// Controleert of het toegevoegde segmentDeel al voorkomt
+        /// Checks if the to be added segmentDeelTekst is unique.
         /// 
         /// Door: Marnix Dessing.
         /// </summary>
@@ -176,7 +177,7 @@ namespace FO_ERM_ISE.presentation.segment
         }
 
         /// <summary>
-        /// Update de listboxes voor segment één en twee.
+        /// Updates the listboxes for segment one and two
         /// 
         /// Door: Harm Roerdink
         /// </summary>
@@ -195,14 +196,16 @@ namespace FO_ERM_ISE.presentation.segment
         }
 
         /// <summary>
-        /// Haalt de segmenten op uit de database, als deze nog niet bestaan worden deze aangemaakt (Nog niet in de database maar als object).
+        /// Gets segment one and two from the database
+        /// Checks if they are not null, if they are create a new segment one or segment two object.
         ///
         /// Door: Harm Roerdink
         /// </summary>
         private void getSegmenten()
         {
-            this.segmentOne = this.getSegmentDeel(1);
-            this.segmentTwo = this.getSegmentDeel(2);
+            this.factType.Segment = new List<SegmentDTO>();
+            this.segmentOne = this.getSegmentOnSegmentNumber(1);
+            this.segmentTwo = this.getSegmentOnSegmentNumber(2);
 
             if (this.segmentOne == null)
             {
@@ -217,10 +220,13 @@ namespace FO_ERM_ISE.presentation.segment
                 this.segmentTwo.SetFactType(this.factType);
                 this.segmentTwo.segmentNummer = 2;
             }
+
+            this.factType.Segment.Add(segmentOne);
+            this.factType.Segment.Add(segmentTwo);
         }
 
         /// <summary>
-        /// Reset de listboxes voor segment één en segment twee
+        /// Resets the listboxes for segment one and two
         /// 
         /// Door: Harm Roerdink
         /// </summary>
@@ -231,19 +237,19 @@ namespace FO_ERM_ISE.presentation.segment
         }
 
         /// <summary>
-        /// Haalt een segment op, op basis van het segmentNummer
+        /// Gets a single segment based on segmentNumber.
         /// 
         /// Door: Harm Roerdink
         /// </summary>
         /// <param name="segmentNummer"></param>
         /// <returns></returns>
-        private SegmentDTO getSegmentDeel(int segmentNummer)
+        private SegmentDTO getSegmentOnSegmentNumber(int segmentNummer)
         {
             return this.sb.getSegmentOnSegmentNummer(segmentNummer, this.factType.dataModelNummer, this.factType.feitTypeCode);
         }
 
         /// <summary>
-        /// Haalt het geselecteerde segmentDeel op, dit is altijd of een segmentdeel uit segment één of segment twee.
+        /// Gets the selected segmentDeel
         /// 
         /// Door: Harm Roerdink
         /// </summary>
@@ -260,8 +266,8 @@ namespace FO_ERM_ISE.presentation.segment
         }
 
         /// <summary>
-        /// Verwijderd het geselecteerde segment uit de objecten segmentOne of segmentTwo gebaseerd op het geselecteerde segmentDeel.
-        /// Hierna wordt de functie deleteSegment uitgevoerd in de businessLaag.
+        /// Deletes the selected segmentDeel from segmentOne or segmentTwo based on the segmentNumber
+        /// Attempts to delete the segmentDeel via the business layer
         /// 
         /// Door: Harm Roerdink
         /// </summary>
@@ -276,16 +282,16 @@ namespace FO_ERM_ISE.presentation.segment
             {
                 try
                 {
-                    if (segmentDeel.segment.segmentNummer == 1)
+                    if (segmentDeel.segmentNummer == 1)
                     {
                         this.segmentOne.SegmentDeel.Remove(segmentDeel);
-                        this.sb.DeleteSegment(segmentOne);
                     }
                     else
                     {
                         this.segmentTwo.SegmentDeel.Remove(segmentDeel);
-                        this.sb.DeleteSegment(segmentTwo);
                     }
+                    
+                    this.sb.DeleteSegmentDeel(segmentDeel);
                 }
                 catch (Exception e)
                 {
