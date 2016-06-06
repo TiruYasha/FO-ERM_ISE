@@ -90,6 +90,7 @@
     <Compile Include="datasource\interfaces\ISegmentDatasource.cs" />
     <Compile Include="datasource\interfaces\ISegmentDeelDatasource.cs" />
     <Compile Include="datasource\RelationTypeDataSource.cs" />
+    <Compile Include="domain\CardinalityDto.cs" />
     <Compile Include="domain\RelationTypeDTO.cs" />
     <Compile Include="datasource\SegmentDatasource.cs" />
     <Compile Include="datasource\SegmentDeelDatasource.cs" />

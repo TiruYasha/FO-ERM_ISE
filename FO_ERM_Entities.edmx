@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FO_ERMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FO_ERMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Attribuut">
           <Key>
             <PropertyRef Name="attribuutNummer" />
@@ -313,13 +313,8 @@
           <Parameter Name="entityTypeNumber" Type="int" Mode="In" />
         </Function>
         <Function Name="spr_EntityTypeHasID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="entityTypeNumber" Type="int" Mode="In" />
-        </Function>
-        <Function Name="spr_Niew_segment_aanmaken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="dataModelNummer" Type="int" Mode="In" />
-          <Parameter Name="feitTypeCode" Type="varchar" Mode="In" />
-          <Parameter Name="segmentNummer" Type="int" Mode="In" />
-          <Parameter Name="segmentDeelTekst" Type="varchar" Mode="In" />
+          <Parameter Name="dataModelNumber" Type="int" Mode="In" />
+          <Parameter Name="factTypeCode" Type="char" Mode="In" />
         </Function>
         <EntityContainer Name="FO_ERMModelStoreContainer">
           <EntitySet Name="Attribuut" EntityType="Self.Attribuut" Schema="dbo" store:Type="Tables" />
@@ -395,7 +390,8 @@
           <Parameter Name="entityTypeNumber" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_EntityTypeHasID">
-          <Parameter Name="entityTypeNumber" Mode="In" Type="Int32" />
+            <Parameter Name="dataModelNumber" Mode="In" Type="Int32" />
+            <Parameter Name="factTypeCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Niew_segment_aanmaken">
             <Parameter Name="dataModelNummer" Mode="In" Type="Int32" />
@@ -466,7 +462,7 @@
             <End Role="Segment" EntitySet="Segment" />
             <End Role="SegmentDeel" EntitySet="SegmentDeel" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Attribuut">
           <Key>
             <PropertyRef Name="attribuutNummer" />
@@ -797,7 +793,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -805,7 +801,6 @@
         <EntityContainerMapping StorageEntityContainer="FO_ERMModelStoreContainer" CdmEntityContainer="FO_ERMEntities1">
           <FunctionImportMapping FunctionImportName="spr_CheckEntityDependency" FunctionName="FO_ERMModel.Store.spr_CheckEntityDependency" />
           <FunctionImportMapping FunctionImportName="spr_EntityTypeHasID" FunctionName="FO_ERMModel.Store.spr_EntityTypeHasID" />
-          <FunctionImportMapping FunctionImportName="spr_Niew_segment_aanmaken" FunctionName="FO_ERMModel.Store.spr_Niew_segment_aanmaken" />
           <EntitySetMapping Name="Attribuut">
             <EntityTypeMapping TypeName="FO_ERMModel.Attribuut">
               <MappingFragment StoreEntitySet="Attribuut">
@@ -918,7 +913,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

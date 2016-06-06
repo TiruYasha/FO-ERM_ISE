@@ -124,7 +124,7 @@ namespace FO_ERM_ISE.presentation.segment
 
         private void btnAddRelationType_Click(object sender, EventArgs e)
         {
-            RelationTypeForm rtForm = new RelationTypeForm();
+            RelationTypeForm rtForm = new RelationTypeForm(factType.dataModelNummer, factType.feitTypeCode);
 
             rtForm.ShowDialog();
         }

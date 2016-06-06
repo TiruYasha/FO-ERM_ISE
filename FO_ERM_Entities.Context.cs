@@ -48,13 +48,17 @@ namespace FO_ERM_ISE
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spr_CheckEntityDependency", entityTypeNumberParameter);
         }
     
-        public virtual int spr_EntityTypeHasID(Nullable<int> entityTypeNumber)
+        public virtual int spr_EntityTypeHasID(Nullable<int> dataModelNumber, string factTypeCode)
         {
-            var entityTypeNumberParameter = entityTypeNumber.HasValue ?
-                new ObjectParameter("entityTypeNumber", entityTypeNumber) :
-                new ObjectParameter("entityTypeNumber", typeof(int));
+            var dataModelNumberParameter = dataModelNumber.HasValue ?
+                new ObjectParameter("dataModelNumber", dataModelNumber) :
+                new ObjectParameter("dataModelNumber", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spr_EntityTypeHasID", entityTypeNumberParameter);
+            var factTypeCodeParameter = factTypeCode != null ?
+                new ObjectParameter("factTypeCode", factTypeCode) :
+                new ObjectParameter("factTypeCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spr_EntityTypeHasID", dataModelNumberParameter, factTypeCodeParameter);
         }
     
         public virtual int spr_Niew_segment_aanmaken(Nullable<int> dataModelNummer, string feitTypeCode, Nullable<int> segmentNummer, string segmentDeelTekst)
