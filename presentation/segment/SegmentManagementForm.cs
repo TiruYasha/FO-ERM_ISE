@@ -169,20 +169,20 @@ namespace FO_ERM_ISE.presentation.segment
         /// <returns></returns>
         private Boolean IsUniqueSegmentDeel(string selectedTekst)
         {
-            //check if selected text is not in listbox.
-            ListBox lb = new ListBox();
-            lb.Items.AddRange(lbSegment1.Items);
-            lb.Items.AddRange(lbSegment2.Items);
-
-            foreach (var item in lb.Items)
+            List<SegmentDeelDTO> AllSegmentDelen = new List<SegmentDeelDTO>();
+            if (segmentOne.SegmentDeel != null)
+                AllSegmentDelen.AddRange(segmentOne.SegmentDeel.ToList());
+            if(segmentTwo.SegmentDeel != null)
+                AllSegmentDelen.AddRange(segmentTwo.SegmentDeel.ToList());
+            
+            foreach(var item in AllSegmentDelen.Select(i => i.segmentDeelTekst))
             {
-                if (item.Equals(selectedTekst))
+                if(item.Equals(selectedTekst))
                 {
                     return false;
                 }
             }
-
-            return true;
+            return true;         
         }
 
         /// <summary>

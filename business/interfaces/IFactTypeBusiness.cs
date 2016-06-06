@@ -14,5 +14,6 @@ namespace FO_ERM_ISE.business.interfaces
         void DeleteFactType(FacttypeDTO factType);
         void UpdateFactType(FacttypeDTO factType);
         List<FacttypeDTO> GetAllFactTypesOnDatamodel(DatamodelDTO datamodel);
+        void verifyFactType(FacttypeDTO factType);
     }
 }
