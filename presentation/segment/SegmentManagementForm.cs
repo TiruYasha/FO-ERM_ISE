@@ -12,6 +12,7 @@ using FO_ERM_ISE.business.interfaces;
 using FO_ERM_ISE.dependencyManager;
 using System.Data.Entity.Validation;
 using FO_ERM_ISE.presentation.relationtype;
+using FO_ERM_ISE.presentation.analyse;
 
 namespace FO_ERM_ISE.presentation.segment
 {
@@ -329,5 +330,27 @@ namespace FO_ERM_ISE.presentation.segment
 
         #endregion
 
+        private void btnAnalyse_Click(object sender, EventArgs e)
+        {
+            SegmentDTO segmentToAnalyse = null;
+            if( lbSegment1.SelectedIndex == -1)
+            {
+                segmentToAnalyse = segmentTwo;    
+            }
+            else
+            {
+                segmentToAnalyse = segmentOne;
+            }
+
+            segmentToAnalyse.factType = factType;
+
+            var analyseSegmentFrom = new AnalyseSegmentForm(segmentToAnalyse);
+            analyseSegmentFrom.Show();
+            this.Enabled = false;
+            analyseSegmentFrom.FormClosing += delegate
+            {
+                this.Enabled = true;
+            };
+        }
     }
 }

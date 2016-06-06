@@ -29,6 +29,13 @@ namespace FO_ERM_ISE
 
             CreateMap<RelatieTypeOnderdeel, RelationTypePartDTO>();
             CreateMap<RelationTypePartDTO, RelatieTypeOnderdeel>();
+
+            CreateMap<EntiteitType, EntiteittypeDTO>();
+            CreateMap<EntiteittypeDTO, EntiteitType>();
+
+            CreateMap<Attribuut, AttributeDTO>();
+            CreateMap<AttributeDTO, Attribuut>();
+
         }
     }
 }
