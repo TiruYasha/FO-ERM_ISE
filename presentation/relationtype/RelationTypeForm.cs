@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FO_ERM_ISE.domain;
 
 namespace FO_ERM_ISE.presentation.relationtype
 {
@@ -23,7 +24,7 @@ namespace FO_ERM_ISE.presentation.relationtype
         /// </summary>
         /// <param name="etNameOne"></param>
         /// <param name="etNameTwo"></param>
-        public RelationTypeForm(string etNameOne, string etNameTwo)
+        public RelationTypeForm(EntiteittypeDTO etOne, EntiteittypeDTO etTwo)
         {
             InitializeComponent();
         }
