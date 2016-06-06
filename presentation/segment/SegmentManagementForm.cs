@@ -11,6 +11,7 @@ using FO_ERM_ISE.domain;
 using FO_ERM_ISE.business.interfaces;
 using FO_ERM_ISE.dependencyManager;
 using System.Data.Entity.Validation;
+using FO_ERM_ISE.presentation.relationtype;
 
 namespace FO_ERM_ISE.presentation.segment
 {
@@ -117,7 +118,15 @@ namespace FO_ERM_ISE.presentation.segment
 
                 updateListboxes();
             }
-        }       
+        }
+
+
+        private void btnAddRelationType_Click(object sender, EventArgs e)
+        {
+            RelationTypeForm rtForm = new RelationTypeForm();
+
+            rtForm.ShowDialog();
+        }
 
         #endregion   
     
@@ -319,5 +328,6 @@ namespace FO_ERM_ISE.presentation.segment
         }
 
         #endregion
+
     }
 }

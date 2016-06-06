@@ -218,6 +218,7 @@
             this.btnAddRelationType.TabIndex = 15;
             this.btnAddRelationType.Text = "Toevoegen";
             this.btnAddRelationType.UseVisualStyleBackColor = true;
+            this.btnAddRelationType.Click += new System.EventHandler(this.btnAddRelationType_Click);
             // 
             // SegmentManagementForm
             // 

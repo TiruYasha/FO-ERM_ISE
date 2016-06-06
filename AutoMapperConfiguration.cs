@@ -23,6 +23,12 @@ namespace FO_ERM_ISE
 
             CreateMap<SegmentDeel, SegmentDeelDTO>();
             CreateMap<SegmentDeelDTO, SegmentDeel>();
+
+            CreateMap<Relatietype, RelationTypeDTO>();
+            CreateMap<RelationTypeDTO, Relatietype>();
+
+            CreateMap<RelatieTypeOnderdeel, RelationTypePartDTO>();
+            CreateMap<RelationTypePartDTO, RelatieTypeOnderdeel>();
         }
     }
 }
