@@ -8,12 +8,16 @@ namespace FO_ERM_ISE.domain
 {
     public class RelationTypePartDTO
     {
-        public int relatieTypeOnderdeelNummer { get; set; }
+        public int onderdeelNummer { get; set; }
         public int dataModelNummer { get; set; }
         public string relatieTypeNaam { get; set; }
         public bool afhankelijk { get; set; }
-        public char minKardinaliteit { get; set; }
-        public char maxKardinaliteit { get; set; }
+        public string minimaleKardinaliteit { get; set; }
+        public string maximaleKardinaliteit { get; set; }
         public int entiteitTypeNummer { get; set; }
+
+        public EntiteittypeDTO EntiteitType { get; set; }
+        public CardinalityDto Kardinaliteit { get; set; }
+        public RelationTypeDTO RelatieType { get; set; }
     }
 }
