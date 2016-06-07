@@ -342,6 +342,12 @@ namespace FO_ERM_ISE.presentation.segment
                 segmentToAnalyse = segmentOne;
             }
 
+            if(segmentToAnalyse == null)
+            {
+                MessageBox.Show("Er is geen segment aangewezen om te analyseren.");
+                return;
+            }
+
             segmentToAnalyse.factType = factType;
 
             var analyseSegmentFrom = new AnalyseSegmentForm(segmentToAnalyse);
