@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FO_ERM_ISE.domain
 {
-    public class CardinalityDto
+    public class CardinalityDTO
     {
         public string minimaleKardinaliteit { get; set; }
         public string maximaleKardinaliteit { get; set; }

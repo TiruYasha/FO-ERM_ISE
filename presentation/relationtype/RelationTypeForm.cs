@@ -35,15 +35,34 @@ namespace FO_ERM_ISE.presentation.relationtype
             SetEntityTypes();
         }
 
+        private void SetEntityTypes()
+        {
+            List<EntiteittypeDTO> entityTypesOne = eb.GetEntitytypeOnDataModel(dataModelNumber);
+            List<EntiteittypeDTO> entityTypesTwo = eb.GetEntitytypeOnDataModel(dataModelNumber);
+
+            cbEntityTypeOne.DisplayMember = "entiteitTypeNaam";
+            cbEntityTypeOne.DataSource = entityTypesOne;
+
+            cbEntityTypeTwo.DisplayMember = "entiteitTypeNaam";
+            cbEntityTypeTwo.DataSource = entityTypesTwo;
+        }
+
+        #region Dependent relation
         /// <summary>
         /// This constructor will be used if the entitytypes are known.
         /// </summary>
-        /// <param name="etOne">Dependent Entity Type</param>
-        /// <param name="etTwo">Not dependent Entity type</param>
-        public RelationTypeForm(EntiteittypeDTO etOne, EntiteittypeDTO etTwo)
+        /// <param name="etOne">Dependent entity Type</param>
+        /// <param name="etTwo">Not dependent entity type</param>
+        /// <param name="factTypeCode"></param>
+        public RelationTypeForm(EntiteittypeDTO etOne, EntiteittypeDTO etTwo, string factTypeCode)
         {
             InitializeComponent();
 
+            this.dataModelNumber = etOne.dataModelNummer;
+            this.factTypeCode = factTypeCode;
+            eb = new EntitytypeBusiness();
+            rtb = new RelationTypeBusiness();
+            errorHandler = new DatabaseErrorHandler();
             SetDependentRelation(etOne, etTwo);
         }
 
@@ -61,7 +80,7 @@ namespace FO_ERM_ISE.presentation.relationtype
         private void SetDependentRelation(EntiteittypeDTO etOne, EntiteittypeDTO etTwo)
         {
             ComboBoxSetSingleETSource(cbEntityTypeOne, etOne);
-            ComboBoxSetSingleETSource(cbEntityTypeOne, etTwo);
+            ComboBoxSetSingleETSource(cbEntityTypeTwo, etTwo);
 
             DisableETComboBox();
 
@@ -94,25 +113,14 @@ namespace FO_ERM_ISE.presentation.relationtype
         /// Set single datasource for the Et comboboxes
         /// </summary>
         /// <param name="comboBox"></param>
-        /// <param name="Entity"></param>
-        private void ComboBoxSetSingleETSource(ComboBox comboBox, EntiteittypeDTO Entity)
+        /// <param name="entity"></param>
+        private void ComboBoxSetSingleETSource(ComboBox comboBox, EntiteittypeDTO entity)
         {
-            cbEntityTypeOne.DisplayMember = "entiteitTypeNaam";
-            cbEntityTypeOne.Items.Add(Entity);
+            comboBox.DisplayMember = "entiteitTypeNaam";
+            comboBox.Items.Add(entity);
+            comboBox.SelectedIndex = 0;
         }
-
-        private void SetEntityTypes()
-        {
-            List<EntiteittypeDTO> entityTypesOne = eb.GetEntitytypeOnDataModel(dataModelNumber);
-            List<EntiteittypeDTO> entityTypesTwo = eb.GetEntitytypeOnDataModel(dataModelNumber);
-
-            cbEntityTypeOne.DisplayMember = "entiteitTypeNaam";
-            cbEntityTypeOne.DataSource = entityTypesOne;
-
-            cbEntityTypeTwo.DisplayMember = "entiteitTypeNaam";
-            cbEntityTypeTwo.DataSource = entityTypesTwo;
-        }
-
+        #endregion
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -179,7 +187,5 @@ namespace FO_ERM_ISE.presentation.relationtype
             });
 
         }
-
-       
     }
 }
