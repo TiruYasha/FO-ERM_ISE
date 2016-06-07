@@ -460,69 +460,6 @@
             <Parameter Name="segmentNummer" Mode="In" Type="Int32" />
             <Parameter Name="segmentDeelTekst" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="Attribuut" EntityType="FO_ERMModel.Attribuut" />
-          <EntitySet Name="DataModel" EntityType="FO_ERMModel.DataModel" />
-          <EntitySet Name="EntiteitType" EntityType="FO_ERMModel.EntiteitType" />
-          <EntitySet Name="FeitType" EntityType="FO_ERMModel.FeitType" />
-          <EntitySet Name="Kardinaliteit" EntityType="FO_ERMModel.Kardinaliteit" />
-          <EntitySet Name="PredicaatDeel" EntityType="FO_ERMModel.PredicaatDeel" />
-          <EntitySet Name="Relatietype" EntityType="FO_ERMModel.Relatietype" />
-          <EntitySet Name="RelatieTypeOnderdeel" EntityType="FO_ERMModel.RelatieTypeOnderdeel" />
-          <EntitySet Name="Segment" EntityType="FO_ERMModel.Segment" />
-          <EntitySet Name="SegmentDeel" EntityType="FO_ERMModel.SegmentDeel" />
-          <EntitySet Name="VoorbeeldData" EntityType="FO_ERMModel.VoorbeeldData" />
-          <AssociationSet Name="FK_ATTRIBUU_R_ENTITEI_ENTITEIT" Association="FO_ERMModel.FK_ATTRIBUU_R_ENTITEI_ENTITEIT">
-            <End Role="EntiteitType" EntitySet="EntiteitType" />
-            <End Role="Attribuut" EntitySet="Attribuut" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PREDICAA_R_ATTRIBU_ATTRIBUU" Association="FO_ERMModel.FK_PREDICAA_R_ATTRIBU_ATTRIBUU">
-            <End Role="Attribuut" EntitySet="Attribuut" />
-            <End Role="PredicaatDeel" EntitySet="PredicaatDeel" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VOORBEEL_R_ATTRIBU_ATTRIBUU" Association="FO_ERMModel.FK_VOORBEEL_R_ATTRIBU_ATTRIBUU">
-            <End Role="Attribuut" EntitySet="Attribuut" />
-            <End Role="VoorbeeldData" EntitySet="VoorbeeldData" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ENTITEIT_R_DATAMOD_DATAMODE" Association="FO_ERMModel.FK_ENTITEIT_R_DATAMOD_DATAMODE">
-            <End Role="DataModel" EntitySet="DataModel" />
-            <End Role="EntiteitType" EntitySet="EntiteitType" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FEITTYPE_R_DATAMOD_DATAMODE" Association="FO_ERMModel.FK_FEITTYPE_R_DATAMOD_DATAMODE">
-            <End Role="DataModel" EntitySet="DataModel" />
-            <End Role="FeitType" EntitySet="FeitType" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RELATIET_R_DATAMOD_DATAMODE" Association="FO_ERMModel.FK_RELATIET_R_DATAMOD_DATAMODE">
-            <End Role="DataModel" EntitySet="DataModel" />
-            <End Role="Relatietype" EntitySet="Relatietype" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RELATIET_R_ENTITEI_ENTITEIT" Association="FO_ERMModel.FK_RELATIET_R_ENTITEI_ENTITEIT">
-            <End Role="EntiteitType" EntitySet="EntiteitType" />
-            <End Role="RelatieTypeOnderdeel" EntitySet="RelatieTypeOnderdeel" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PREDICAA_R_FEITTYP_FEITTYPE" Association="FO_ERMModel.FK_PREDICAA_R_FEITTYP_FEITTYPE">
-            <End Role="FeitType" EntitySet="FeitType" />
-            <End Role="PredicaatDeel" EntitySet="PredicaatDeel" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RELATIET_R_FEITTYP_FEITTYPE" Association="FO_ERMModel.FK_RELATIET_R_FEITTYP_FEITTYPE">
-            <End Role="FeitType" EntitySet="FeitType" />
-            <End Role="Relatietype" EntitySet="Relatietype" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SEGMENT_R_FEITTYP_FEITTYPE" Association="FO_ERMModel.FK_SEGMENT_R_FEITTYP_FEITTYPE">
-            <End Role="FeitType" EntitySet="FeitType" />
-            <End Role="Segment" EntitySet="Segment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RELATIET_R_RELATIE_KARDINAL" Association="FO_ERMModel.FK_RELATIET_R_RELATIE_KARDINAL">
-            <End Role="Kardinaliteit" EntitySet="Kardinaliteit" />
-            <End Role="RelatieTypeOnderdeel" EntitySet="RelatieTypeOnderdeel" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RELATIET_R_RELATIE_RELATIET" Association="FO_ERMModel.FK_RELATIET_R_RELATIE_RELATIET">
-            <End Role="Relatietype" EntitySet="Relatietype" />
-            <End Role="RelatieTypeOnderdeel" EntitySet="RelatieTypeOnderdeel" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SEGMENTD_R_SEGMENT_SEGMENT" Association="FO_ERMModel.FK_SEGMENTD_R_SEGMENT_SEGMENT">
-            <End Role="Segment" EntitySet="Segment" />
-            <End Role="SegmentDeel" EntitySet="SegmentDeel" />
-          </AssociationSet>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -622,7 +559,81 @@
             <Parameter Name="dataModelNumber" Mode="In" Type="Int32" />
             <Parameter Name="factTypeCode" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Attribuut" EntityType="FO_ERMModel.Attribuut" />
+          <EntitySet Name="DataModel" EntityType="FO_ERMModel.DataModel" />
+          <EntitySet Name="EntiteitType" EntityType="FO_ERMModel.EntiteitType" />
+          <EntitySet Name="FeitType" EntityType="FO_ERMModel.FeitType" />
+          <EntitySet Name="Kardinaliteit" EntityType="FO_ERMModel.Kardinaliteit" />
+          <EntitySet Name="PredicaatDeel" EntityType="FO_ERMModel.PredicaatDeel" />
+          <EntitySet Name="Relatietype" EntityType="FO_ERMModel.Relatietype" />
+          <EntitySet Name="RelatieTypeOnderdeel" EntityType="FO_ERMModel.RelatieTypeOnderdeel" />
+          <EntitySet Name="Segment" EntityType="FO_ERMModel.Segment" />
+          <EntitySet Name="SegmentDeel" EntityType="FO_ERMModel.SegmentDeel" />
+          <EntitySet Name="VoorbeeldData" EntityType="FO_ERMModel.VoorbeeldData" />
+          <AssociationSet Name="FK_ATTRIBUU_R_ENTITEI_ENTITEIT" Association="FO_ERMModel.FK_ATTRIBUU_R_ENTITEI_ENTITEIT">
+            <End Role="EntiteitType" EntitySet="EntiteitType" />
+            <End Role="Attribuut" EntitySet="Attribuut" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PREDICAA_R_ATTRIBU_ATTRIBUU" Association="FO_ERMModel.FK_PREDICAA_R_ATTRIBU_ATTRIBUU">
+            <End Role="Attribuut" EntitySet="Attribuut" />
+            <End Role="PredicaatDeel" EntitySet="PredicaatDeel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VOORBEEL_R_ATTRIBU_ATTRIBUU" Association="FO_ERMModel.FK_VOORBEEL_R_ATTRIBU_ATTRIBUU">
+            <End Role="Attribuut" EntitySet="Attribuut" />
+            <End Role="VoorbeeldData" EntitySet="VoorbeeldData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ENTITEIT_R_DATAMOD_DATAMODE" Association="FO_ERMModel.FK_ENTITEIT_R_DATAMOD_DATAMODE">
+            <End Role="DataModel" EntitySet="DataModel" />
+            <End Role="EntiteitType" EntitySet="EntiteitType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FEITTYPE_R_DATAMOD_DATAMODE" Association="FO_ERMModel.FK_FEITTYPE_R_DATAMOD_DATAMODE">
+            <End Role="DataModel" EntitySet="DataModel" />
+            <End Role="FeitType" EntitySet="FeitType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RELATIET_R_DATAMOD_DATAMODE" Association="FO_ERMModel.FK_RELATIET_R_DATAMOD_DATAMODE">
+            <End Role="DataModel" EntitySet="DataModel" />
+            <End Role="Relatietype" EntitySet="Relatietype" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RELATIET_R_ENTITEI_ENTITEIT" Association="FO_ERMModel.FK_RELATIET_R_ENTITEI_ENTITEIT">
+            <End Role="EntiteitType" EntitySet="EntiteitType" />
+            <End Role="RelatieTypeOnderdeel" EntitySet="RelatieTypeOnderdeel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PREDICAA_R_FEITTYP_FEITTYPE" Association="FO_ERMModel.FK_PREDICAA_R_FEITTYP_FEITTYPE">
+            <End Role="FeitType" EntitySet="FeitType" />
+            <End Role="PredicaatDeel" EntitySet="PredicaatDeel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RELATIET_R_FEITTYP_FEITTYPE" Association="FO_ERMModel.FK_RELATIET_R_FEITTYP_FEITTYPE">
+            <End Role="FeitType" EntitySet="FeitType" />
+            <End Role="Relatietype" EntitySet="Relatietype" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEGMENT_R_FEITTYP_FEITTYPE" Association="FO_ERMModel.FK_SEGMENT_R_FEITTYP_FEITTYPE">
+            <End Role="FeitType" EntitySet="FeitType" />
+            <End Role="Segment" EntitySet="Segment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RELATIET_R_RELATIE_KARDINAL" Association="FO_ERMModel.FK_RELATIET_R_RELATIE_KARDINAL">
+            <End Role="Kardinaliteit" EntitySet="Kardinaliteit" />
+            <End Role="RelatieTypeOnderdeel" EntitySet="RelatieTypeOnderdeel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RELATIET_R_RELATIE_RELATIET" Association="FO_ERMModel.FK_RELATIET_R_RELATIE_RELATIET">
+            <End Role="Relatietype" EntitySet="Relatietype" />
+            <End Role="RelatieTypeOnderdeel" EntitySet="RelatieTypeOnderdeel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEGMENTD_R_SEGMENT_SEGMENT" Association="FO_ERMModel.FK_SEGMENTD_R_SEGMENT_SEGMENT">
+            <End Role="Segment" EntitySet="Segment" />
+            <End Role="SegmentDeel" EntitySet="SegmentDeel" />
+          </AssociationSet>
         </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
         <EntityType Name="Attribuut">
           <Key>
             <PropertyRef Name="attribuutNummer" />
@@ -953,17 +964,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -971,6 +971,21 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="FO_ERMModelStoreContainer" CdmEntityContainer="FO_ERMEntities1">
           <FunctionImportMapping FunctionImportName="spr_EntityTypeHasID" FunctionName="FO_ERMModel.Store.spr_EntityTypeHasID" />
+          <FunctionImportMapping FunctionImportName="spr_CheckIfETHasDependentRelationAndNoID" FunctionName="FO_ERMModel.Store.spr_CheckIfETHasDependentRelationAndNoID" />
+          <FunctionImportMapping FunctionImportName="spr_EntityTypeNotDependentRelationToItself" FunctionName="FO_ERMModel.Store.spr_EntityTypeNotDependentRelationToItself" />
+          <FunctionImportMapping FunctionImportName="spr_NotDependentRelatieTypeOnderdeelMustHaveKardinaliteitOneOne" FunctionName="FO_ERMModel.Store.spr_NotDependentRelatieTypeOnderdeelMustHaveKardinaliteitOneOne" />
+          <FunctionImportMapping FunctionImportName="spr_OneSegmentIsEntityType" FunctionName="FO_ERMModel.Store.spr_OneSegmentIsEntityType" />
+          <FunctionImportMapping FunctionImportName="spr_OnlyOneDependentRelatieOnderdeel" FunctionName="FO_ERMModel.Store.spr_OnlyOneDependentRelatieOnderdeel" />
+          <FunctionImportMapping FunctionImportName="spr_PredicaatAttributeInFacttype" FunctionName="FO_ERMModel.Store.spr_PredicaatAttributeInFacttype" />
+          <FunctionImportMapping FunctionImportName="spr_RelatieTypeExactlyTwoParts" FunctionName="FO_ERMModel.Store.spr_RelatieTypeExactlyTwoParts" />
+          <FunctionImportMapping FunctionImportName="spr_RelationInSameDataModel" FunctionName="FO_ERMModel.Store.spr_RelationInSameDataModel" />
+          <FunctionImportMapping FunctionImportName="spr_SegmentHasSegmentPart" FunctionName="FO_ERMModel.Store.spr_SegmentHasSegmentPart" />
+          <FunctionImportMapping FunctionImportName="spr_SegmentMustHaveEntityTypeOrAttribute" FunctionName="FO_ERMModel.Store.spr_SegmentMustHaveEntityTypeOrAttribute" />
+          <FunctionImportMapping FunctionImportName="spr_SegmentValidation" FunctionName="FO_ERMModel.Store.spr_SegmentValidation" />
+          <FunctionImportMapping FunctionImportName="spr_TwoSegmentsHaveARelationType" FunctionName="FO_ERMModel.Store.spr_TwoSegmentsHaveARelationType" />
+          <FunctionImportMapping FunctionImportName="spr_TwoSegmentsMustHaveETETOrETATT" FunctionName="FO_ERMModel.Store.spr_TwoSegmentsMustHaveETETOrETATT" />
+          <FunctionImportMapping FunctionImportName="spr_ValidateRelatieType" FunctionName="FO_ERMModel.Store.spr_ValidateRelatieType" />
+          <FunctionImportMapping FunctionImportName="spr_FactTypeValidation" FunctionName="FO_ERMModel.Store.spr_FactTypeValidation" />
           <EntitySetMapping Name="Attribuut">
             <EntityTypeMapping TypeName="FO_ERMModel.Attribuut">
               <MappingFragment StoreEntitySet="Attribuut">
@@ -1083,21 +1098,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="spr_CheckIfETHasDependentRelationAndNoID" FunctionName="FO_ERMModel.Store.spr_CheckIfETHasDependentRelationAndNoID" />
-          <FunctionImportMapping FunctionImportName="spr_EntityTypeNotDependentRelationToItself" FunctionName="FO_ERMModel.Store.spr_EntityTypeNotDependentRelationToItself" />
-          <FunctionImportMapping FunctionImportName="spr_NotDependentRelatieTypeOnderdeelMustHaveKardinaliteitOneOne" FunctionName="FO_ERMModel.Store.spr_NotDependentRelatieTypeOnderdeelMustHaveKardinaliteitOneOne" />
-          <FunctionImportMapping FunctionImportName="spr_OneSegmentIsEntityType" FunctionName="FO_ERMModel.Store.spr_OneSegmentIsEntityType" />
-          <FunctionImportMapping FunctionImportName="spr_OnlyOneDependentRelatieOnderdeel" FunctionName="FO_ERMModel.Store.spr_OnlyOneDependentRelatieOnderdeel" />
-          <FunctionImportMapping FunctionImportName="spr_PredicaatAttributeInFacttype" FunctionName="FO_ERMModel.Store.spr_PredicaatAttributeInFacttype" />
-          <FunctionImportMapping FunctionImportName="spr_RelatieTypeExactlyTwoParts" FunctionName="FO_ERMModel.Store.spr_RelatieTypeExactlyTwoParts" />
-          <FunctionImportMapping FunctionImportName="spr_RelationInSameDataModel" FunctionName="FO_ERMModel.Store.spr_RelationInSameDataModel" />
-          <FunctionImportMapping FunctionImportName="spr_SegmentHasSegmentPart" FunctionName="FO_ERMModel.Store.spr_SegmentHasSegmentPart" />
-          <FunctionImportMapping FunctionImportName="spr_SegmentMustHaveEntityTypeOrAttribute" FunctionName="FO_ERMModel.Store.spr_SegmentMustHaveEntityTypeOrAttribute" />
-          <FunctionImportMapping FunctionImportName="spr_SegmentValidation" FunctionName="FO_ERMModel.Store.spr_SegmentValidation" />
-          <FunctionImportMapping FunctionImportName="spr_TwoSegmentsHaveARelationType" FunctionName="FO_ERMModel.Store.spr_TwoSegmentsHaveARelationType" />
-          <FunctionImportMapping FunctionImportName="spr_TwoSegmentsMustHaveETETOrETATT" FunctionName="FO_ERMModel.Store.spr_TwoSegmentsMustHaveETETOrETATT" />
-          <FunctionImportMapping FunctionImportName="spr_ValidateRelatieType" FunctionName="FO_ERMModel.Store.spr_ValidateRelatieType" />
-          <FunctionImportMapping FunctionImportName="spr_FactTypeValidation" FunctionName="FO_ERMModel.Store.spr_FactTypeValidation" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

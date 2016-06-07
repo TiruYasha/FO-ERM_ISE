@@ -153,6 +153,14 @@ namespace FO_ERM_ISE.presentation.analyse
             if (chMatch.Checked)
             { //checked so save segment with ET numer then exit.
                 segment.entiteitTypeNummer = ((EntiteittypeDTO)selectEntitytype.SelectedItem).entiteitTypeNummer;
+                try
+                {
+                    SegmentBusiness.UpdateSegment(segment);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
                 return null;
             }
             else
