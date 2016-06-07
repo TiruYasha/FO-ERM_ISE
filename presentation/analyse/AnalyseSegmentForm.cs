@@ -206,6 +206,7 @@ namespace FO_ERM_ISE.presentation.analyse
 
                 // new et update segment 
                 segment.entiteitTypeNummer = newEtNummer;
+                newEt.entiteitTypeNummer = newEtNummer;
                 try
                 {
                     SegmentBusiness.UpdateSegment(segment);

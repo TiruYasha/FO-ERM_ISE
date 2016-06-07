@@ -95,7 +95,7 @@ namespace FO_ERM_ISE.presentation.relationtype
         /// </summary>
         private void SetDependencies()
         {
-            rbETAfhankelijkOne.Checked = true;
+            rbETAfhankelijkTwo.Checked = true;
             rbETAfhankelijkOne.Enabled = false;
             rbETAfhankelijkTwo.Enabled = false;
         }
