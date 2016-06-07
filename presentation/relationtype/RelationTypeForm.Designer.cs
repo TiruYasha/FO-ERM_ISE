@@ -104,7 +104,6 @@
             this.rbETAfhankelijkOne.TabStop = true;
             this.rbETAfhankelijkOne.Text = "Afhankelijk";
             this.rbETAfhankelijkOne.UseVisualStyleBackColor = true;
-            this.rbETAfhankelijkOne.CheckedChanged += new System.EventHandler(this.rbETAfhankelijkOne_CheckedChanged);
             // 
             // rbETAfhankelijkTwo
             // 
@@ -116,7 +115,6 @@
             this.rbETAfhankelijkTwo.TabStop = true;
             this.rbETAfhankelijkTwo.Text = "Afhankelijk";
             this.rbETAfhankelijkTwo.UseVisualStyleBackColor = true;
-            this.rbETAfhankelijkTwo.CheckedChanged += new System.EventHandler(this.rbETAfhankelijkTwo_CheckedChanged);
             // 
             // cbCardinalityOne
             // 

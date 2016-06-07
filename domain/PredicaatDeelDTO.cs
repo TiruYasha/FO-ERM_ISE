@@ -16,7 +16,7 @@ namespace FO_ERM_ISE.domain
         public string predicaatDeelTekst { get; set; }
         
         public FacttypeDTO FeitType { get; set; }
-        //public AttribuutDTO Attribuut { get; set; }
+        public AttributeDTO Attribuut { get; set; }
         
     }
 }

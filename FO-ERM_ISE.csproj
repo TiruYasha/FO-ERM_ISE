@@ -70,6 +70,8 @@
     <Compile Include="business\interfaces\IFactTypeBusiness.cs" />
     <Compile Include="business\interfaces\IRelationTypeBusiness.cs" />
     <Compile Include="business\interfaces\ISegmentBusiness.cs" />
+    <Compile Include="business\interfaces\IPredicaatBusiness.cs" />
+    <Compile Include="business\PredicaatBusiness.cs" />
     <Compile Include="business\RelationTypeBusiness.cs" />
     <Compile Include="business\SegmentBusiness.cs" />
     <Compile Include="DataModel.cs">
@@ -86,9 +88,11 @@
     <Compile Include="datasource\interfaces\IDatasource.cs" />
     <Compile Include="datasource\interfaces\IEntitytypeDatasource.cs" />
     <Compile Include="datasource\interfaces\IFacttypeDatasource.cs" />
+    <Compile Include="datasource\interfaces\IPredicaatDatasource.cs" />
     <Compile Include="datasource\interfaces\IRelationTypeDataSource.cs" />
     <Compile Include="datasource\interfaces\ISegmentDatasource.cs" />
     <Compile Include="datasource\interfaces\ISegmentDeelDatasource.cs" />
+    <Compile Include="datasource\PredicaatDatasource.cs" />
     <Compile Include="datasource\RelationTypeDataSource.cs" />
     <Compile Include="domain\CardinalityDto.cs" />
     <Compile Include="domain\PredicaatDeelDTO.cs" />

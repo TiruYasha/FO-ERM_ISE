@@ -147,6 +147,7 @@ namespace FO_ERM_ISE.presentation.facttype
 
             segmentManagementForm.FormClosing += delegate
             {
+                SetLvFacttypesItems();
                 this.Show();
             };
         }

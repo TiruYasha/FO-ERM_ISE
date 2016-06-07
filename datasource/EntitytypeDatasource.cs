@@ -38,7 +38,6 @@ namespace FO_ERM_ISE.datasource
             }
         }
 
-
         public new int Create(EntiteittypeDTO dto)
         {
             using (Db = new FO_ERMEntities1())
