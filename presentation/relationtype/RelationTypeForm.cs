@@ -94,22 +94,23 @@ namespace FO_ERM_ISE.presentation.relationtype
         /// Set single datasource for the Et comboboxes
         /// </summary>
         /// <param name="comboBox"></param>
-        /// <param name="etOne"></param>
-        private void ComboBoxSetSingleETSource(ComboBox comboBox, EntiteittypeDTO etOne)
+        /// <param name="Entity"></param>
+        private void ComboBoxSetSingleETSource(ComboBox comboBox, EntiteittypeDTO Entity)
         {
             cbEntityTypeOne.DisplayMember = "entiteitTypeNaam";
-            cbEntityTypeOne.DataSource = etOne;
+            cbEntityTypeOne.Items.Add(Entity);
         }
 
         private void SetEntityTypes()
         {
-            List<EntiteittypeDTO> entityTypes = eb.GetEntitytypeOnDataModel(dataModelNumber);
+            List<EntiteittypeDTO> entityTypesOne = eb.GetEntitytypeOnDataModel(dataModelNumber);
+            List<EntiteittypeDTO> entityTypesTwo = eb.GetEntitytypeOnDataModel(dataModelNumber);
 
             cbEntityTypeOne.DisplayMember = "entiteitTypeNaam";
-            cbEntityTypeOne.DataSource = entityTypes;
+            cbEntityTypeOne.DataSource = entityTypesOne;
 
             cbEntityTypeTwo.DisplayMember = "entiteitTypeNaam";
-            cbEntityTypeTwo.DataSource = entityTypes;
+            cbEntityTypeTwo.DataSource = entityTypesTwo;
         }
 
 
