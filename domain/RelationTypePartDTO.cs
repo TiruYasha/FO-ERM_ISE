@@ -17,7 +17,7 @@ namespace FO_ERM_ISE.domain
         public int entiteitTypeNummer { get; set; }
 
         public EntiteittypeDTO EntiteitType { get; set; }
-        public CardinalityDto Kardinaliteit { get; set; }
+        public CardinalityDTO Kardinaliteit { get; set; }
         public RelationTypeDTO RelatieType { get; set; }
     }
 }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.lblName = new System.Windows.Forms.Label();
             this.txtRelationTypeName = new System.Windows.Forms.TextBox();
             this.lblEtNameOne = new System.Windows.Forms.Label();
@@ -43,8 +42,6 @@
             this.cbCardinalityTwo = new System.Windows.Forms.ComboBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.entiteittypeDTOBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.entiteittypeDTOBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // lblName
@@ -107,6 +104,7 @@
             this.rbETAfhankelijkOne.TabStop = true;
             this.rbETAfhankelijkOne.Text = "Afhankelijk";
             this.rbETAfhankelijkOne.UseVisualStyleBackColor = true;
+            this.rbETAfhankelijkOne.CheckedChanged += new System.EventHandler(this.rbETAfhankelijkOne_CheckedChanged);
             // 
             // rbETAfhankelijkTwo
             // 
@@ -118,6 +116,7 @@
             this.rbETAfhankelijkTwo.TabStop = true;
             this.rbETAfhankelijkTwo.Text = "Afhankelijk";
             this.rbETAfhankelijkTwo.UseVisualStyleBackColor = true;
+            this.rbETAfhankelijkTwo.CheckedChanged += new System.EventHandler(this.rbETAfhankelijkTwo_CheckedChanged);
             // 
             // cbCardinalityOne
             // 
@@ -182,10 +181,6 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // entiteittypeDTOBindingSource
-            // 
-            this.entiteittypeDTOBindingSource.DataSource = typeof(FO_ERM_ISE.domain.EntiteittypeDTO);
-            // 
             // RelationTypeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -208,7 +203,6 @@
             this.Name = "RelationTypeForm";
             this.Text = "RelationTypeForm";
             this.Load += new System.EventHandler(this.RelationTypeForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.entiteittypeDTOBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -230,6 +224,5 @@
         private System.Windows.Forms.ComboBox cbCardinalityTwo;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.BindingSource entiteittypeDTOBindingSource;
     }
 }

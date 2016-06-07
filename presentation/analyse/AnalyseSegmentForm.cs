@@ -427,15 +427,8 @@ namespace FO_ERM_ISE.presentation.analyse
                 EntiteittypeDTO otherEt = (EntiteittypeDTO)lbDependentETs.SelectedItem;
 
                 // open relation type add forum
-                RelationTypeForm form = new RelationTypeForm(dependant, otherEt);
+                RelationTypeForm form = new RelationTypeForm(dependant, otherEt, segment.feitTypeCode);
                 form.ShowDialog();
-                this.Enabled = false;
-
-                form.FormClosing += delegate
-                {
-                    this.Enabled = true;
-                };
-
             }
         }
 
