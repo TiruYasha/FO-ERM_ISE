@@ -91,6 +91,7 @@
     <Compile Include="datasource\interfaces\ISegmentDeelDatasource.cs" />
     <Compile Include="datasource\RelationTypeDataSource.cs" />
     <Compile Include="domain\CardinalityDto.cs" />
+    <Compile Include="domain\PredicaatDeelDTO.cs" />
     <Compile Include="domain\RelationTypeDTO.cs" />
     <Compile Include="datasource\SegmentDatasource.cs" />
     <Compile Include="datasource\SegmentDeelDatasource.cs" />
@@ -172,6 +173,12 @@
     <Compile Include="presentation\facttype\FacttypeManagementForm.Designer.cs">
       <DependentUpon>FacttypeManagementForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="presentation\predicaat\PredicaatManagementFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\predicaat\PredicaatManagementFrm.Designer.cs">
+      <DependentUpon>PredicaatManagementFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="presentation\relationtype\RelationTypeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -227,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="presentation\facttype\FacttypeManagementForm.resx">
       <DependentUpon>FacttypeManagementForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\predicaat\PredicaatManagementFrm.resx">
+      <DependentUpon>PredicaatManagementFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="presentation\relationtype\RelationTypeForm.resx">
       <DependentUpon>RelationTypeForm.cs</DependentUpon>

@@ -36,8 +36,8 @@ namespace FO_ERM_ISE
             CreateMap<Attribuut, AttributeDTO>();
             CreateMap<AttributeDTO, Attribuut>();
 
-            CreateMap<Kardinaliteit, CardinalityDto>();
-            CreateMap<CardinalityDto, Kardinaliteit>();
+            CreateMap<PredicaatDeel, PredicaatDeelDTO>();
+            CreateMap<PredicaatDeelDTO, PredicaatDeel>();
 
         }
     }

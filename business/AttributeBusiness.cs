@@ -45,5 +45,10 @@ namespace FO_ERM_ISE.business
         {
             datasource.Update(attribute);
         }
+
+        public List<AttributeDTO> getAttributeForPredicate(String FeitType, int datamodelNummer)
+        {
+            return datasource.getAttributeForPredicate("", datamodelNummer);
+        }
     }
 }

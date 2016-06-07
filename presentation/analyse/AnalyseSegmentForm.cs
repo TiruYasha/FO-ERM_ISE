@@ -68,7 +68,7 @@ namespace FO_ERM_ISE.presentation.analyse
         {
             txtETNaam.Text = EtToAnalyse.entiteitTypeNaam;
 
-            foreach(AttributeDTO attr in
+            foreach (AttributeDTO attr in
                 AttrBusiness.GetAttributesOnEntityTypeNumber(EtToAnalyse.entiteitTypeNummer))
             {
                 lbIDAttr.Items.Add(attr);
@@ -84,7 +84,8 @@ namespace FO_ERM_ISE.presentation.analyse
             if (AttrToAnalyse.verplicht == "True")
             {
                 chMandatory.Checked = true;
-            } else
+            }
+            else
             {
                 chMandatory.Checked = false;
             }
@@ -117,7 +118,8 @@ namespace FO_ERM_ISE.presentation.analyse
                 lbDependentETs.DataSource = null;
                 txtETNaam.Text = "";
                 txtIdentificatoren.Text = "";
-            } else
+            }
+            else
             {
                 loadEntityTypesInForm(segment.dataModelNummer);
             }
@@ -134,17 +136,34 @@ namespace FO_ERM_ISE.presentation.analyse
             if (segment.attribuutNummer != 0 && segment.attribuutNummer != null)
             {
                 AttributeDTO attribuutToDelte = AttrBusiness.GetAttributeOnAttributeNumber(segment.attribuutNummer.Value);
-                AttrBusiness.DeleteAttribute(attribuutToDelte);
                 segment.attribuutNummer = null;
-                SegmentBusiness.UpdateSegment(segment);
+
+                try
+                {
+                    AttrBusiness.DeleteAttribute(attribuutToDelte);
+                    SegmentBusiness.UpdateSegment(segment);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
 
 
             if (chMatch.Checked)
             { //checked so save segment with ET numer then exit.
                 segment.entiteitTypeNummer = ((EntiteittypeDTO)selectEntitytype.SelectedItem).entiteitTypeNummer;
+                try
+                {
+                    SegmentBusiness.UpdateSegment(segment);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
                 return null;
-            } else
+            }
+            else
             {  // new ET
 
                 // save ET
@@ -154,15 +173,32 @@ namespace FO_ERM_ISE.presentation.analyse
 
 
                 // if et does not exist make new else update 
-                int newEtNummer;
+                int newEtNummer = 0;
+
                 if (segment.entiteitTypeNummer == null || segment.entiteitTypeNummer == 0)
                 {
-                    newEtNummer = ETBusiness.AddEntiteittype(newEt);
-                } else
+                    try
+                    {
+                        newEtNummer = ETBusiness.AddEntiteittype(newEt);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
                 {
                     newEtNummer = segment.entiteitTypeNummer.Value;
                     newEt.entiteitTypeNummer = newEtNummer;
-                    ETBusiness.UpdateEntiteittype(newEt);
+
+                    try
+                    {
+                        ETBusiness.UpdateEntiteittype(newEt);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
 
                 // save ID Attr
@@ -170,7 +206,14 @@ namespace FO_ERM_ISE.presentation.analyse
 
                 // new et update segment 
                 segment.entiteitTypeNummer = newEtNummer;
-                SegmentBusiness.UpdateSegment(segment);
+                try
+                {
+                    SegmentBusiness.UpdateSegment(segment);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
 
                 return newEt;
             }
@@ -183,12 +226,26 @@ namespace FO_ERM_ISE.presentation.analyse
             {
                 if (attribuut.attribuutNummer != 0)
                 {// attribuut bestaat dus update
-                    AttrBusiness.UpdateAttribute(attribuut);
+                    try
+                    {
+                        AttrBusiness.UpdateAttribute(attribuut);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
                 else
                 { // bestaat nog niet voeg et nummer toe en sla op
                     attribuut.entiteitTypeNummer = etNummer;
-                    AttrBusiness.AddAttribute(attribuut);
+                    try
+                    {
+                        AttrBusiness.AddAttribute(attribuut);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             }
 
@@ -199,25 +256,33 @@ namespace FO_ERM_ISE.presentation.analyse
             if (segment.entiteitTypeNummer != 0 && segment.entiteitTypeNummer != null)
             {
                 EntiteittypeDTO etToDelte = ETBusiness.GetEntitytypeOnEntityTypeNumber(segment.entiteitTypeNummer.Value);
-                ETBusiness.DeleteEntiteittype(etToDelte);
                 segment.entiteitTypeNummer = null;
-                SegmentBusiness.UpdateSegment(segment);
+                try
+                {
+                    ETBusiness.DeleteEntiteittype(etToDelte);
+                    SegmentBusiness.UpdateSegment(segment);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
 
 
             int segmentNummer;
-            if(segment.segmentNummer == 1)
+            if (segment.segmentNummer == 1)
             {
                 segmentNummer = 2;
-            } else
+            }
+            else
             {
                 segmentNummer = 1;
             }
 
-            SegmentDTO anderSegment = 
+            SegmentDTO anderSegment =
                 SegmentBusiness.getSegmentOnSegmentNummer(segmentNummer, segment.dataModelNummer, segment.feitTypeCode);
 
-            if(anderSegment == null || anderSegment.entiteitTypeNummer == 0 || anderSegment.entiteitTypeNummer == null)
+            if (anderSegment == null || anderSegment.entiteitTypeNummer == 0 || anderSegment.entiteitTypeNummer == null)
             {
                 // the other segment is null or is a Attr.
                 MessageBox.Show("Kan het attribuut niet opslaan: " +
@@ -239,17 +304,31 @@ namespace FO_ERM_ISE.presentation.analyse
             {
                 // update
                 attr.attribuutNummer = segment.attribuutNummer.Value;
-                AttrBusiness.UpdateAttribute(attr);              
+                try
+                {
+                    AttrBusiness.UpdateAttribute(attr);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
             else
             {
                 //retreve number and save segment.
-                int attrNumber = AttrBusiness.AddAttribute(attr);
-                segment.attribuutNummer = attrNumber;
-                SegmentBusiness.UpdateSegment(segment);
+                try
+                {
+                    int attrNumber = AttrBusiness.AddAttribute(attr);
+                    segment.attribuutNummer = attrNumber;
+                    SegmentBusiness.UpdateSegment(segment);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
 
-            
+
         }
 
         private void cancel()
@@ -259,7 +338,7 @@ namespace FO_ERM_ISE.presentation.analyse
             {
                 this.Close();
             }
-            
+
         }
 
         #endregion
@@ -320,12 +399,20 @@ namespace FO_ERM_ISE.presentation.analyse
 
         private void btnDeleteAttr_Click(object sender, EventArgs e)
         {
-            if(lbIDAttr.SelectedItem != null && 
+            if (lbIDAttr.SelectedItem != null &&
                 ((AttributeDTO)lbIDAttr.SelectedItem).attribuutNummer != 0)
             {
-                AttrBusiness.DeleteAttribute((AttributeDTO)lbIDAttr.SelectedItem);
+                try
+                {
+                    AttrBusiness.DeleteAttribute((AttributeDTO)lbIDAttr.SelectedItem);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
                 lbIDAttr.Items.Remove(lbIDAttr.SelectedItem);
-            } else
+            }
+            else
             {
                 lbIDAttr.Items.Remove(lbIDAttr.SelectedItem);
             }
