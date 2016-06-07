@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Rene\Documents\Git Projects\FO-ERM_ISE\FO_ERM_Entities.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Harm\Desktop\HAN\ISE2016-FO-ERM\FO_ERM_Entities.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -37,6 +37,18 @@ namespace FO_ERM_ISE.presentation.predicaat
 
             loadPredicaat();
             getAttributes();
+
+            if(factType.PredicaatDeel.Count() > 1)
+            {
+                this.disableInput();
+            }
+        }
+
+        public void disableInput()
+        {
+            lbAttributes.Enabled = false;
+            btnAddAttribute.Enabled = false;
+            btnSave.Enabled = false;
         }
 
         public void getAttributes()
@@ -156,8 +168,15 @@ namespace FO_ERM_ISE.presentation.predicaat
 
         private void btnAddAttribute_Click(object sender, EventArgs e)
         {
-            addPredicaatDeel(txtVerwoording.SelectedText.Trim(), (AttributeDTO)lbAttributes.SelectedItem);
-            loadPredicaat();
+            if(!String.IsNullOrEmpty(txtVerwoording.SelectedText.Trim()))
+            {
+                addPredicaatDeel(txtVerwoording.SelectedText.Trim(), (AttributeDTO)lbAttributes.SelectedItem);
+                loadPredicaat();
+            }
+            else
+            {
+                MessageBox.Show("Selecteer een tekst uit de verwoording!");
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -165,11 +184,18 @@ namespace FO_ERM_ISE.presentation.predicaat
             try
             {
                 this.pb.AddPredicaatDelen(this.factType.PredicaatDeel);
+                MessageBox.Show("Het predicaat is aangemaakt");
+                this.disableInput();
             }
             catch(Exception ex)
             {
                 MessageBox.Show(this.errorHandler.ParseErrorMessage(ex));
             }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

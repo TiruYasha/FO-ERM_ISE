@@ -119,6 +119,7 @@ namespace FO_ERM_ISE.presentation.facttype
                 btnDeleteFactType.Enabled = false;
                 btnUpdateFactType.Enabled = false;
                 btnSegmentManagement.Enabled = false;
+                
                 btnVerifyFactType.Enabled = false;
                 btnPredicateManagement.Enabled = false;
             }
@@ -128,7 +129,11 @@ namespace FO_ERM_ISE.presentation.facttype
                 btnUpdateFactType.Enabled = true;
                 btnSegmentManagement.Enabled = true;
                 btnVerifyFactType.Enabled = true;
-                btnPredicateManagement.Enabled = true;
+                
+                if (this.getSelectedFactType().geverifieerd)
+                { 
+                    btnPredicateManagement.Enabled = true;
+                }
             }
         }
 

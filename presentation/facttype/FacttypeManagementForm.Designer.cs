@@ -126,6 +126,7 @@
             // 
             // btnVerifyFactType
             // 
+            this.btnVerifyFactType.Enabled = false;
             this.btnVerifyFactType.Location = new System.Drawing.Point(174, 443);
             this.btnVerifyFactType.Name = "btnVerifyFactType";
             this.btnVerifyFactType.Size = new System.Drawing.Size(87, 23);
@@ -136,6 +137,7 @@
             // 
             // btnPredicateManagement
             // 
+            this.btnPredicateManagement.Enabled = false;
             this.btnPredicateManagement.Location = new System.Drawing.Point(268, 442);
             this.btnPredicateManagement.Name = "btnPredicateManagement";
             this.btnPredicateManagement.Size = new System.Drawing.Size(75, 23);
