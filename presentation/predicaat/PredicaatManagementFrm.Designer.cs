@@ -36,6 +36,7 @@
             this.txtPredicaat = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btnAddAttribute = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblVerwoording
@@ -59,7 +60,7 @@
             // lblAttributes
             // 
             this.lblAttributes.AutoSize = true;
-            this.lblAttributes.Location = new System.Drawing.Point(12, 117);
+            this.lblAttributes.Location = new System.Drawing.Point(12, 107);
             this.lblAttributes.Name = "lblAttributes";
             this.lblAttributes.Size = new System.Drawing.Size(52, 13);
             this.lblAttributes.TabIndex = 2;
@@ -68,7 +69,7 @@
             // lbAttributes
             // 
             this.lbAttributes.FormattingEnabled = true;
-            this.lbAttributes.Location = new System.Drawing.Point(15, 134);
+            this.lbAttributes.Location = new System.Drawing.Point(14, 125);
             this.lbAttributes.Name = "lbAttributes";
             this.lbAttributes.Size = new System.Drawing.Size(257, 147);
             this.lbAttributes.TabIndex = 3;
@@ -76,7 +77,7 @@
             // lblPredicaat
             // 
             this.lblPredicaat.AutoSize = true;
-            this.lblPredicaat.Location = new System.Drawing.Point(12, 292);
+            this.lblPredicaat.Location = new System.Drawing.Point(12, 354);
             this.lblPredicaat.Name = "lblPredicaat";
             this.lblPredicaat.Size = new System.Drawing.Size(52, 13);
             this.lblPredicaat.TabIndex = 4;
@@ -84,7 +85,7 @@
             // 
             // txtPredicaat
             // 
-            this.txtPredicaat.Location = new System.Drawing.Point(15, 308);
+            this.txtPredicaat.Location = new System.Drawing.Point(15, 370);
             this.txtPredicaat.Multiline = true;
             this.txtPredicaat.Name = "txtPredicaat";
             this.txtPredicaat.ReadOnly = true;
@@ -93,27 +94,39 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(196, 424);
+            this.btnSave.Location = new System.Drawing.Point(196, 486);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 24);
             this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Opslaan";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(115, 424);
+            this.btnCancel.Location = new System.Drawing.Point(115, 486);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 24);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Annuleren";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
+            // btnAddAttribute
+            // 
+            this.btnAddAttribute.Location = new System.Drawing.Point(14, 278);
+            this.btnAddAttribute.Name = "btnAddAttribute";
+            this.btnAddAttribute.Size = new System.Drawing.Size(75, 23);
+            this.btnAddAttribute.TabIndex = 8;
+            this.btnAddAttribute.Text = "Toevoegen";
+            this.btnAddAttribute.UseVisualStyleBackColor = true;
+            this.btnAddAttribute.Click += new System.EventHandler(this.btnAddAttribute_Click);
+            // 
             // PredicaatManagementFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 470);
+            this.ClientSize = new System.Drawing.Size(292, 515);
+            this.Controls.Add(this.btnAddAttribute);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtPredicaat);
@@ -139,5 +152,6 @@
         private System.Windows.Forms.TextBox txtPredicaat;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnAddAttribute;
     }
 }

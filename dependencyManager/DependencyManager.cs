@@ -67,5 +67,14 @@ namespace FO_ERM_ISE.dependencyManager
             return new AttributeDatasource();
         }
 
+        public IPredicaatBusiness getIPredicaatBusiness()
+        {
+            return new PredicaatBusiness();
+        }
+        
+        public IPredicaatDatasource getIPredicaatDatasource()
+        {
+            return new PredicaatDatasource();
+        }
     }
 }

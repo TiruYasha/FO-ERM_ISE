@@ -14,6 +14,11 @@ namespace FO_ERM_ISE.datasource
             return entity;
         }
 
+        public List<T> MapDTOsToEntities(List<T2> entities)
+        {
+            return Program.mapper.Map<List<T2>, List<T>>(entities);
+        }
+
         public List<T2> MapEntitiesToDTOs(List<T> entities)
         {
             return Program.mapper.Map<List<T>, List<T2>>(entities);

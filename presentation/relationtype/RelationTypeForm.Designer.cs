@@ -184,7 +184,7 @@
             // 
             // entiteittypeDTOBindingSource
             // 
-            this.entiteittypeDTOBindingSource.DataSource = typeof(FO_ERM_ISE.domain.EntiteittypeDTO);
+            
             // 
             // RelationTypeForm
             // 
