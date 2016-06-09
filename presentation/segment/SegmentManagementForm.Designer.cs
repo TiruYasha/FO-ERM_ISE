@@ -39,7 +39,6 @@
             this.radioSegment1 = new System.Windows.Forms.RadioButton();
             this.btnToevoegen = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
-            this.btnSaveFactType = new System.Windows.Forms.Button();
             this.btnAnalyse = new System.Windows.Forms.Button();
             this.lablRelationType = new System.Windows.Forms.Label();
             this.lbRelationType = new System.Windows.Forms.ListBox();
@@ -157,15 +156,6 @@
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
-            // btnSaveFactType
-            // 
-            this.btnSaveFactType.Location = new System.Drawing.Point(367, 493);
-            this.btnSaveFactType.Name = "btnSaveFactType";
-            this.btnSaveFactType.Size = new System.Drawing.Size(118, 32);
-            this.btnSaveFactType.TabIndex = 9;
-            this.btnSaveFactType.Text = "Opslaan";
-            this.btnSaveFactType.UseVisualStyleBackColor = true;
-            // 
             // btnAnalyse
             // 
             this.btnAnalyse.Location = new System.Drawing.Point(199, 132);
@@ -234,7 +224,6 @@
             this.Controls.Add(this.lbRelationType);
             this.Controls.Add(this.lablRelationType);
             this.Controls.Add(this.btnAnalyse);
-            this.Controls.Add(this.btnSaveFactType);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.btnToevoegen);
             this.Controls.Add(this.groupBox1);
@@ -266,7 +255,6 @@
         private System.Windows.Forms.RadioButton radioSegment1;
         private System.Windows.Forms.Button btnToevoegen;
         private System.Windows.Forms.Button btnRemove;
-        private System.Windows.Forms.Button btnSaveFactType;
         private System.Windows.Forms.Button btnAnalyse;
         private System.Windows.Forms.Label lablRelationType;
         private System.Windows.Forms.ListBox lbRelationType;

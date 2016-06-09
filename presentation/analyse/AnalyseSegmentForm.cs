@@ -13,6 +13,7 @@ using FO_ERM_ISE.business;
 using FO_ERM_ISE.business.interfaces;
 using FO_ERM_ISE.presentation.relationtype;
 
+
 namespace FO_ERM_ISE.presentation.analyse
 {
     public partial class AnalyseSegmentForm : Form
@@ -23,9 +24,12 @@ namespace FO_ERM_ISE.presentation.analyse
         private IAttributeBusiness AttrBusiness;
         private ISegmentBusiness SegmentBusiness;
 
+        private DatabaseErrorHandler errorHandler;
+
         public AnalyseSegmentForm(SegmentDTO segment)
         {
             InitializeComponent();
+            errorHandler = new DatabaseErrorHandler();
 
             DependencyManager dm = new DependencyManager();
             this.ETBusiness = dm.GetIEntitytypeBusiness();
@@ -69,10 +73,13 @@ namespace FO_ERM_ISE.presentation.analyse
             txtETNaam.Text = EtToAnalyse.entiteitTypeNaam;
 
             foreach (AttributeDTO attr in
-                AttrBusiness.GetAttributesOnEntityTypeNumber(EtToAnalyse.entiteitTypeNummer))
+            AttrBusiness.GetAttributesOnEntityTypeNumber(EtToAnalyse.entiteitTypeNummer))
             {
-                lbIDAttr.Items.Add(attr);
-                lbIDAttr.DisplayMember = "attribuutNaam";
+                if (attr.identificerend == "True")
+                {
+                    lbIDAttr.Items.Add(attr);
+                    lbIDAttr.DisplayMember = "attribuutNaam";
+                }
             }
 
         }
@@ -94,13 +101,28 @@ namespace FO_ERM_ISE.presentation.analyse
         private void loadEntityTypesInForm(int dataModelNumber)
         {
             List<EntiteittypeDTO> ets = ETBusiness.GetEntitytypeOnDataModel(dataModelNumber);
-            lbDependentETs.DataSource = null;
-            lbDependentETs.DataSource = ets;
-            lbDependentETs.DisplayMember = "entiteitTypeNaam";
+            selectEntitytype.Items.Clear();
+            lbDependentETs.Items.Clear();
 
-            selectEntitytype.DataSource = null;
-            selectEntitytype.DataSource = ets;
-            selectEntitytype.DisplayMember = "entiteitTypeNaam";
+            string currentEtName = "";
+            if(segment.entiteitTypeNummer != null && segment.entiteitTypeNummer != 0)
+            {
+                currentEtName = ETBusiness.GetEntitytypeOnEntityTypeNumber(segment.entiteitTypeNummer.Value).entiteitTypeNaam;
+            }
+
+            foreach (EntiteittypeDTO et in ets)
+            {
+                // prevent displaying own entitytype in form
+                if (!et.entiteitTypeNaam.Equals(currentEtName))
+                {
+                    selectEntitytype.Items.Add(et);
+                    selectEntitytype.DisplayMember = "entiteitTypeNaam";
+
+                    lbDependentETs.Items.Add(et);
+                    lbDependentETs.DisplayMember = "entiteitTypeNaam";
+                }
+            }
+
         }
 
         private void chMatch_CheckedChanged(object sender, EventArgs e)
@@ -117,7 +139,6 @@ namespace FO_ERM_ISE.presentation.analyse
             {
                 lbDependentETs.DataSource = null;
                 txtETNaam.Text = "";
-                txtIdentificatoren.Text = "";
             }
             else
             {
@@ -130,93 +151,97 @@ namespace FO_ERM_ISE.presentation.analyse
 
         #region ACTIONS
 
+        private void removeAttributeWithNumber(Nullable<int> attributeNumber)
+        {
+            if (attributeNumber != null)
+            {
+                AttributeDTO attribuutToDelte = AttrBusiness.GetAttributeOnAttributeNumber(attributeNumber.Value);
+                AttrBusiness.DeleteAttribute(attribuutToDelte);
+            }
+        }
+
+        private void removeEntityTypeWithNumber(Nullable<int> entityTypeNumber)
+        {
+            try
+            {
+                if (entityTypeNumber != null)
+                {
+                    EntiteittypeDTO entityTypeToDelete = ETBusiness.GetEntitytypeOnEntityTypeNumber(entityTypeNumber.Value);
+                    ETBusiness.DeleteEntiteittype(entityTypeToDelete);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(errorHandler.ParseErrorMessage(ex));
+            }
+        }
+
         private EntiteittypeDTO saveET()
         {
 
-            if (segment.attribuutNummer != 0 && segment.attribuutNummer != null)
-            {
-                AttributeDTO attribuutToDelte = AttrBusiness.GetAttributeOnAttributeNumber(segment.attribuutNummer.Value);
-                segment.attribuutNummer = null;
-
-                try
-                {
-                    AttrBusiness.DeleteAttribute(attribuutToDelte);
-                    SegmentBusiness.UpdateSegment(segment);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-
 
             if (chMatch.Checked)
-            { //checked so save segment with ET numer then exit.
-                segment.entiteitTypeNummer = ((EntiteittypeDTO)selectEntitytype.SelectedItem).entiteitTypeNummer;
+            { //checked so save segment with ET numer then exit. When there is a attribute remove that
                 try
                 {
+                    segment.entiteitTypeNummer = ((EntiteittypeDTO)selectEntitytype.SelectedItem).entiteitTypeNummer;
+                    if (segment.attribuutNummer != 0 && segment.attribuutNummer != null)
+                    {
+                        removeAttributeWithNumber(segment.attribuutNummer);
+                    }
+                    segment.attribuutNummer = null;
                     SegmentBusiness.UpdateSegment(segment);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(errorHandler.ParseErrorMessage(ex));
                 }
                 return null;
             }
             else
-            {  // new ET
-
-                // save ET
-                EntiteittypeDTO newEt = new EntiteittypeDTO();
-                newEt.dataModelNummer = segment.dataModelNummer;
-                newEt.entiteitTypeNaam = txtETNaam.Text;
-
-
-                // if et does not exist make new else update 
-                int newEtNummer = 0;
-
-                if (segment.entiteitTypeNummer == null || segment.entiteitTypeNummer == 0)
-                {
-                    try
-                    {
-                        newEtNummer = ETBusiness.AddEntiteittype(newEt);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-                else
-                {
-                    newEtNummer = segment.entiteitTypeNummer.Value;
-                    newEt.entiteitTypeNummer = newEtNummer;
-
-                    try
-                    {
-                        ETBusiness.UpdateEntiteittype(newEt);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-
-                // save ID Attr
-                syncAttributesWithDatabase(newEtNummer);
-
-                // new et update segment 
-                segment.entiteitTypeNummer = newEtNummer;
+            {  // Try to save ET (new or update)
                 try
                 {
+                    EntiteittypeDTO newEt = new EntiteittypeDTO();
+                    newEt.dataModelNummer = segment.dataModelNummer;
+                    newEt.entiteitTypeNaam = txtETNaam.Text;
+
+
+                    // if et does not exist make new else update 
+                    int newEtNummer = 0;
+                    if (segment.entiteitTypeNummer == null || segment.entiteitTypeNummer == 0)
+                    { // new
+                        newEtNummer = ETBusiness.AddEntiteittype(newEt);
+                    }
+                    else // upate
+                    {
+                        newEtNummer = segment.entiteitTypeNummer.Value;
+                        newEt.entiteitTypeNummer = newEtNummer;
+                        ETBusiness.UpdateEntiteittype(newEt);
+                    }
+
+                    // save ID Attr
+                    syncAttributesWithDatabase(newEtNummer);
+
+                    // update segment for new et
+                    if (segment.attribuutNummer != 0 && segment.attribuutNummer != null)
+                    {
+                        removeAttributeWithNumber(segment.attribuutNummer);
+                    }
+                    segment.entiteitTypeNummer = newEtNummer;
+                    segment.attribuutNummer = null;
                     SegmentBusiness.UpdateSegment(segment);
+
+                    return newEt;
                 }
-                catch (Exception ex)
+                catch (Exception ex) 
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(errorHandler.ParseErrorMessage(ex));
                 }
 
-                return newEt;
-            }
+                return null;
+            } 
+
         }
 
         private void syncAttributesWithDatabase(int etNummer)
@@ -226,14 +251,7 @@ namespace FO_ERM_ISE.presentation.analyse
             {
                 if (attribuut.attribuutNummer != 0)
                 {// attribuut bestaat dus update
-                    try
-                    {
-                        AttrBusiness.UpdateAttribute(attribuut);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                     AttrBusiness.UpdateAttribute(attribuut);
                 }
                 else
                 { // bestaat nog niet voeg et nummer toe en sla op
@@ -244,7 +262,7 @@ namespace FO_ERM_ISE.presentation.analyse
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                        MessageBox.Show(errorHandler.ParseErrorMessage(ex));
                     }
                 }
             }
@@ -253,21 +271,6 @@ namespace FO_ERM_ISE.presentation.analyse
 
         private void saveAttr()
         {
-            if (segment.entiteitTypeNummer != 0 && segment.entiteitTypeNummer != null)
-            {
-                EntiteittypeDTO etToDelte = ETBusiness.GetEntitytypeOnEntityTypeNumber(segment.entiteitTypeNummer.Value);
-                segment.entiteitTypeNummer = null;
-                try
-                {
-                    ETBusiness.DeleteEntiteittype(etToDelte);
-                    SegmentBusiness.UpdateSegment(segment);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-
 
             int segmentNummer;
             if (segment.segmentNummer == 1)
@@ -299,6 +302,7 @@ namespace FO_ERM_ISE.presentation.analyse
             if (chMandatory.Checked) attr.verplicht = "True";
             attr.identificerend = "False";
 
+
             // add as a new attribute or update attribute
             if (segment.attribuutNummer != null)
             {
@@ -310,7 +314,7 @@ namespace FO_ERM_ISE.presentation.analyse
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(errorHandler.ParseErrorMessage(ex));
                 }
             }
             else
@@ -318,13 +322,21 @@ namespace FO_ERM_ISE.presentation.analyse
                 //retreve number and save segment.
                 try
                 {
-                    int attrNumber = AttrBusiness.AddAttribute(attr);
+                    int attrNumber = AttrBusiness.AddAttribute(attr); // store new attr
                     segment.attribuutNummer = attrNumber;
-                    SegmentBusiness.UpdateSegment(segment);
+
+                    // (if exists) remove old entitytype
+                    if (segment.entiteitTypeNummer != 0 && segment.entiteitTypeNummer != null)
+                    {
+                        removeEntityTypeWithNumber(segment.entiteitTypeNummer.Value);
+                        segment.entiteitTypeNummer = null;
+                    }
+
+                    SegmentBusiness.UpdateSegment(segment); // save segment
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(errorHandler.ParseErrorMessage(ex));
                 }
             }
 
@@ -341,10 +353,10 @@ namespace FO_ERM_ISE.presentation.analyse
 
         }
 
-        #endregion
+#endregion
 
 
-        #region EVENTS
+#region EVENTS
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -361,8 +373,16 @@ namespace FO_ERM_ISE.presentation.analyse
             DialogResult dialogResult = MessageBox.Show("Weet u zeker dat u dit segment als een attribuut wilt opslaan?", "Attribuut opslaan", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                saveAttr();
-                this.Close();
+                if (!String.IsNullOrWhiteSpace(txtAttrName.Text))
+                {
+                    saveAttr();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Attribuut naam is leeg.");
+                }
+
             }
         }
 
@@ -371,8 +391,15 @@ namespace FO_ERM_ISE.presentation.analyse
             DialogResult dialogResult = MessageBox.Show("Weet u zeker dat u dit segment als een entiteittype wilt opslaan?", "Entieittype opslaan", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                saveET();
-                this.Close();
+                if ((!String.IsNullOrWhiteSpace(txtETNaam.Text) && !chMatch.Checked) || chMatch.Checked)
+                {
+                    saveET();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Entiteittype naam is leeg.");
+                }                    
             }
         }
 
@@ -408,7 +435,8 @@ namespace FO_ERM_ISE.presentation.analyse
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(errorHandler.ParseErrorMessage(ex));
+                    return;
                 }
                 lbIDAttr.Items.Remove(lbIDAttr.SelectedItem);
             }
@@ -432,7 +460,7 @@ namespace FO_ERM_ISE.presentation.analyse
             }
         }
 
-        #endregion
+#endregion
     }
 
 }
