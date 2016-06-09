@@ -94,7 +94,7 @@
     <Compile Include="datasource\interfaces\ISegmentDeelDatasource.cs" />
     <Compile Include="datasource\PredicaatDatasource.cs" />
     <Compile Include="datasource\RelationTypeDataSource.cs" />
-    <Compile Include="domain\CardinalityDto.cs" />
+    <Compile Include="domain\CardinalityDTO.cs" />
     <Compile Include="domain\PredicaatDeelDTO.cs" />
     <Compile Include="domain\RelationTypeDTO.cs" />
     <Compile Include="datasource\SegmentDatasource.cs" />
@@ -261,6 +261,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>FO_ERM_Entities.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="ClassDiagram1.cd" />
     <None Include="FO_ERM_Entities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FO_ERM_Entities.edmx</DependentUpon>

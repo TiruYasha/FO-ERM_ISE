@@ -41,5 +41,16 @@ namespace FO_ERM_ISE.business
         {
             rtDatasource.Update(relationTypeDto);
         }
+
+        public List<RelationTypeDTO> GetRelationTypesByDataModelFactType(int dataModelNummer, string feitTypeCode)
+        {
+            return rtDatasource.GetRelationTypeByDataModelFactType(dataModelNummer, feitTypeCode);
+        }
+
+        public void UpdateRelationTypeAndParts(RelationTypeDTO relationTypeDTO)
+        {
+            rtDatasource.UpdateRelationTypeAndPart(relationTypeDTO);
+
+        }
     }
 }

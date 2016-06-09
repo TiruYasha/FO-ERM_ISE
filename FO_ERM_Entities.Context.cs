@@ -61,15 +61,15 @@ namespace FO_ERM_ISE
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spr_EntityTypeHasID", dataModelNumberParameter, factTypeCodeParameter);
         }
     
-        public virtual int spr_Niew_segment_aanmaken(Nullable<int> dataModelNummer, string feitTypeCode, Nullable<int> segmentNummer, string segmentDeelTekst)
+        public virtual int spr_Niew_segment_aanmaken(Nullable<int> dataModelNumber, string factTypeCode, Nullable<int> segmentNummer, string segmentDeelTekst)
         {
-            var dataModelNummerParameter = dataModelNummer.HasValue ?
-                new ObjectParameter("dataModelNummer", dataModelNummer) :
-                new ObjectParameter("dataModelNummer", typeof(int));
+            var dataModelNumberParameter = dataModelNumber.HasValue ?
+                new ObjectParameter("dataModelNumber", dataModelNumber) :
+                new ObjectParameter("dataModelNumber", typeof(int));
     
-            var feitTypeCodeParameter = feitTypeCode != null ?
-                new ObjectParameter("feitTypeCode", feitTypeCode) :
-                new ObjectParameter("feitTypeCode", typeof(string));
+            var factTypeCodeParameter = factTypeCode != null ?
+                new ObjectParameter("factTypeCode", factTypeCode) :
+                new ObjectParameter("factTypeCode", typeof(string));
     
             var segmentNummerParameter = segmentNummer.HasValue ?
                 new ObjectParameter("segmentNummer", segmentNummer) :
@@ -79,7 +79,7 @@ namespace FO_ERM_ISE
                 new ObjectParameter("segmentDeelTekst", segmentDeelTekst) :
                 new ObjectParameter("segmentDeelTekst", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spr_Niew_segment_aanmaken", dataModelNummerParameter, feitTypeCodeParameter, segmentNummerParameter, segmentDeelTekstParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spr_Niew_segment_aanmaken", dataModelNumberParameter, factTypeCodeParameter, segmentNummerParameter, segmentDeelTekstParameter);
         }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
@@ -263,17 +263,17 @@ namespace FO_ERM_ISE
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spr_PredicaatAttributeInFacttype", dataModelNumberParameter, factTypeCodeParameter);
         }
     
-        public virtual int spr_RelatieType_NotDependentRelatieTypeOnderdeelMustHaveKardinaliteitOneOne(Nullable<int> datamodelNumber, string feitTypeCode, ObjectParameter returnParameter)
+        public virtual int spr_RelatieType_NotDependentRelatieTypeOnderdeelMustHaveKardinaliteitOneOne(Nullable<int> datamodelNumber, string factTypeCode, ObjectParameter returnParameter)
         {
             var datamodelNumberParameter = datamodelNumber.HasValue ?
                 new ObjectParameter("datamodelNumber", datamodelNumber) :
                 new ObjectParameter("datamodelNumber", typeof(int));
     
-            var feitTypeCodeParameter = feitTypeCode != null ?
-                new ObjectParameter("feitTypeCode", feitTypeCode) :
-                new ObjectParameter("feitTypeCode", typeof(string));
+            var factTypeCodeParameter = factTypeCode != null ?
+                new ObjectParameter("factTypeCode", factTypeCode) :
+                new ObjectParameter("factTypeCode", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spr_RelatieType_NotDependentRelatieTypeOnderdeelMustHaveKardinaliteitOneOne", datamodelNumberParameter, feitTypeCodeParameter, returnParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spr_RelatieType_NotDependentRelatieTypeOnderdeelMustHaveKardinaliteitOneOne", datamodelNumberParameter, factTypeCodeParameter, returnParameter);
         }
     
         public virtual int spr_RelatieTypeExactlyTwoParts(Nullable<int> datamodelNumber, string feitTypeCode)

@@ -47,6 +47,11 @@ namespace FO_ERM_ISE.dependencyManager
             return new RelationTypeDataSource();
         }
 
+        public IRelationTypeBusiness GetIRelationTypeBusiness()
+        {
+            return new RelationTypeBusiness();
+        }
+
         public IEntitytypeBusiness GetIEntitytypeBusiness()
         {
             return new EntitytypeBusiness();

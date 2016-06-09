@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="342df54539e542e580a323c72a06e169" Name="Diagram1">
-        <EntityTypeShape EntityType="FO_ERMModel.Attribuut" Width="1.5" PointX="5.25" PointY="13.125" />
-        <EntityTypeShape EntityType="FO_ERMModel.DataModel" Width="1.5" PointX="0.75" PointY="8.125" />
-        <EntityTypeShape EntityType="FO_ERMModel.EntiteitType" Width="1.5" PointX="3" PointY="9.625" />
-        <EntityTypeShape EntityType="FO_ERMModel.FeitType" Width="1.5" PointX="3" PointY="6.125" />
-        <EntityTypeShape EntityType="FO_ERMModel.Kardinaliteit" Width="1.5" PointX="5.25" PointY="3.125" />
-        <EntityTypeShape EntityType="FO_ERMModel.PredicaatDeel" Width="1.5" PointX="10.5" PointY="9.75" />
-        <EntityTypeShape EntityType="FO_ERMModel.Relatietype" Width="1.5" PointX="5.25" PointY="10" />
-        <EntityTypeShape EntityType="FO_ERMModel.RelatieTypeOnderdeel" Width="1.5" PointX="7.5" PointY="9.5" />
-        <EntityTypeShape EntityType="FO_ERMModel.Segment" Width="1.5" PointX="5.25" PointY="6.25" />
-        <EntityTypeShape EntityType="FO_ERMModel.SegmentDeel" Width="1.5" PointX="7.5" PointY="6.375" />
-        <EntityTypeShape EntityType="FO_ERMModel.VoorbeeldData" Width="1.5" PointX="7.5" PointY="16.5" />
+      <Diagram DiagramId="342df54539e542e580a323c72a06e169" Name="Diagram1" ZoomLevel="111">
+        <EntityTypeShape EntityType="FO_ERMModel.Attribuut" Width="2.125" PointX="5.25" PointY="9.875" />
+        <EntityTypeShape EntityType="FO_ERMModel.DataModel" Width="2.125" PointX="0.75" PointY="8.125" />
+        <EntityTypeShape EntityType="FO_ERMModel.EntiteitType" Width="2.125" PointX="3" PointY="6.375" />
+        <EntityTypeShape EntityType="FO_ERMModel.FeitType" Width="2.125" PointX="3" PointY="13.5" />
+        <EntityTypeShape EntityType="FO_ERMModel.Kardinaliteit" Width="2.125" PointX="3" PointY="3.625" />
+        <EntityTypeShape EntityType="FO_ERMModel.PredicaatDeel" Width="2.125" PointX="10.5" PointY="11.75" />
+        <EntityTypeShape EntityType="FO_ERMModel.Relatietype" Width="2.125" PointX="8.25" PointY="7" />
+        <EntityTypeShape EntityType="FO_ERMModel.RelatieTypeOnderdeel" Width="2.125" PointX="5.25" PointY="6" />
+        <EntityTypeShape EntityType="FO_ERMModel.Segment" Width="2.125" PointX="5.25" PointY="13.5" />
+        <EntityTypeShape EntityType="FO_ERMModel.SegmentDeel" Width="2.125" PointX="7.5" PointY="13.625" />
+        <EntityTypeShape EntityType="FO_ERMModel.VoorbeeldData" Width="2.125" PointX="7.5" PointY="10" />
         <AssociationConnector Association="FO_ERMModel.FK_ATTRIBUU_R_ENTITEI_ENTITEIT" />
         <AssociationConnector Association="FO_ERMModel.FK_PREDICAA_R_ATTRIBU_ATTRIBUU" />
         <AssociationConnector Association="FO_ERMModel.FK_VOORBEEL_R_ATTRIBU_ATTRIBUU" />

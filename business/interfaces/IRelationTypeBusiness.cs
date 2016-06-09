@@ -13,5 +13,7 @@ namespace FO_ERM_ISE.business.interfaces
         void AddRelationType(RelationTypeDTO relationTypeDto);
         void DeleteRelationType(RelationTypeDTO relationTypeDto);
         void UpdateRelationType(RelationTypeDTO relationTypeDto);
+        List<RelationTypeDTO> GetRelationTypesByDataModelFactType(int dataModelNummer, string feitTypeCode);
+        void UpdateRelationTypeAndParts(RelationTypeDTO relationTypeDTO);
     }
 }

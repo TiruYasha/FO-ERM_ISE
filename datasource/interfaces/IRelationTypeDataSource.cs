@@ -9,6 +9,7 @@ namespace FO_ERM_ISE.datasource.interfaces
 {
     interface IRelationTypeDataSource : IDatasource<Relatietype, RelationTypeDTO>
     {
-      
+        List<RelationTypeDTO> GetRelationTypeByDataModelFactType(int dataModelNumber, string factTypeCode);
+        void UpdateRelationTypeAndPart(RelationTypeDTO relationTypeDTO);
     }
 }

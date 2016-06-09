@@ -24,6 +24,7 @@ namespace FO_ERM_ISE.presentation.segment
         private SegmentDTO segmentTwo;
 
         private ISegmentBusiness sb;
+        private IRelationTypeBusiness rtb;
 
         private DatabaseErrorHandler errorHandler;
 
@@ -32,13 +33,13 @@ namespace FO_ERM_ISE.presentation.segment
             InitializeComponent();
             DependencyManager dp = new DependencyManager();
             this.sb = dp.GetISegmentBusiness();
-
+            this.rtb = dp.GetIRelationTypeBusiness();
             this.factType = facttype;
             txtVerwoording.Text = this.factType.verwoording;
 
             this.errorHandler = new DatabaseErrorHandler();
 
-            updateListboxes();
+            UpdateListboxes();
         }
 
         #region Event handlers
@@ -53,7 +54,7 @@ namespace FO_ERM_ISE.presentation.segment
         private void btnRemove_Click(object sender, EventArgs e)
         {
             this.RemoveSegmentDeelFromSegment(this.getSelectedSegmentDeel());
-            this.updateListboxes();
+            this.UpdateListboxes();
         }
 
         /// <summary>
@@ -117,7 +118,7 @@ namespace FO_ERM_ISE.presentation.segment
                     this.addSegmentDeel(selectedTekst, 2);
                 }
 
-                updateListboxes();
+                UpdateListboxes();
             }
         }
 
@@ -125,13 +126,50 @@ namespace FO_ERM_ISE.presentation.segment
         private void btnAddRelationType_Click(object sender, EventArgs e)
         {
             RelationTypeForm rtForm = new RelationTypeForm(factType.dataModelNummer, factType.feitTypeCode);
+            
+            rtForm.ShowDialog();
+
+            UpdateRelationTypeListBox();
+        }
+
+        private void btnUpdateRelationType_Click(object sender, EventArgs e)
+        {
+            /*RelationTypeDTO selectedRelationType = GetSelectedRelationType();
+            RelationTypeForm rtForm = new RelationTypeForm(selectedRelationType);
 
             rtForm.ShowDialog();
+            
+            UpdateRelationTypeListBox();*/
+        }
+
+        private void btnDeleteRelationType_Click(object sender, EventArgs e)
+        {
+            RelationTypeDTO selectedRelationType = GetSelectedRelationType();
+            try
+            {
+                rtb.DeleteRelationType(selectedRelationType);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(errorHandler.ParseErrorMessage(ex));
+            }
+
+            UpdateRelationTypeListBox();
         }
 
         #endregion   
     
         #region Functions
+        
+        /// <summary>
+        /// Gets the selected relationtype from the listbox
+        /// </summary>
+        /// <returns></returns>
+        private RelationTypeDTO GetSelectedRelationType()
+        {
+            return (RelationTypeDTO)lbRelationType.SelectedItem;
+        }
+
         /// <summary>
         /// Adds a segment via the business layer, this is based on segmentNumber
         /// 
@@ -190,7 +228,7 @@ namespace FO_ERM_ISE.presentation.segment
         /// 
         /// Door: Harm Roerdink
         /// </summary>
-        private void updateListboxes()
+        private void UpdateListboxes()
         {
             this.resetListboxes();
             this.getSegmenten();
@@ -202,6 +240,24 @@ namespace FO_ERM_ISE.presentation.segment
 
             lbSegment1.DisplayMember = "segmentDeelTekst";
             lbSegment2.DisplayMember = "segmentDeelTekst";
+
+            UpdateRelationTypeListBox();
+        }
+
+        private void UpdateRelationTypeListBox()
+        {
+            try
+            {
+                List<RelationTypeDTO> relationTypes = rtb.GetRelationTypesByDataModelFactType(factType.dataModelNummer,
+                    factType.feitTypeCode);
+
+                lbRelationType.DisplayMember = "relatieTypeNaam";
+                lbRelationType.DataSource = relationTypes;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(errorHandler.ParseErrorMessage(ex));
+            }
         }
 
         /// <summary>
@@ -358,5 +414,8 @@ namespace FO_ERM_ISE.presentation.segment
                 this.Enabled = true;
             };
         }
+
+
+
     }
 }

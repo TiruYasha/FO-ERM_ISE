@@ -201,6 +201,7 @@
             this.btnDeleteRelationType.TabIndex = 13;
             this.btnDeleteRelationType.Text = "Verwijderen";
             this.btnDeleteRelationType.UseVisualStyleBackColor = true;
+            this.btnDeleteRelationType.Click += new System.EventHandler(this.btnDeleteRelationType_Click);
             // 
             // btnUpdateRelationType
             // 
@@ -210,6 +211,7 @@
             this.btnUpdateRelationType.TabIndex = 14;
             this.btnUpdateRelationType.Text = "Bewerken";
             this.btnUpdateRelationType.UseVisualStyleBackColor = true;
+            this.btnUpdateRelationType.Click += new System.EventHandler(this.btnUpdateRelationType_Click);
             // 
             // btnAddRelationType
             // 

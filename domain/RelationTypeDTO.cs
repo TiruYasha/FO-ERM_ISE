@@ -16,7 +16,7 @@ namespace FO_ERM_ISE.domain
 
         public DatamodelDTO DatamodelDto { get; set; }
         public FacttypeDTO FacttypeDto { get; set; }
-        public ICollection<RelationTypePartDTO> RelatieTypeOnderdeel { get; set; }
+        public List<RelationTypePartDTO> RelatieTypeOnderdeel { get; set; }
         
     }
 }

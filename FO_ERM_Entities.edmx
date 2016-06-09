@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FO_ERMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FO_ERMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Attribuut">
           <Key>
             <PropertyRef Name="attribuutNummer" />
@@ -455,8 +455,8 @@
             <Parameter Name="factTypeCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Niew_segment_aanmaken">
-            <Parameter Name="dataModelNummer" Mode="In" Type="Int32" />
-            <Parameter Name="feitTypeCode" Mode="In" Type="String" />
+            <Parameter Name="dataModelNumber" Mode="In" Type="Int32" />
+            <Parameter Name="factTypeCode" Mode="In" Type="String" />
             <Parameter Name="segmentNummer" Mode="In" Type="Int32" />
             <Parameter Name="segmentDeelTekst" Mode="In" Type="String" />
           </FunctionImport>
@@ -518,7 +518,7 @@
           </FunctionImport>
           <FunctionImport Name="spr_RelatieType_NotDependentRelatieTypeOnderdeelMustHaveKardinaliteitOneOne">
             <Parameter Name="datamodelNumber" Mode="In" Type="Int32" />
-            <Parameter Name="feitTypeCode" Mode="In" Type="String" />
+            <Parameter Name="factTypeCode" Mode="In" Type="String" />
             <Parameter Name="returnParameter" Mode="InOut" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="spr_RelatieTypeExactlyTwoParts">
@@ -622,7 +622,7 @@
             <End Role="Segment" EntitySet="Segment" />
             <End Role="SegmentDeel" EntitySet="SegmentDeel" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
           <Property Type="Binary" Name="definition" Nullable="true" />
@@ -964,7 +964,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1098,7 +1098,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

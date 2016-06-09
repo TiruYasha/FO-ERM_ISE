@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using FO_ERM_ISE.business;
 using FO_ERM_ISE.business.interfaces;
@@ -19,6 +14,7 @@ namespace FO_ERM_ISE.presentation.relationtype
         private IRelationTypeBusiness rtb;
         private int dataModelNumber;
         private string factTypeCode;
+        private RelationTypeDTO relationTypeToUpdate;
 
         private DatabaseErrorHandler errorHandler;
 
@@ -33,6 +29,74 @@ namespace FO_ERM_ISE.presentation.relationtype
             errorHandler = new DatabaseErrorHandler();
 
             SetEntityTypes();
+            DisableRadioButtons();
+        }
+
+        /// <summary>
+        /// Update constructor
+        /// </summary>
+        /// <param name="selectedRelationType"></param>
+        public RelationTypeForm(RelationTypeDTO selectedRelationType)
+        {
+            InitializeComponent();
+
+            eb = new EntitytypeBusiness();
+            rtb = new RelationTypeBusiness();
+            errorHandler = new DatabaseErrorHandler();
+            dataModelNumber = selectedRelationType.dataModelNummer;
+            factTypeCode = selectedRelationType.feitTypeCode;
+            relationTypeToUpdate = selectedRelationType;
+            
+            SetFormInformationForUpdate();
+        }
+
+        private void SetFormInformationForUpdate()
+        {
+            if (relationTypeToUpdate.RelatieTypeOnderdeel.Any(q => q.afhankelijk))
+            {
+                SetDependencies();
+                SetDependentRelation(GetRelationTypePart(1).EntiteitType, GetRelationTypePart(2).EntiteitType);
+            }
+            else
+            {
+                SetEntityTypes();
+                SetComboBoxIndexes();
+                DisableRadioButtons();
+            }
+
+            txtRelationTypeName.Text = relationTypeToUpdate.relatieTypeNaam;
+
+        }
+
+        private RelationTypePartDTO GetRelationTypePart(int partNumber)
+        {
+            return relationTypeToUpdate.RelatieTypeOnderdeel.SingleOrDefault(q => q.onderdeelNummer == partNumber);
+        }
+
+        private void SetComboBoxIndexes()
+        {
+            RelationTypePartDTO partOne = GetRelationTypePart(1);
+            RelationTypePartDTO partTwo = GetRelationTypePart(2);
+
+            for(int i = 0; i < cbEntityTypeOne.Items.Count; i++)
+            {
+                if (((EntiteittypeDTO) cbEntityTypeOne.Items[i]).entiteitTypeNummer == partOne.entiteitTypeNummer)
+                    cbEntityTypeOne.SelectedIndex = i;
+            }
+
+            for (int i = 0; i < cbEntityTypeTwo.Items.Count; i++)
+            {
+                if (((EntiteittypeDTO)cbEntityTypeTwo.Items[i]).entiteitTypeNummer == partTwo.entiteitTypeNummer)
+                    cbEntityTypeTwo.SelectedIndex = i;
+            }
+
+           //TODO Cardinalities
+        }
+
+        private void DisableRadioButtons()
+        {
+            rbETAfhankelijkOne.Enabled = false;
+            rbETAfhankelijkTwo.Enabled = false;
         }
 
         private void SetEntityTypes()
@@ -46,6 +110,7 @@ namespace FO_ERM_ISE.presentation.relationtype
             cbEntityTypeTwo.DisplayMember = "entiteitTypeNaam";
             cbEntityTypeTwo.DataSource = entityTypesTwo;
         }
+
 
         #region Dependent relation
         /// <summary>
@@ -129,14 +194,30 @@ namespace FO_ERM_ISE.presentation.relationtype
                 MessageBox.Show("De naam mag niet leeg zijn");
                 return;
             }
-            try
+
+            DialogResult dialogResult = MessageBox.Show("Wilt u dit relatietype opslaan?", "Relatietype opslaan", MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
             {
-                RelationTypeDTO relationTypeDto = SetRelationType();
-                rtb.AddRelationType(relationTypeDto);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(errorHandler.ParseErrorMessage(ex));
+                try
+                {
+                    RelationTypeDTO relationTypeDto = SetRelationType();
+                    if (relationTypeToUpdate != null)
+                    {
+                        //TODO Fix update
+                        rtb.UpdateRelationTypeAndParts(relationTypeDto);
+                    }
+                    else
+                    {
+                        rtb.AddRelationType(relationTypeDto);
+                    }
+
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(errorHandler.ParseErrorMessage(ex));
+                }
             }
         }
 
@@ -146,11 +227,12 @@ namespace FO_ERM_ISE.presentation.relationtype
         /// <returns></returns>
         private RelationTypeDTO SetRelationType()
         {
-            RelationTypeDTO relationTypeDto = new RelationTypeDTO();
-
-            relationTypeDto.relatieTypeNaam = txtRelationTypeName.Text;
-            relationTypeDto.dataModelNummer = dataModelNumber;
-            relationTypeDto.feitTypeCode = factTypeCode;
+            RelationTypeDTO relationTypeDto = new RelationTypeDTO
+            {
+                relatieTypeNaam = txtRelationTypeName.Text,
+                dataModelNummer = dataModelNumber,
+                feitTypeCode = factTypeCode
+            };
 
             EntiteittypeDTO entityTypeOne = (EntiteittypeDTO)cbEntityTypeOne.SelectedItem;
             EntiteittypeDTO entityTypeTwo = (EntiteittypeDTO)cbEntityTypeTwo.SelectedItem;
@@ -185,7 +267,15 @@ namespace FO_ERM_ISE.presentation.relationtype
                 minimaleKardinaliteit = minCardinality,
                 maximaleKardinaliteit = maxCardinality
             });
+        }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Weet u zeker dat u wilt annuleren?", "Annuleren", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
     }
 }
