@@ -119,7 +119,7 @@ namespace FO_ERM_ISE.presentation.predicaat
                                        
                     String predicaatDeelTekst = predicaatDeel.predicaatDeelTekst;
                     String before = predicaatDeelTekst.Substring(0, predicaatDeelTekst.IndexOf(selectedTekst)).Trim(); //Tekst in de predicaatDeelTekst voor de geselecteerde tekst
-                    String after = predicaatDeelTekst.Substring(predicaatDeelTekst.LastIndexOf(selectedTekst) + selectedTekst.Length).Trim(); //Tekst in de predicaatDeelTekst NA de geselecteerde tekst
+                    String after = predicaatDeelTekst.Substring(predicaatDeelTekst.IndexOf(selectedTekst) + selectedTekst.Length).Trim(); //Tekst in de predicaatDeelTekst NA de geselecteerde tekst
 
                     if(!String.IsNullOrEmpty(before))
                     {
@@ -183,9 +183,16 @@ namespace FO_ERM_ISE.presentation.predicaat
         {
             try
             {
-                this.pb.AddPredicaatDelen(this.factType.PredicaatDeel);
-                MessageBox.Show("Het predicaat is aangemaakt");
-                this.disableInput();
+                if(this.factType.PredicaatDeel.Count > 1)
+                {
+                    this.pb.AddPredicaatDelen(this.factType.PredicaatDeel);
+                    MessageBox.Show("Het predicaat is aangemaakt");
+                    this.disableInput();
+                }
+                else
+                {
+                    MessageBox.Show("Voeg eerst attributen toe aan het predicaat!");
+                }
             }
             catch(Exception ex)
             {

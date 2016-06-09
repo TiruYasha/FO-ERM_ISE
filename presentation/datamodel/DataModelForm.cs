@@ -99,7 +99,7 @@ namespace FO_ERM_ISE.Forms
 
             renameDataModelForm.ShowDialog();
 
-            if (renameDataModelForm.DataModelName != null || renameDataModelForm.DataModelName != String.Empty)
+            if (renameDataModelForm.DataModelName != null && renameDataModelForm.DataModelName != String.Empty)
             {
                 var selectedModel = (DatamodelDTO)lbDataModel.SelectedItem;
                 UpdateDatamodel(renameDataModelForm.DataModelName, selectedModel);

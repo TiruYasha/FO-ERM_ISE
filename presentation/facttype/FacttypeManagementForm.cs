@@ -70,7 +70,7 @@ namespace FO_ERM_ISE.presentation.facttype
         {
             var selectedItem = this.getSelectedFactType();
 
-            DialogResult dialogResult = MessageBox.Show("Weet u zeker dat u feitType " + selectedItem.feitTypeCode + " wil verwijderen?", "Verwijderen", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Weet u zeker dat u feitType " + selectedItem.feitTypeCode + " en alle onderliggende elementen wilt verwijderen?", "Verwijderen", MessageBoxButtons.YesNo);
 
             if (dialogResult == DialogResult.Yes)
             {
@@ -83,6 +83,7 @@ namespace FO_ERM_ISE.presentation.facttype
         /// Opens the EditFactTypeForm(selectedFactType)
         /// 
         /// Checks if the input is not null or empty
+        /// Checks if the given factTypeCode doesn't exist yet
         /// Updates the selected FactType
         /// Updates the selected FactType in the database
         /// 
@@ -99,9 +100,23 @@ namespace FO_ERM_ISE.presentation.facttype
             if (!String.IsNullOrWhiteSpace(editFactTypeForm.factCode) &&
                  !String.IsNullOrWhiteSpace(editFactTypeForm.verbalization))
             {
-                selectedModel.feitTypeCode = editFactTypeForm.factCode;
-                selectedModel.verwoording = editFactTypeForm.verbalization;
-                UpdateFactType(selectedModel);
+                if(selectedModel.feitTypeCode == editFactTypeForm.factCode || !this.ftBusiness.GetAllFactTypesOnDatamodel(dm).Where( i => i.feitTypeCode == editFactTypeForm.factCode).Any())
+                {
+                    try
+                    {
+                        selectedModel.feitTypeCode = editFactTypeForm.factCode;
+                        selectedModel.verwoording = editFactTypeForm.verbalization;
+                        UpdateFactType(selectedModel);
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(this.errorHandler.ParseErrorMessage(ex));
+                    }                 
+                }
+                else
+                {
+                    MessageBox.Show("De opgegeven feitTypeCode bestaat al");
+                }
             }
         }
 

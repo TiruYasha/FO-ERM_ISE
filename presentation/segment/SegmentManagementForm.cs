@@ -332,14 +332,16 @@ namespace FO_ERM_ISE.presentation.segment
 
         private void btnAnalyse_Click(object sender, EventArgs e)
         {
+            //SegmentDTO segmentToAnalyse = this.getSelectedSegmentDeel().segment;
+            
             SegmentDTO segmentToAnalyse = null;
-            if( lbSegment1.SelectedIndex == -1)
+            if( lbSegment1.SelectedIndex != -1)
             {
-                segmentToAnalyse = segmentTwo;    
+                segmentToAnalyse = segmentOne;    
             }
-            else
+            else if(lbSegment2.SelectedIndex != -1)
             {
-                segmentToAnalyse = segmentOne;
+                segmentToAnalyse = segmentTwo;
             }
 
             if(segmentToAnalyse == null)
