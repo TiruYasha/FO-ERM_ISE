@@ -39,8 +39,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lbIDAttr = new System.Windows.Forms.ListBox();
             this.lbDependentETs = new System.Windows.Forms.ListBox();
-            this.txtIdentificatoren = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtETNaam = new System.Windows.Forms.TextBox();
             this.selectEntitytype = new System.Windows.Forms.ComboBox();
@@ -65,7 +63,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 55);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(450, 405);
+            this.tabControl1.Size = new System.Drawing.Size(450, 364);
             this.tabControl1.TabIndex = 0;
             // 
             // tabEntiteittype
@@ -79,8 +77,6 @@
             this.tabEntiteittype.Controls.Add(this.label4);
             this.tabEntiteittype.Controls.Add(this.lbIDAttr);
             this.tabEntiteittype.Controls.Add(this.lbDependentETs);
-            this.tabEntiteittype.Controls.Add(this.txtIdentificatoren);
-            this.tabEntiteittype.Controls.Add(this.label3);
             this.tabEntiteittype.Controls.Add(this.label2);
             this.tabEntiteittype.Controls.Add(this.txtETNaam);
             this.tabEntiteittype.Controls.Add(this.selectEntitytype);
@@ -88,14 +84,14 @@
             this.tabEntiteittype.Location = new System.Drawing.Point(4, 22);
             this.tabEntiteittype.Name = "tabEntiteittype";
             this.tabEntiteittype.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEntiteittype.Size = new System.Drawing.Size(442, 379);
+            this.tabEntiteittype.Size = new System.Drawing.Size(442, 338);
             this.tabEntiteittype.TabIndex = 0;
             this.tabEntiteittype.Text = "Entiteittype";
             this.tabEntiteittype.UseVisualStyleBackColor = true;
             // 
             // btnDeleteAttr
             // 
-            this.btnDeleteAttr.Location = new System.Drawing.Point(238, 313);
+            this.btnDeleteAttr.Location = new System.Drawing.Point(238, 266);
             this.btnDeleteAttr.Name = "btnDeleteAttr";
             this.btnDeleteAttr.Size = new System.Drawing.Size(75, 23);
             this.btnDeleteAttr.TabIndex = 14;
@@ -105,7 +101,7 @@
             // 
             // btnSaveET
             // 
-            this.btnSaveET.Location = new System.Drawing.Point(301, 347);
+            this.btnSaveET.Location = new System.Drawing.Point(301, 300);
             this.btnSaveET.Name = "btnSaveET";
             this.btnSaveET.Size = new System.Drawing.Size(93, 23);
             this.btnSaveET.TabIndex = 13;
@@ -115,7 +111,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(209, 347);
+            this.btnCancel.Location = new System.Drawing.Point(209, 300);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(86, 23);
             this.btnCancel.TabIndex = 12;
@@ -125,7 +121,7 @@
             // 
             // btnAddRelationType
             // 
-            this.btnAddRelationType.Location = new System.Drawing.Point(23, 347);
+            this.btnAddRelationType.Location = new System.Drawing.Point(23, 300);
             this.btnAddRelationType.Name = "btnAddRelationType";
             this.btnAddRelationType.Size = new System.Drawing.Size(143, 23);
             this.btnAddRelationType.TabIndex = 11;
@@ -135,7 +131,7 @@
             // 
             // btnAddAttribute
             // 
-            this.btnAddAttribute.Location = new System.Drawing.Point(319, 313);
+            this.btnAddAttribute.Location = new System.Drawing.Point(319, 266);
             this.btnAddAttribute.Name = "btnAddAttribute";
             this.btnAddAttribute.Size = new System.Drawing.Size(75, 23);
             this.btnAddAttribute.TabIndex = 10;
@@ -146,7 +142,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(200, 196);
+            this.label5.Location = new System.Drawing.Point(200, 149);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(133, 13);
             this.label5.TabIndex = 9;
@@ -155,7 +151,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 196);
+            this.label4.Location = new System.Drawing.Point(20, 149);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(68, 13);
             this.label4.TabIndex = 8;
@@ -164,7 +160,7 @@
             // lbIDAttr
             // 
             this.lbIDAttr.FormattingEnabled = true;
-            this.lbIDAttr.Location = new System.Drawing.Point(203, 212);
+            this.lbIDAttr.Location = new System.Drawing.Point(203, 165);
             this.lbIDAttr.Name = "lbIDAttr";
             this.lbIDAttr.Size = new System.Drawing.Size(191, 95);
             this.lbIDAttr.TabIndex = 7;
@@ -172,27 +168,10 @@
             // lbDependentETs
             // 
             this.lbDependentETs.FormattingEnabled = true;
-            this.lbDependentETs.Location = new System.Drawing.Point(23, 212);
+            this.lbDependentETs.Location = new System.Drawing.Point(23, 165);
             this.lbDependentETs.Name = "lbDependentETs";
             this.lbDependentETs.Size = new System.Drawing.Size(143, 134);
             this.lbDependentETs.TabIndex = 6;
-            // 
-            // txtIdentificatoren
-            // 
-            this.txtIdentificatoren.Enabled = false;
-            this.txtIdentificatoren.Location = new System.Drawing.Point(23, 157);
-            this.txtIdentificatoren.Name = "txtIdentificatoren";
-            this.txtIdentificatoren.Size = new System.Drawing.Size(371, 20);
-            this.txtIdentificatoren.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(23, 141);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Identificatoren:";
             // 
             // label2
             // 
@@ -218,15 +197,16 @@
             this.selectEntitytype.Name = "selectEntitytype";
             this.selectEntitytype.Size = new System.Drawing.Size(242, 21);
             this.selectEntitytype.TabIndex = 1;
+            this.selectEntitytype.Text = "Selecteer een entiteittype";
             // 
             // chMatch
             // 
             this.chMatch.AutoSize = true;
             this.chMatch.Location = new System.Drawing.Point(23, 22);
             this.chMatch.Name = "chMatch";
-            this.chMatch.Size = new System.Drawing.Size(261, 17);
+            this.chMatch.Size = new System.Drawing.Size(259, 17);
             this.chMatch.TabIndex = 0;
-            this.chMatch.Text = "Match (Zo ja, selecteer een eintiteittype uit de lijst)";
+            this.chMatch.Text = "Match (Zo ja, selecteer een entiteittype uit de lijst)";
             this.chMatch.UseVisualStyleBackColor = true;
             this.chMatch.CheckedChanged += new System.EventHandler(this.chMatch_CheckedChanged);
             // 
@@ -240,14 +220,14 @@
             this.tabAttribuut.Location = new System.Drawing.Point(4, 22);
             this.tabAttribuut.Name = "tabAttribuut";
             this.tabAttribuut.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAttribuut.Size = new System.Drawing.Size(442, 379);
+            this.tabAttribuut.Size = new System.Drawing.Size(442, 338);
             this.tabAttribuut.TabIndex = 1;
             this.tabAttribuut.Text = "Attribuut";
             this.tabAttribuut.UseVisualStyleBackColor = true;
             // 
             // btnSaveAttr
             // 
-            this.btnSaveAttr.Location = new System.Drawing.Point(318, 350);
+            this.btnSaveAttr.Location = new System.Drawing.Point(309, 302);
             this.btnSaveAttr.Name = "btnSaveAttr";
             this.btnSaveAttr.Size = new System.Drawing.Size(101, 23);
             this.btnSaveAttr.TabIndex = 14;
@@ -257,7 +237,7 @@
             // 
             // btnCancel2
             // 
-            this.btnCancel2.Location = new System.Drawing.Point(211, 350);
+            this.btnCancel2.Location = new System.Drawing.Point(202, 302);
             this.btnCancel2.Name = "btnCancel2";
             this.btnCancel2.Size = new System.Drawing.Size(101, 23);
             this.btnCancel2.TabIndex = 13;
@@ -312,7 +292,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 468);
+            this.ClientSize = new System.Drawing.Size(474, 432);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtSegment);
             this.Controls.Add(this.tabControl1);
@@ -345,8 +325,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox lbIDAttr;
         private System.Windows.Forms.ListBox lbDependentETs;
-        private System.Windows.Forms.TextBox txtIdentificatoren;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtETNaam;
         private System.Windows.Forms.Button btnSaveAttr;
